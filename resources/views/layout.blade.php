@@ -15,7 +15,7 @@
 
     <!-- Custom CSS for Navbar and Search -->
     <style>
-        /* Modern Navbar Styles */
+        /* Navbar */
         .navbar {
             background-color: #343a40;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -37,7 +37,6 @@
             border-bottom: 2px solid #ffffff;
         }
 
-        /* Clean Search Form */
         .search-form {
             display: flex;
             align-items: center;
@@ -72,7 +71,6 @@
             color: #343a40;
         }
 
-        /* Focus on input */
         .search-form input:focus {
             border-color: #6c757d;
             box-shadow: none;
@@ -81,30 +79,33 @@
         /* Button Styling for Login/Sign-Up */
         .btn-login, .btn-signup {
             margin-left: 10px;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 8px 25px;
+            border-radius: 50px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        
         }
-
         .btn-login {
             background-color: transparent;
             color: #ffffff;
-            border: 1px solid #ffffff;
+            border: 2px solid #ffffff;
         }
 
         .btn-login:hover {
             background-color: #ffffff;
             color: #343a40;
+            border-color: #ffffff;
         }
-
         .btn-signup {
-            background-color: #28a745;
+            background-color: #f39c12; 
             color: #ffffff;
-            border: none;
+            border: 2px solid #f39c12;
         }
 
         .btn-signup:hover {
-            background-color: #218838;
+            background-color: #e67e22;
+            border-color: #e67e22;
             color: #ffffff;
         }
     </style>
