@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Blog Post')</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
@@ -77,15 +77,17 @@
         }
 
         /* Button Styling for Login/Sign-Up */
-        .btn-login, .btn-signup {
+        .btn-login,
+        .btn-signup {
             margin-left: 10px;
             padding: 8px 25px;
             border-radius: 50px;
             font-size: 0.9rem;
             transition: all 0.3s ease;
             font-weight: 500;
-        
+
         }
+
         .btn-login {
             background-color: transparent;
             color: #ffffff;
@@ -97,8 +99,9 @@
             color: #343a40;
             border-color: #ffffff;
         }
+
         .btn-signup {
-            background-color: #f39c12; 
+            background-color: #f39c12;
             color: #ffffff;
             border: 2px solid #f39c12;
         }
@@ -154,13 +157,24 @@
             </form>
 
             <!-- Login and Sign-Up Buttons -->
-            <a href="{{ url('/login') }}" class="btn btn-login">Login</a>
-            <a href="{{ url('/register') }}" class="btn btn-signup">Sign Up</a>
+
+            <!-- Authentication Links -->
+            @guest
+            <a href="{{ route('login') }}" class="btn btn-login">Login</a>
+            <a href="{{ route('register') }}" class="btn btn-signup">Sign Up</a>
+            @else
+            <a href="#" class="btn btn-login">{{ Auth::user()->name }}</a>
+            <a href="{{ route('logout') }}" class="btn btn-signup" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            @endguest
+
         </div>
     </nav>
 
     <div class="container mt-5">
-        @yield('content')  
+        @yield('content')
     </div>
 
     <!--  Bootstrap's JS and jQuery -->
