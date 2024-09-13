@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>All Blog Posts</h1>
+    
     @foreach ($posts as $post)
         <h2>{{ $post->title }}</h2>
         <p>{{ $post->content }}</p>
@@ -15,6 +16,6 @@
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
-        <a href="{{ route('posts.create', $post->id) }}" class="btn btn-success">Create</a>
+       
     @endforeach
 @endsection
