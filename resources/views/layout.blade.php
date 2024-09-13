@@ -12,8 +12,12 @@
 
     <!-- Boxicons CDN -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://cdn.ckeditor.com/ckeditor5/ckeditor5-build-classic/ckeditor.js"></script>
 
-    <!-- Custom CSS for Navbar and Search -->
+
+    <!-- Custom CSS for Navbar -->
     <style>
         /* Navbar */
         .navbar {
@@ -37,80 +41,6 @@
             border-bottom: 2px solid #ffffff;
         }
 
-        .search-form {
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-        /* Search input */
-        .search-form input {
-            width: 280px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid #ced4da;
-            background-color: #f8f9fa;
-            font-size: 1rem;
-            color: #495057;
-        }
-
-        /* Boxicon Search Button */
-        .search-form button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: transparent;
-            border: none;
-            color: #6c757d;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .search-form button:hover {
-            color: #343a40;
-        }
-
-        .search-form input:focus {
-            border-color: #6c757d;
-            box-shadow: none;
-        }
-
-        /* Button Styling for Login/Sign-Up */
-        .btn-login,
-        .btn-signup {
-            margin-left: 10px;
-            padding: 8px 25px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            font-weight: 500;
-
-        }
-
-        .btn-login {
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-        }
-
-        .btn-login:hover {
-            background-color: #ffffff;
-            color: #343a40;
-            border-color: #ffffff;
-        }
-
-        .btn-signup {
-            background-color: #f39c12;
-            color: #ffffff;
-            border: 2px solid #f39c12;
-        }
-
-        .btn-signup:hover {
-            background-color: #e67e22;
-            border-color: #e67e22;
-            color: #ffffff;
-        }
     </style>
 </head>
 
@@ -156,19 +86,22 @@
                 </button>
             </form>
 
-            <!-- Login and Sign-Up Buttons -->
-
             <!-- Authentication Links -->
             @guest
             <a href="{{ route('login') }}" class="btn btn-login">Login</a>
             <a href="{{ route('register') }}" class="btn btn-signup">Sign Up</a>
             @else
-            <a href="#" class="btn btn-login">{{ Auth::user()->name }}</a>
-            <a href="{{ route('logout') }}" class="btn btn-signup" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <!-- Link to Profile Edit -->
+            <a href="{{ route('profile.edit') }}" class="btn btn-login">{{ Auth::user()->name }}</a>
+
+            <!-- Logout Button -->
+            <a href="{{ route('logout') }}" class="btn btn-signup"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
             @endguest
+
 
         </div>
     </nav>
@@ -180,6 +113,8 @@
     <!--  Bootstrap's JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/ckeditor.js') }}"></script>
+
 </body>
 
 </html>

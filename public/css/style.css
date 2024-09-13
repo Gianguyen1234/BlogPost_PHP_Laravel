@@ -1,0 +1,98 @@
+/* Style for search form */
+.search-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 10 auto;
+    
+}
+
+.search-form input {
+    width: 100%;
+    padding: 10px 50px 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 30px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #f8f9fa;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.search-form input:focus {
+    border-color: #343a40;
+    box-shadow: none;
+    
+}
+
+.search-form button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: #495057;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-form button:hover {
+    color: #343a40;
+}
+
+@media (max-width: 576px) {
+    .search-form {
+        max-width: 100%;
+   
+    }
+
+    .search-form input {
+        padding-right: 40px;
+        
+    }
+
+    .search-form button {
+        font-size: 1.2rem;
+    }
+}
+
+/* Button Styling for Login/Sign-Up */
+.btn-login,
+.btn-signup {
+    margin-left: 10px;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-login {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.btn-login:hover {
+    background-color: #ffffff;
+    color: #343a40;
+    border-color: #ffffff;
+}
+
+.btn-signup {
+    background-color: #f39c12;
+    color: #ffffff;
+    border: 2px solid #f39c12;
+}
+
+.btn-signup:hover {
+    background-color: #e67e22;
+    border-color: #e67e22;
+    color: #ffffff;
+}
