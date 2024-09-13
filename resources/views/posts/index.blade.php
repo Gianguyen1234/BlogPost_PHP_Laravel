@@ -9,10 +9,12 @@
         <p>{{ $post->content }}</p>
         <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">View</a>
         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
+        
         <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
+        <a href="{{ route('posts.create', $post->id) }}" class="btn btn-success">Create</a>
     @endforeach
 @endsection
