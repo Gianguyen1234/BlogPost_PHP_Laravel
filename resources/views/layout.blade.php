@@ -14,7 +14,8 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="https://cdn.ckeditor.com/ckeditor5/ckeditor5-build-classic/ckeditor.js"></script>
+    <!-- {{-- CKEditor CDN --}} -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 
     <!-- Custom CSS for Navbar -->
@@ -40,11 +41,10 @@
             color: #d4d4d4;
             border-bottom: 2px solid #ffffff;
         }
-
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <!-- Blog Brand/Logo -->
@@ -93,6 +93,15 @@
             @else
             <!-- Link to Profile Edit -->
             <a href="{{ route('profile.edit') }}" class="btn btn-login">{{ Auth::user()->name }}</a>
+            <!-- link for usertype -->
+            @if(Auth::user()->usertype == 'admin')
+            <!-- Link to Admin Dashboard for Admin Users -->
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-admin">Admin Dashboard</a>
+            @else
+            <!-- Link for Regular Users (optional, if needed) -->
+            <a href="{{ url('/') }}" class="btn btn-dashboard">Default User</a>
+            @endif
+
 
             <!-- Logout Button -->
             <a href="{{ route('logout') }}" class="btn btn-signup"
@@ -110,10 +119,25 @@
         @yield('content')
     </div>
 
+    <!-- Include Footer Partial -->
+    @include('partials.footer')
+
     <!--  Bootstrap's JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/ckeditor.js') }}"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#content'), {
+                ckfinder: {
+                    uploadUrl: "{{route('ckeditor.upload',['_token'=>csrf_token()])}}"
+                },
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'ckfinder', 'imageUpload', '|', 'undo', 'redo'],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
 
 </body>
 

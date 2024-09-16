@@ -1,0 +1,77 @@
+/* Sidebar Styles */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    background-color: #343a40; /* Dark color for sidebar */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+#sidebar.show {
+    transform: translateX(0);
+}
+
+#sidebarToggle, #sidebarToggleMobile {
+    font-size: 1.5rem;
+    background-color: #007bff; /* Primary color for the toggle button */
+    border: none;
+    color: #fff;
+    border-radius: 0.25rem;
+}
+
+#sidebarToggle:hover, #sidebarToggleMobile:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+#page-content-wrapper {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+#page-content-wrapper.sidebar-open {
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-100%);
+        display: none;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+        display: block;
+    }
+    
+    #page-content-wrapper {
+        margin-left: 0;
+    }
+}
+
+/* List Item Styles */
+.list-group-item {
+    border-radius: 0;
+    background-color: transparent;
+    color: #f8f9fa;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+/* Icon Styling */
+.list-group-item i {
+    font-size: 1.2rem;
+}
+
+/* Header Styling */
+.sidebar-header {
+    background-color: #495057; /* Slightly lighter dark color for the header */
+    border-bottom: 1px solid #6c757d;
+}

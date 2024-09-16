@@ -1,6 +1,6 @@
 <!-- resources/views/auth/login.blade.php -->
 
-@extends('layout') <!-- Use your main layout -->
+@extends('layout') 
 
 @section('title', 'Login')
 

@@ -13,7 +13,7 @@
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control" id="content" name="content">{{ $post->content }}</textarea>
+            <textarea class="form-control" id="content" name="content">{!! $post->content !!}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>

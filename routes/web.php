@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('posts', PostController::class);
+
+// routes/web.php
+Route::post('/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
+
+// add route middleware for usertype
+Route::middleware(['auth', 'usertype:admin'])->group(function () {
+    // Admin dashboard routes
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::middleware(['auth', 'usertype:user'])->group(function () {
+    // Routes for regular users to create posts
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+});
 
 
 

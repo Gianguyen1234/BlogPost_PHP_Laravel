@@ -1,9 +1,17 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-document.addEventListener('DOMContentLoaded', () => {
-    ClassicEditor
-        .create(document.querySelector('#content'))
-        .catch(error => {
-            console.error(error);
-        });
-});
+ClassicEditor
+    .create(document.querySelector('#content'), {
+        toolbar: {
+            items: [
+                'heading', '|',
+                'bold', 'italic', 'underline', '|',
+                'link', 'imageUpload', 'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                'undo', 'redo'
+            ]
+        },
+       
+    })
+    .catch(error => {
+        console.error(error);
+    });
