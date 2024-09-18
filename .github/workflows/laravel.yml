@@ -1,0 +1,58 @@
+name: Laravel
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  laravel-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Setup PHP and make sure the php version that you're using is right 
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      # Checkout the code from the repository
+      - uses: actions/checkout@v4
+
+      # Copy .env.example to .env if .env doesn't exist
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      # Install Composer dependencies
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      # Generate the application key
+      - name: Generate key
+        run: php artisan key:generate
+
+      # Set correct directory permissions
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      # Create the SQLite database file
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+
+      # You must install Node.js dependencies before running test
+      - name: Install Node.js dependencies
+        run: npm install
+
+      # Build frontend assets
+      - name: Build frontend assets
+        run: npm run build
+
+      # Run tests
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: php artisan test
