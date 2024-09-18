@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Setup PHP
+      # Setup PHP and make sure the php version that you're using is right 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
@@ -42,7 +42,7 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
-      # Install Node.js dependencies
+      # You must install Node.js dependencies before running test
       - name: Install Node.js dependencies
         run: npm install
 
