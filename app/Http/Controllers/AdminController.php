@@ -15,4 +15,10 @@ class AdminController extends Controller
         // Pass the posts to the view
         return view('admin.dashboard', compact('posts'));
     }
+    public function showAnalytics()
+    {
+        // Fetch total user data (this is an example)
+        $totalUsers = 1234;
+        return view('admin.analytics', compact('totalUsers'));
+    }
 }

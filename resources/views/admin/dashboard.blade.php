@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Bootstrap 5 Sidebar</title>
+    <title>@yield('title', 'Admin Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{url('css/form.css')}}"> 
+    <link rel="stylesheet" href="{{url('css/form.css')}}">
     <style>
         #lineChart {
             width: 100%;
@@ -38,9 +38,13 @@
                 </button>
             </div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action text-light">
+                <a href="{{route('admin.analytics')}}" class="list-group-item list-group-item-action text-light">
                     <i class="bi bi-house-door me-2"></i> Dashboard
                 </a>
+                <a href="#" class="list-group-item list-group-item-action text-light">
+                    <i class="bi bi-file-post me-2"></i> Manage Posts
+                </a>
+
                 <a href="#" class="list-group-item list-group-item-action text-light">
                     <i class="bi bi-person me-2"></i> Users
                 </a>
@@ -65,8 +69,6 @@
                     @csrf
                 </form>
 
-
-
             </div>
         </nav>
 
@@ -82,12 +84,7 @@
             </header>
             <div class="container-fluid p-4">
                 <!-- Total Users Section -->
-                <div class="total-users mb-4">
-                    <h2>Total Users Visit</h2>
-                    <p class="fs-3" id="totalUserCount">1,234</p> 
-                </div>
-                <h2>Analytics</h2>
-                <canvas id="lineChart"></canvas>
+                @yield('content')
             </div>
         </div>
     </div>
@@ -111,7 +108,6 @@
                 sidebar.classList.toggle('show');
                 pageContentWrapper.classList.toggle('sidebar-open');
             });
-
             const ctx = document.getElementById('lineChart').getContext('2d');
             new Chart(ctx, {
                 type: 'line',
@@ -139,6 +135,7 @@
 
         });
     </script>
+
 </body>
 
 </html>

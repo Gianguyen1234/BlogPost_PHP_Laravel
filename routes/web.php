@@ -46,12 +46,14 @@ Route::post('/upload', [CKEditorController::class, 'upload'])->name('ckeditor.up
 Route::middleware(['auth', 'usertype:admin'])->group(function () {
     // Admin dashboard routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/analytics', [AdminController::class, 'showAnalytics'])->name('admin.analytics');
 });
 
 Route::middleware(['auth', 'usertype:user'])->group(function () {
     // Routes for regular users to create posts
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 });
+
 
 
 
