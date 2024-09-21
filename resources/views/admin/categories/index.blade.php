@@ -26,7 +26,7 @@
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
-                        <td>{{ $category->description }}</td>
+                        <td>{!! $category->description !!}</td>
                         <td>
                             @if($category->image)
                                 <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" width="50">

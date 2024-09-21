@@ -18,7 +18,7 @@
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description">{{ $category->description }}</textarea>
+            <textarea class="form-control" id="description" name="description">{!! $category->description !!}</textarea>
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image URL</label>
@@ -30,11 +30,11 @@
         </div>
         <div class="mb-3">
             <label for="meta_description" class="form-label">Meta Description</label>
-            <textarea class="form-control" id="meta_description" name="meta_description">{{ $category->meta_description }}</textarea>
+            <textarea class="form-control" id="meta_description" name="meta_description">{!! $category->meta_description !!}</textarea>
         </div>
         <div class="mb-3">
             <label for="meta_keyword" class="form-label">Meta Keyword</label>
-            <textarea class="form-control" id="meta_keyword" name="meta_keyword">{{ $category->meta_keyword }}</textarea>
+            <textarea class="form-control" id="meta_keyword" name="meta_keyword">{!! $category->meta_keyword !!}</textarea>
         </div>
         <div class="mb-3">
             <label for="navbar_status" class="form-label">Navbar Status</label>
