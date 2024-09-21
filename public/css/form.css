@@ -75,3 +75,6 @@
     background-color: #495057; /* Slightly lighter dark color for the header */
     border-bottom: 1px solid #6c757d;
 }
+.collapse {
+    transition: height 0.3s ease;
+}

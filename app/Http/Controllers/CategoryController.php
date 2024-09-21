@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all(); // Get all categories
+        $categories = Category::all(); 
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -24,7 +24,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max size as needed
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
@@ -39,8 +39,15 @@ class CategoryController extends Controller
         $data['meta_description'] = Purifier::clean($data['meta_description'] ?? '');
         $data['meta_keyword'] = Purifier::clean($data['meta_keyword'] ?? '');
 
-        Category::create($data);
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Create a unique name
+            $image->move(public_path('images/categories'), $imageName); // Move to a public directory
+            $data['image'] = 'images/categories/' . $imageName; // Store the relative path
+        }
 
+        Category::create($data);
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 

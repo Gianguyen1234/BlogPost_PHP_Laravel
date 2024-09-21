@@ -41,10 +41,16 @@
                 <a href="{{route('admin.analytics')}}" class="list-group-item list-group-item-action text-light">
                     <i class="bi bi-house-door me-2"></i> Dashboard
                 </a>
-                <a href="#" class="list-group-item list-group-item-action text-light">
+                <a href="#managePostsDropdown" class="list-group-item list-group-item-action text-light" data-bs-toggle="collapse" aria-expanded="false">
                     <i class="bi bi-file-post me-2"></i> Manage Posts
+                    <i class="bi bi-chevron-down float-end"></i>
                 </a>
-
+                <div class="collapse" id="managePostsDropdown">
+                    <div class="list-group">
+                        <a href="{{ route('admin.categories.index' }}" class="list-group-item list-group-item-action text-light">View All Categories</a>
+                        <a href="{{ route('admin.categories.create') }}" class="list-group-item list-group-item-action text-light">Create New Post</a>
+                    </div>
+                </div>
                 <a href="#" class="list-group-item list-group-item-action text-light">
                     <i class="bi bi-person me-2"></i> Users
                 </a>
@@ -83,7 +89,7 @@
                 </div>
             </header>
             <div class="container-fluid p-4">
-                <!-- Total Users Section -->
+                
                 @yield('content')
             </div>
         </div>

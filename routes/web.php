@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,11 +43,17 @@ Route::resource('posts', PostController::class);
 // routes/web.php
 Route::post('/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
 
+
 // add route middleware for usertype
 Route::middleware(['auth', 'usertype:admin'])->group(function () {
     // Admin dashboard routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/analytics', [AdminController::class, 'showAnalytics'])->name('admin.analytics');
+    Route::get('/admin/categories', [AdminController::class, 'index'])->name('admin.categories.index');
+    Route::get('categories/create', [CategoryController::class, 'create'])->name('admin.categories.create'); // Show create form
+    Route::post('categories', [CategoryController::class, 'store'])->name('admin.categories.store'); // Handle form submit (create)   
+    Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit'); // Show edit form
+    Route::put('categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update'); // Handle form submit (update)
 });
 
 Route::middleware(['auth', 'usertype:user'])->group(function () {
