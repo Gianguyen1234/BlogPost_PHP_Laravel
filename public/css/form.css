@@ -52,7 +52,7 @@
     }
 }
 
-/* List Item Styles */
+/* List Item  */
 .list-group-item {
     border-radius: 0;
     background-color: transparent;
@@ -65,14 +65,12 @@
     color: #ffffff;
 }
 
-/* Icon Styling */
 .list-group-item i {
     font-size: 1.2rem;
 }
 
-/* Header Styling */
 .sidebar-header {
-    background-color: #495057; /* Slightly lighter dark color for the header */
+    background-color: #495057; 
     border-bottom: 1px solid #6c757d;
 }
 .collapse {
