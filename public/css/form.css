@@ -17,14 +17,14 @@
 
 #sidebarToggle, #sidebarToggleMobile {
     font-size: 1.5rem;
-    background-color: #007bff; /* Primary color for the toggle button */
+    background-color: #007bff; 
     border: none;
     color: #fff;
     border-radius: 0.25rem;
 }
 
 #sidebarToggle:hover, #sidebarToggleMobile:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
+    background-color: #0056b3; 
 }
 
 #page-content-wrapper {
