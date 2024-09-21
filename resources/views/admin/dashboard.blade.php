@@ -47,7 +47,7 @@
                 </a>
                 <div class="collapse" id="managePostsDropdown">
                     <div class="list-group">
-                        <a href="{{ route('admin.categories.index' }}" class="list-group-item list-group-item-action text-light">View All Categories</a>
+                        <a href="{{ route('admin.categories.index') }}" class="list-group-item list-group-item-action text-light">View All Categories</a>
                         <a href="{{ route('admin.categories.create') }}" class="list-group-item list-group-item-action text-light">Create New Post</a>
                     </div>
                 </div>
