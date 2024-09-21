@@ -1,4 +1,4 @@
-/* Sidebar Styles */
+/* Sidebar*/
 #sidebar {
     width: 250px;
     height: 100vh;
@@ -7,8 +7,8 @@
     left: 0;
     transform: translateX(0);
     transition: transform 0.3s ease;
-    background-color: #343a40; /* Dark color for sidebar */
-    z-index: 1000; /* Ensure it's above other content */
+    background-color: #343a40; 
+    z-index: 1000;
 }
 
 #sidebar.show {
