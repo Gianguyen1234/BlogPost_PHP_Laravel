@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all(); 
+        $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -24,7 +24,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust max size as needed
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
@@ -33,11 +33,11 @@ class CategoryController extends Controller
             'created_by' => 'required|string',
         ]);
 
-        // Sanitize the input using Purifier
+        // Sanitize the input using Purifier and strip_tags
         $data = $request->all();
-        $data['description'] = Purifier::clean($data['description'] ?? '');
-        $data['meta_description'] = Purifier::clean($data['meta_description'] ?? '');
-        $data['meta_keyword'] = Purifier::clean($data['meta_keyword'] ?? '');
+        $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
+        $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
+        $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
 
         // Handle image upload
         if ($request->hasFile('image')) {
@@ -50,6 +50,7 @@ class CategoryController extends Controller
         Category::create($data);
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
+
 
     public function edit(Category $category)
     {
