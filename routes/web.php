@@ -49,11 +49,13 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     // Admin dashboard routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/analytics', [AdminController::class, 'showAnalytics'])->name('admin.analytics');
-    Route::get('/admin/categories', [AdminController::class, 'index'])->name('admin.categories.index');
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('categories/create', [CategoryController::class, 'create'])->name('admin.categories.create'); // Show create form
     Route::post('categories', [CategoryController::class, 'store'])->name('admin.categories.store'); // Handle form submit (create)   
     Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit'); // Show edit form
-    Route::put('categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update'); // Handle form submit (update)
+    Route::put('categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
 });
 
 Route::middleware(['auth', 'usertype:user'])->group(function () {
