@@ -43,7 +43,7 @@
                     <i class="bi bi-house-door me-2"></i> Dashboard
                 </a>
                 <a href="#managePostsDropdown" class="list-group-item list-group-item-action text-light" data-bs-toggle="collapse" aria-expanded="false">
-                    <i class="bi bi-file-post me-2"></i> Manage Posts
+                    <i class="bi bi-tags me-2"></i> Manage Category
                     <i class="bi bi-chevron-down float-end"></i>
                 </a>
                 <div class="collapse" id="managePostsDropdown">
@@ -52,7 +52,7 @@
                         <a href="{{ route('admin.categories.create') }}" class="list-group-item list-group-item-action text-light">Create New Categories</a>
                     </div>
                 </div>
-                <a href="#" class="list-group-item list-group-item-action text-light">
+                <a href="{{ route('admin.users.index') }}" class="list-group-item list-group-item-action text-light">
                     <i class="bi bi-person me-2"></i> Users
                 </a>
                 <a href="#" class="list-group-item list-group-item-action text-light">
@@ -164,6 +164,24 @@
         });
     </script>
     @endif
+
+    <script>
+        function confirmDelete(userId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + userId).submit();
+                }
+            });
+        }
+    </script>
 
 </body>
 
