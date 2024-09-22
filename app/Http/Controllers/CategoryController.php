@@ -72,9 +72,9 @@ class CategoryController extends Controller
 
         // Sanitize the input using Purifier
         $data = $request->all();
-        $data['description'] = Purifier::clean($data['description'] ?? '');
-        $data['meta_description'] = Purifier::clean($data['meta_description'] ?? '');
-        $data['meta_keyword'] = Purifier::clean($data['meta_keyword'] ?? '');
+        $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
+        $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
+        $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
 
         $category->update($data);
 
