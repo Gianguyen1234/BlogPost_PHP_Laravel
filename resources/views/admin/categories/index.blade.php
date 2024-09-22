@@ -3,6 +3,8 @@
 @section('title', 'Categories')
 
 @section('content')
+
+
     <h1>Categories</h1>
 
     @if($categories->isEmpty())
@@ -26,7 +28,7 @@
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->slug }}</td>
-                        <td>{!! $category->description !!}</td>
+                        <td>{!! Str::limit($category->description, 150, '...') !!}</td>
                         <td>
                             @if($category->image)
                                 <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" width="50">

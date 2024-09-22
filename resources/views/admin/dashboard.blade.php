@@ -7,6 +7,7 @@
     <title>@yield('title', 'Admin Dashboard')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{url('css/form.css')}}">
     <style>
         #lineChart {
@@ -89,7 +90,7 @@
                 </div>
             </header>
             <div class="container-fluid p-4">
-                
+
                 @yield('content')
             </div>
         </div>
@@ -141,6 +142,28 @@
 
         });
     </script>
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "{{ session('error') }}",
+            showConfirmButton: true,
+        });
+    </script>
+    @endif
 
 </body>
 

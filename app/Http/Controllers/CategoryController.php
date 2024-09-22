@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -33,24 +34,32 @@ class CategoryController extends Controller
             'created_by' => 'required|string',
         ]);
 
-        // Sanitize the input using Purifier and strip_tags
-        $data = $request->all();
-        $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
-        $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
-        $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
+        try {
+            $data = $request->all();
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName(); // Create a unique name
-            $image->move(public_path('images/categories'), $imageName); // Move to a public directory
-            $data['image'] = 'images/categories/' . $imageName; // Store the relative path
+            // Sanitize input
+            $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
+            $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
+            $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
+
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('images/categories'), $imageName);
+                $data['image'] = 'images/categories/' . $imageName;
+            }
+
+            // Create category
+            Category::create($data);
+
+            return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+        } catch (\Exception $e) {
+            // Log the error and redirect back with an error message
+            Log::error('Category creation failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to create category. Please try again.');
         }
-
-        Category::create($data);
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
-
 
     public function edit(Category $category)
     {
@@ -62,7 +71,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Updated to validate image
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
@@ -70,21 +79,51 @@ class CategoryController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        // Sanitize the input using Purifier
-        $data = $request->all();
-        $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
-        $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
-        $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
+        try {
+            // Sanitize the input using Purifier
+            $data = $request->except(['image']);  // Exclude image from $data array for now
+            $data['description'] = strip_tags(Purifier::clean($data['description'] ?? ''));
+            $data['meta_description'] = strip_tags(Purifier::clean($data['meta_description'] ?? ''));
+            $data['meta_keyword'] = strip_tags(Purifier::clean($data['meta_keyword'] ?? ''));
 
-        $category->update($data);
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Delete the old image if it exists
+                if ($category->image && file_exists(public_path($category->image))) {
+                    unlink(public_path($category->image));
+                }
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+                // Upload the new image
+                $image = $request->file('image');
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $imagePath = $image->move(public_path('images/categories'), $imageName);
+
+                // Save the new image path
+                $data['image'] = 'images/categories/' . $imageName;
+            }
+
+            // Update the category with the new data
+            $category->update($data);
+
+            return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Category update failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to update category. Please try again.');
+        }
     }
 
 
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
+        try {
+            $category->delete();
+            return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
+        } catch (\Exception $e) {
+            // Log the error message
+            Log::error('Category deletion failed: ' . $e->getMessage());
+
+            return redirect()->back()->with('error', 'Failed to delete category. Please try again.');
+        }
     }
 }

@@ -5,7 +5,7 @@
 @section('content')
     <h1>Edit Category</h1>
 
-    <form action="{{ route('admin.categories.update', $category) }}" method="POST">
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -20,10 +20,23 @@
             <label for="description" class="form-label">Description</label>
             <textarea class="form-control" id="description" name="description">{!! $category->description !!}</textarea>
         </div>
+        
+        <!-- Display the current image -->
+        @if ($category->image)
+            <div class="mb-3">
+                <label for="current_image" class="form-label">Current Image</label>
+                <div>
+                    <img src="{{ asset($category->image) }}" alt="Category Image" width="100">
+                </div>
+            </div>
+        @endif
+        
+        <!-- Input for uploading a new image -->
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
-            <input type="text" class="form-control" id="image" name="image" value="{{ $category->image }}">
+            <label for="image" class="form-label">Upload New Image</label>
+            <input type="file" class="form-control" id="image" name="image">
         </div>
+
         <div class="mb-3">
             <label for="meta_title" class="form-label">Meta Title</label>
             <input type="text" class="form-control" id="meta_title" name="meta_title" value="{{ $category->meta_title }}">
