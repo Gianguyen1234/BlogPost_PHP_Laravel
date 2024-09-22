@@ -61,7 +61,7 @@
                 </a>
                 <div class="collapse" id="managePostsDropdown">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action text-light">View All Posts</a>
+                        <a href="{{ route('admin.posts.index' )}}" class="list-group-item list-group-item-action text-light">View All Posts</a>
                         <a href="#" class="list-group-item list-group-item-action text-light">Create New Post</a>
                     </div>
                 </div>

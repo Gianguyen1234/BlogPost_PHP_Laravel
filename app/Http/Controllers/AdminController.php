@@ -14,7 +14,7 @@ class AdminController extends Controller
         $posts = Post::all();
 
         // Pass the posts to the view
-        return view('admin.dashboard', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
     public function showAnalytics()
     {

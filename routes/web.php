@@ -50,16 +50,22 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     // Admin dashboard routes
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/analytics', [AdminController::class, 'showAnalytics'])->name('admin.analytics');
+    
     Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('categories/create', [CategoryController::class, 'create'])->name('admin.categories.create'); // Show create form
     Route::post('categories', [CategoryController::class, 'store'])->name('admin.categories.store'); // Handle form submit (create)   
     Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit'); // Show edit form
     Route::put('categories/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    
+    //manage posts
+    Route::get('/admin/posts', [AdminController::class, 'index'])->name('admin.posts.index');
+
 
 });
 
