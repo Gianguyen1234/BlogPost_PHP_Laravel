@@ -12,6 +12,7 @@
             <th>ID</th>
             <th>Title</th>
             <th>Content</th>
+            <th>Category</th>
             <th>Created At</th>
             <th>Actions</th>
         </tr>
@@ -23,6 +24,7 @@
             <td>{{ $post->id }}</td>
             <td>{!! Str::limit($post->title, 20) !!}</td>
             <td>{!! Str::limit($post->content, 80) !!}</td>
+            <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
             <td>{{ $post->created_at->format('Y-m-d H:i') }}</td>
             <td>
                 <a href="#" class="btn btn-warning">Edit</a>

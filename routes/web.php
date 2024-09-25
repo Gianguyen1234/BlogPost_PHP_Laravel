@@ -64,7 +64,9 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     Route::delete('admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     
     //manage posts
-    Route::get('/admin/posts', [AdminController::class, 'index'])->name('admin.posts.index');
+    Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts.index');
+    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('admin.posts.create');
+    Route::post('/admin/posts', [PostController::class, 'store'])->name('admin.posts.store'); // Corrected to POST method
 
 
 });
@@ -72,6 +74,7 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
 Route::middleware(['auth', 'usertype:user'])->group(function () {
     // Routes for regular users to create posts
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+   
 });
 
 
