@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- {{-- CKEditor CDN --}} -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
     <!-- Custom CSS for Navbar -->
@@ -60,8 +61,14 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/posts') }}">Blog</a></li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('posts/create') }}">
+                        <i class='bx bx-plus'></i> Create
+                    </a>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
+
 
                 <!-- Dropdown Menu for Categories -->
                 <li class="nav-item dropdown">
@@ -137,6 +144,28 @@
                 console.error(error);
             });
     </script>
+
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>
+    @endif
+    @if(session('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "{{ session('error') }}",
+            showConfirmButton: true,
+        });
+    </script>
+    @endif
 
 
 </body>

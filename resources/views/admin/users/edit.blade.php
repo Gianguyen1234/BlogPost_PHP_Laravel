@@ -29,6 +29,14 @@
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Leave blank if not changing">
         </div>
 
+        <div class="mb-3">
+            <label for="usertype" class="form-label">User Type</label>
+            <select class="form-select" id="usertype" name="usertype" required>
+                <option value="user" {{ $user->usertype === 'user' ? 'selected' : '' }}>User</option>
+                <option value="admin" {{ $user->usertype === 'admin' ? 'selected' : '' }}>Admin</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Update User</button>
     </form>
 @endsection

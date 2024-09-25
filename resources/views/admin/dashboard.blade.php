@@ -8,6 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
     <link rel="stylesheet" href="{{url('css/form.css')}}">
     <style>
         #lineChart {
@@ -113,6 +115,9 @@
     <!-- Bootstrap and Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sidebarToggle = document.getElementById('sidebarToggle');
@@ -196,6 +201,35 @@
             });
         }
     </script>
+    <script>
+$(document).ready(function() {
+    $('#usersTable').DataTable({
+        // Enable searching and pagination
+        paging: true,
+        searching: true,
+        ordering: true,
+        // Optional: Customize language settings if needed
+        language: {
+            search: "Search Users:",
+            lengthMenu: "Display _MENU_ users per page",
+            info: "Showing page _PAGE_ of _PAGES_",
+            paginate: {
+                first: "First",
+                last: "Last",
+                next: "Next",
+                previous: "Previous"
+            }
+        }
+    });
+
+    // Function to confirm deletion
+    window.confirmDelete = function(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            document.getElementById('delete-form-' + userId).submit();
+        }
+    }
+});
+</script>
 
 </body>
 

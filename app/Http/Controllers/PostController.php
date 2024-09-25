@@ -32,7 +32,7 @@ class PostController extends Controller
         ]);
 
         // Avoid XSS attacks and prevent malicious code injection
-        $cleanContent = Purifier::clean($validated['content']);
+        $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
         // Create the post
         Post::create([
@@ -53,14 +53,18 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('category')->get(); // Eager load the category relationship
+        $posts = Post::with('category')->get(); 
         return view('posts.index', compact('posts'));
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $categories = Category::all(); // Fetch all categories for the edit form
+        // Check if the authenticated user is the owner or an admin
+        if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
+            return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
+        }
+        $categories = Category::all(); 
         return view('posts.edit', compact('post', 'categories'));
     }
 
@@ -80,7 +84,11 @@ class PostController extends Controller
         ]);
 
         $post = Post::findOrFail($id);
-        $cleanContent = Purifier::clean($validated['content']);
+        
+        if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
+            return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
+        }
+        $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
         // Update the post
         $post->update([
@@ -101,6 +109,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
+            return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
+        }
         $post->delete();
 
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
@@ -108,7 +119,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('category')->findOrFail($id); // Eager load the category
+        $post = Post::with('category')->findOrFail($id); 
         return view('posts.show', compact('post'));
     }
 }

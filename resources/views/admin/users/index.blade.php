@@ -5,7 +5,7 @@
 @section('content')
 <h1>All Users</h1>
 
-<table class="table">
+<table class="table" id="usersTable">
     <thead>
         <tr>
             <th>ID</th>
@@ -27,9 +27,8 @@
                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" id="delete-form-{{ $user->id }}" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete ('userId')">Delete</button>
+                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete('{{ $user->id }}')">Delete</button>
                 </form>
-
             </td>
         </tr>
         @empty
@@ -40,6 +39,4 @@
     </tbody>
 </table>
 
-{{-- Pagination links (if using paginate() method in controller) --}}
-{{-- {{ $users->links() }} --}}
 @endsection

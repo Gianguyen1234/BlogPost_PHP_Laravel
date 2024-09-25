@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Manage Posts</h1>
-<a href="#" class="btn btn-primary">Create New Post</a>
+<a href="{{route('admin.posts.create')}}" class="btn btn-primary">Create New Post</a>
 
 <table class="table">
     <thead>
@@ -27,12 +27,13 @@
             <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
             <td>{{ $post->created_at->format('Y-m-d H:i') }}</td>
             <td>
-                <a href="#" class="btn btn-warning">Edit</a>
-                <form action="#" method="POST" style="display:inline-block;">
+                <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ route('admin.posts.delete', $post->id) }}" method="POST" class="delete-post-form" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-danger delete-button">Delete</button>
                 </form>
+
             </td>
         </tr>
         @empty
@@ -43,4 +44,30 @@
     </tbody>
 
 </table>
+
+<script>
+    document.querySelectorAll('.delete-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent the form from submitting directly
+
+            const form = this.closest('form'); // Get the form related to the button clicked
+
+            // Trigger SweetAlert confirmation
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // If confirmed, submit the form
+                }
+            })
+        });
+    });
+</script>
+
 @endsection
