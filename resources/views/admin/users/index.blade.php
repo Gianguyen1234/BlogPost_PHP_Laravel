@@ -5,7 +5,7 @@
 @section('content')
 <h1>All Users</h1>
 
-<table class="table" id="usersTable">
+<table class="table" id="addTable">
     <thead>
         <tr>
             <th>ID</th>

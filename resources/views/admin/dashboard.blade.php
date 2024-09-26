@@ -203,14 +203,14 @@
     </script>
     <script>
 $(document).ready(function() {
-    $('#usersTable').DataTable({
+    $('#addTable').DataTable({
         // Enable searching and pagination
         paging: true,
         searching: true,
         ordering: true,
         // Optional: Customize language settings if needed
         language: {
-            search: "Search Users:",
+            search: "Search:",
             lengthMenu: "Display _MENU_ users per page",
             info: "Showing page _PAGE_ of _PAGES_",
             paginate: {

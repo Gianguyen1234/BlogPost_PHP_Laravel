@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+
+
     public function create()
     {
         // Fetch all categories to display in the create form
@@ -21,7 +25,6 @@ class PostController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'slug' => 'required|string|max:255|unique:posts,slug',
             'content' => 'required|string',
             'youtube_iframe' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
@@ -31,13 +34,22 @@ class PostController extends Controller
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        // Avoid XSS attacks and prevent malicious code injection
+        // Generate the slug from the title
+        $slug = Str::slug($validated['title']);
+
+        // Check if slug is unique, and append a number if it already exists
+        $existingSlugCount = Post::where('slug', 'like', $slug . '%')->count();
+        if ($existingSlugCount > 0) {
+            $slug .= '-' . ($existingSlugCount + 1);
+        }
+
+        // Clean the content to avoid XSS attacks
         $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
         // Create the post
         Post::create([
             'title' => $validated['title'],
-            'slug' => $validated['slug'],
+            'slug' => $slug,
             'content' => $cleanContent,
             'youtube_iframe' => $validated['youtube_iframe'],
             'meta_title' => $validated['meta_title'],
@@ -45,15 +57,16 @@ class PostController extends Controller
             'meta_keyword' => $validated['meta_keyword'],
             'status' => $validated['status'],
             'category_id' => $validated['category_id'],
-            'created_by' => auth()->id(), // Store the ID of the user creating the post
+            'created_by' => auth()->id(),
         ]);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
 
+
     public function index()
     {
-        $posts = Post::with('category')->get(); 
+        $posts = Post::with(['category', 'author'])->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -64,7 +77,7 @@ class PostController extends Controller
         if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
             return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
         }
-        $categories = Category::all(); 
+        $categories = Category::all();
         return view('posts.edit', compact('post', 'categories'));
     }
 
@@ -73,7 +86,6 @@ class PostController extends Controller
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'slug' => 'required|string|max:255|unique:posts,slug,' . $id,
             'content' => 'required|string',
             'youtube_iframe' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
@@ -84,16 +96,30 @@ class PostController extends Controller
         ]);
 
         $post = Post::findOrFail($id);
-        
+
+        // Ensure the user has permission to update the post
         if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
             return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
         }
+
+        // Generate the slug from the title
+        $slug = Str::slug($validated['title']);
+
+        // Check if slug is unique, and append a number if it already exists
+        $existingSlugCount = Post::where('slug', 'like', $slug . '%')
+            ->where('id', '!=', $post->id) // Exclude current post
+            ->count();
+        if ($existingSlugCount > 0) {
+            $slug .= '-' . ($existingSlugCount + 1);
+        }
+
+        // Clean the content to avoid XSS attacks
         $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
         // Update the post
         $post->update([
             'title' => $validated['title'],
-            'slug' => $validated['slug'],
+            'slug' => $slug,
             'content' => $cleanContent,
             'youtube_iframe' => $validated['youtube_iframe'],
             'meta_title' => $validated['meta_title'],
@@ -105,6 +131,7 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
+
 
     public function destroy($id)
     {
@@ -119,7 +146,17 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('category')->findOrFail($id); 
+        $post = Post::with('category')->findOrFail($id);
         return view('posts.show', compact('post'));
     }
+    public function showCategoryPosts($categoryId)
+{
+    $category = Category::findOrFail($categoryId);
+    $posts = Post::with('author') // Eager load the 'author' relationship
+                 ->where('category_id', $categoryId)
+                 ->get();
+
+    return view('posts.category', compact('category', 'posts'));
+}
+
 }

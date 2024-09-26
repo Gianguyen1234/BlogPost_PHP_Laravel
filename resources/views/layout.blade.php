@@ -76,13 +76,16 @@
                         Categories
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Tech</a>
-                        <a class="dropdown-item" href="#">Lifestyle</a>
-                        <a class="dropdown-item" href="#">Travel</a>
+                        @foreach ($categories as $category)
+                        <a class="dropdown-item" href="{{ url('/category', $category->id) }}">{{ $category->name }}</a>
+                        @endforeach
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Other</a>
+                        <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>
                     </div>
+                    
+                    
                 </li>
+
             </ul>
 
             <!-- Search Form -->

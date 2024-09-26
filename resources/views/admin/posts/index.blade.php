@@ -4,9 +4,9 @@
 
 @section('content')
 <h1>Manage Posts</h1>
-<a href="{{route('admin.posts.create')}}" class="btn btn-primary">Create New Post</a>
+<a href="{{route('admin.posts.create')}}" class="btn btn-primary" style="margin-bottom: 20px;">Create New Post</a>
 
-<table class="table">
+<table class="table" id="addTable">
     <thead>
         <tr>
             <th>ID</th>

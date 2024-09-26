@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Facades\Log;
@@ -125,5 +126,23 @@ class CategoryController extends Controller
 
             return redirect()->back()->with('error', 'Failed to delete category. Please try again.');
         }
+    }
+
+    public function showUncategorized()
+    {
+        // Fetch posts or data for uncategorized category
+        $uncategorizedPosts = Post::whereNull('category_id')->get(); // Assuming uncategorized posts have no category_id
+        return view('posts.uncategorized', compact('uncategorizedPosts'));
+    }
+    public function showCategoryPosts($id)
+    {
+        // Find the category by ID
+        $category = Category::findOrFail($id);
+
+        // Fetch posts associated with the category
+        $posts = $category->posts()->latest()->get();
+
+        // Pass data to the view
+        return view('posts.showcategory', compact('category', 'posts'));
     }
 }

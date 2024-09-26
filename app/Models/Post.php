@@ -26,4 +26,8 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+    public function author()  // You can name this method anything; 'author' is more descriptive
+    {
+        return $this->belongsTo(User::class, 'created_by');  // 'created_by' is the foreign key
+    }
 }

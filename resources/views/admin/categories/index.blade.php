@@ -7,10 +7,12 @@
 
     <h1>Categories</h1>
 
+    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary" style="margin-bottom: 20px;">Add New Category</a>
+
     @if($categories->isEmpty())
         <p>No categories found.</p>
     @else
-        <table class="table">
+        <table class="table" id="addTable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -50,8 +52,6 @@
             </tbody>
         </table>
     @endif
-
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Add New Category</a>
 
     <script>
         document.querySelectorAll('.btn-delete').forEach(button => {

@@ -13,7 +13,7 @@
         </div>
         
         <div class="form-group">
-            <label for="slug">Slug</label>
+            <label for="slug">Slug (Optional)</label>
             <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter the slug here..." >
         </div>
 

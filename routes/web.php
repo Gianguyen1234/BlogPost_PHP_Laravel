@@ -72,7 +72,6 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('admin.posts.delete');
 
 
-
 });
 
 Route::middleware(['auth', 'usertype:user'])->group(function () {
@@ -80,6 +79,11 @@ Route::middleware(['auth', 'usertype:user'])->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
    
 });
+
+Route::get('/category/uncategorized', [CategoryController::class, 'showUncategorized']);
+
+Route::get('/category/{id}', [CategoryController::class, 'showCategoryPosts'])->name('category.posts');
+
 
 
 
