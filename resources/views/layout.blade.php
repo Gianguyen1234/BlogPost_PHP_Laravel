@@ -81,9 +81,7 @@
                         @endforeach
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>
-                    </div>
-                    
-                    
+                    </div>                   
                 </li>
 
             </ul>
