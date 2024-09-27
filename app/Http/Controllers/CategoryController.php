@@ -72,7 +72,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Updated to validate image
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
