@@ -146,17 +146,16 @@ class PostController extends Controller
 
     public function show($id)
     {
+        // Fetch the post with its category
         $post = Post::with('category')->findOrFail($id);
-        return view('posts.show', compact('post'));
+
+        // Fetch all categories for the sidebar
+        $categories = Category::all();
+
+        // Fetch latest posts for the sidebar (optional)
+        $latestPosts = Post::latest()->take(5)->get();
+
+        // Pass the post, categories, and latest posts to the view
+        return view('posts.show', compact('post', 'categories', 'latestPosts'));
     }
-    public function showCategoryPosts($categoryId)
-{
-    $category = Category::findOrFail($categoryId);
-    $posts = Post::with('author') // Eager load the 'author' relationship
-                 ->where('category_id', $categoryId)
-                 ->get();
-
-    return view('posts.category', compact('category', 'posts'));
-}
-
 }

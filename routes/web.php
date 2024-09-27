@@ -89,4 +89,7 @@ Route::get('/category/{id}', [CategoryController::class, 'showCategoryPosts'])->
 
 
 
+
+
+
 require __DIR__.'/auth.php';

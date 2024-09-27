@@ -81,7 +81,7 @@
                         @endforeach
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>
-                    </div>                   
+                    </div>
                 </li>
 
             </ul>
@@ -137,14 +137,34 @@
         ClassicEditor
             .create(document.querySelector('#content'), {
                 ckfinder: {
-                    uploadUrl: "{{route('ckeditor.upload',['_token'=>csrf_token()])}}"
+                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
                 },
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', '|', 'ckfinder', 'imageUpload', '|', 'undo', 'redo'],
+                toolbar: [
+                    'heading', '|',
+                    'bold', 'italic', 'link', '|',
+                    'ckfinder', 'imageUpload', '|',
+                    'undo', 'redo', '|',
+                    'bulletedList', 'numberedList', 'blockQuote', '|',
+                    'insertTable', 'mediaEmbed', '|',
+                    'codeBlock' // Ensure codeBlock is in the toolbar
+                ],
+                language: 'en',
+                codeBlock: {
+                    languages: {
+                        'javascript': 'JavaScript',
+                        'python': 'Python',
+                        'html': 'HTML',
+                        'css': 'CSS',
+                        'java': 'Java',
+                        // Add more languages as needed
+                    }
+                }
             })
             .catch(error => {
                 console.error(error);
             });
     </script>
+
 
     @if(session('success'))
     <script>
