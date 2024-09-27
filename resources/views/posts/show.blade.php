@@ -110,11 +110,11 @@
 <style>
     body {
     background-color: #f8f9fa; /* Light background for better contrast */
-    font-family: 'Arial', sans-serif; /* Modern font */
+    font-family: 'Arial', sans-serif; 
 }
 
 .custom-card {
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; 
     transition: transform 0.3s; /* Smooth hover effect */
 }
 
@@ -143,7 +143,7 @@
 
 .btn-outline-primary:hover {
     background-color: #0d6efd; /* Darken button on hover */
-    color: white; /* Change text color */
+    color: white; 
 }
 
 .btn-outline-info:hover {
@@ -153,7 +153,7 @@
 
 .btn-outline-danger:hover {
     background-color: #dc3545; /* Darken button on hover */
-    color: white; /* Change text color */
+    color: white; 
 }
 
 .list-group-item {
