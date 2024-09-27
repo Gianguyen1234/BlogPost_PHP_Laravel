@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'category_id',
         'title',
@@ -29,5 +29,9 @@ class Post extends Model
     public function author()  // You can name this method anything; 'author' is more descriptive
     {
         return $this->belongsTo(User::class, 'created_by');  // 'created_by' is the foreign key
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

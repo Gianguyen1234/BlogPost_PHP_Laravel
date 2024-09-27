@@ -66,7 +66,9 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with(['category', 'author'])->get();
+        // Fetch posts with pagination (10 posts per page)
+        $posts = Post::with(['category', 'author'])->paginate(10); // Adjust the number as needed
+
         return view('posts.index', compact('posts'));
     }
 
@@ -146,16 +148,14 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        // Fetch the post with its category by slug
         $post = Post::with('category')->where('slug', $slug)->firstOrFail();
 
-        // Fetch all categories for the sidebar
-        $categories = Category::all();
+        // Fetch paginated comments for the post (e.g., 5 comments per page)
+        $comments = $post->comments()->orderBy('created_at', 'desc')->paginate(5);
 
-        // Fetch the latest posts for the sidebar (optional)
+        $categories = Category::all();
         $latestPosts = Post::latest()->take(5)->get();
 
-        // Pass the post, categories, and latest posts to the view
-        return view('posts.show', compact('post', 'categories', 'latestPosts'));
+        return view('posts.show', compact('post', 'comments', 'categories', 'latestPosts'));
     }
 }

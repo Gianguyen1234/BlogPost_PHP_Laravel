@@ -138,8 +138,8 @@ class CategoryController extends Controller
         // Find the category by slug
         $category = Category::where('slug', $slug)->firstOrFail();
 
-        // Fetch posts associated with the category
-        $posts = $category->posts()->latest()->get();
+        // Fetch paginated posts associated with the category
+        $posts = $category->posts()->latest()->paginate(1); // Adjust the number as needed
 
         // Pass data to the view
         return view('posts.showcategory', compact('category', 'posts'));

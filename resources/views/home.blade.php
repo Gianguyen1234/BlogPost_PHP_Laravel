@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->title }}</h5>
                             <p class="card-text">{!! Str::limit($post->content, 150, '...') !!}</p>
-                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Read More</a>
+                            <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Read More</a>
                         </div>
                         <div class="card-footer text-muted">
                             Posted on {{ $post->created_at->format('F j, Y') }}

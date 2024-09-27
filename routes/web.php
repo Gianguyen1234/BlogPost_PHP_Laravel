@@ -8,6 +8,7 @@ use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,14 +88,11 @@ Route::get('/category/{slug}', [CategoryController::class, 'showCategoryPosts'])
 //show the post through category
 Route::get('/posts/{slug}', [PostController::class, 'show'])->name('post.show');
 
-
-
-
-
-
-
-
-
+// Comments related to a specific post identified by slug
+Route::get('/posts/{slug}/comments', [CommentController::class, 'index'])->name('comments.index'); // List all comments for a specific post
+Route::get('/posts/{slug}/comments/create', [CommentController::class, 'create'])->name('comments.create'); // Create a new comment form (if needed)
+Route::get('/posts/{slug}/comments/{id}', [CommentController::class, 'show'])->name('comments.show'); // Show a specific comment related to the post
+Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name('comments.store'); // Store a new comment for a specific post
 
 
 require __DIR__.'/auth.php';

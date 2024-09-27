@@ -48,34 +48,9 @@
                 </div>
             </div>
 
-            <!-- Comments Section -->
-            <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
-                <div class="card-body">
-                    <h5 class="card-title">Comments</h5>
-                    <!-- Placeholder for existing comments -->
-                    <div class="comment mb-3">
-                        <strong>John Doe</strong>
-                        <p>This is a sample comment.</p>
-                        <small class="text-muted">January 1, 2024</small>
-                    </div>
+            <!-- Include Comments Section -->
+            @include('partials.comments')
 
-                    <!-- Comment Form -->
-                    <h6 class="mt-4">Leave a Comment:</h6>
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="author_name" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="author_name" placeholder="Your name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="content" class="form-label">Comment</label>
-                            <textarea class="form-control" name="content" rows="3" placeholder="Your comment..." required></textarea>
-                        </div>
-                        <input type="hidden" name="post_id" value="{{ $post->id }}">
-                        <button type="submit" class="btn btn-success">Post Comment</button>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <div class="col-lg-4">
@@ -107,6 +82,7 @@
     </div>
 </div>
 @endsection
+
 <style>
     body {
     background-color: #f8f9fa; /* Light background for better contrast */
