@@ -121,7 +121,6 @@ class CategoryController extends Controller
             $category->delete();
             return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
         } catch (\Exception $e) {
-            // Log the error message
             Log::error('Category deletion failed: ' . $e->getMessage());
 
             return redirect()->back()->with('error', 'Failed to delete category. Please try again.');
