@@ -77,7 +77,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @foreach ($categories as $category)
-                        <a class="dropdown-item" href="{{ url('/category', $category->id) }}">{{ $category->name }}</a>
+                        <a class="dropdown-item" href="{{ url('/category', $category->slug) }}">{{ $category->name }}</a>
                         @endforeach
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>

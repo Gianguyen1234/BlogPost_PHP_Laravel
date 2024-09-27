@@ -30,7 +30,7 @@
                         Posted on {{ $post->created_at->format('M d, Y') }} <br>
                         by <strong>{{ $post->author->name ?? 'Unknown' }}</strong>
                     </small>
-                    <a href="{{ url('/posts', $post->id) }}" class="btn btn-outline-primary btn-sm">Read More</a>
+                    <a href="{{  route('post.show', $post->slug) }}" class="btn btn-outline-primary btn-sm">Read More</a>
                 </div>
             </div>
         </div>

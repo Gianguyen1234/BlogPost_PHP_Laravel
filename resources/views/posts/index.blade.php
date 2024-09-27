@@ -22,7 +22,7 @@
                                         <p class="card-text">{!! Str::limit($post->content, 150, '...') !!}</p>
                                         <small class="text-muted">Posted on {{ $post->created_at->format('M d, Y') }}</small>
                                         <div class="mt-3">
-                                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Continue reading</a>
+                                            <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Continue reading</a>
                                             @if(Auth::check() && Auth::user()->role === 'admin') <!-- Show Edit and Delete buttons only for admins -->
                                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
                                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">

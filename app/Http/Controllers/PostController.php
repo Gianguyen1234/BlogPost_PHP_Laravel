@@ -144,15 +144,15 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        // Fetch the post with its category
-        $post = Post::with('category')->findOrFail($id);
+        // Fetch the post with its category by slug
+        $post = Post::with('category')->where('slug', $slug)->firstOrFail();
 
         // Fetch all categories for the sidebar
         $categories = Category::all();
 
-        // Fetch latest posts for the sidebar (optional)
+        // Fetch the latest posts for the sidebar (optional)
         $latestPosts = Post::latest()->take(5)->get();
 
         // Pass the post, categories, and latest posts to the view

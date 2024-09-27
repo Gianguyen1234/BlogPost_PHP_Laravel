@@ -72,7 +72,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'meta_title' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
@@ -133,10 +133,10 @@ class CategoryController extends Controller
         $uncategorizedPosts = Post::whereNull('category_id')->get(); // Assuming uncategorized posts have no category_id
         return view('posts.uncategorized', compact('uncategorizedPosts'));
     }
-    public function showCategoryPosts($id)
+    public function showCategoryPosts($slug)
     {
-        // Find the category by ID
-        $category = Category::findOrFail($id);
+        // Find the category by slug
+        $category = Category::where('slug', $slug)->firstOrFail();
 
         // Fetch posts associated with the category
         $posts = $category->posts()->latest()->get();
