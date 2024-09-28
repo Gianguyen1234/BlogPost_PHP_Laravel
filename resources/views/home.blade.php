@@ -4,6 +4,9 @@
 
 @section('content')
 <div class="container mt-5">
+    <!-- Floating Category Menu Button -->
+    @include('partials.floatingmenu')
+
     <!-- Carousel Section for Featured Posts -->
     <div class="carousel-container mb-5">
         <h2 class="text-center mb-3">Featured Posts</h2>
@@ -46,9 +49,9 @@
                 <div class="card-footer text-muted d-flex justify-content-between align-items-center">
                     <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
                     @if ($post->category)
-                    <span class="badge badge-primary">{{ $post->category->name }}</span> <!-- Display category name if it exists -->
+                    <span class="badge badge-primary">{{ $post->category->name }}</span>
                     @else
-                    <span class="badge badge-secondary">Uncategorized</span> <!-- Fallback if no category -->
+                    <span class="badge badge-secondary">Uncategorized</span>
                     @endif
                 </div>
 
@@ -58,48 +61,4 @@
     </div>
 </div>
 
-<style>
-    /* Card Styles */
-    .card {
-        border-radius: 10px;
-        /* Rounded corners */
-        transition: transform 0.2s, box-shadow 0.2s;
-        /* Smooth transition effects */
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        /* Slight lift on hover */
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        /* Shadow on hover */
-    }
-
-    .card-img-top {
-        border-top-left-radius: 10px;
-        /* Match card border radius */
-        border-top-right-radius: 10px;
-        /* Match card border radius */
-    }
-
-    .btn-outline-primary {
-        color: #007bff;
-        /* Text color */
-        border-color: #007bff;
-        /* Border color */
-    }
-
-    .btn-outline-primary:hover {
-        background-color: #007bff;
-        /* Background color on hover */
-        color: white;
-        /* Text color on hover */
-    }
-
-    .badge {
-        font-size: 0.85rem;
-        /* Slightly smaller badge font */
-        padding: 0.5em 0.75em;
-        /* Padding for badge */
-    }
-</style>
 @endsection

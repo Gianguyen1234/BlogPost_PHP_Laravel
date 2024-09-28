@@ -14,6 +14,8 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  
+
     <!-- {{-- CKEditor CDN --}} -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -133,6 +135,7 @@
     <!--  Bootstrap's JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
     <script>
         ClassicEditor
             .create(document.querySelector('#content'), {
@@ -188,6 +191,13 @@
     </script>
     @endif
 
+    <script>
+        document.getElementById('toggleSidebarBtn').addEventListener('click', function () {
+    var sidebar = document.getElementById('categorySidebar');
+    sidebar.classList.toggle('collapsed');
+});
+
+    </script>
 
 </body>
 

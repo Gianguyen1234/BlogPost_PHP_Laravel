@@ -1,0 +1,183 @@
+/* General Styles */
+:root {
+    --primary-color: #1a73e8; /* More vibrant primary color */
+    --secondary-color: #6c757d;
+    --accent-color: #fbbc05; /* Accent color for highlights */
+    --text-color: #212529;
+    --text-light: #fff;
+    --background-color: #f8f9fa;
+    --border-radius: 12px;
+    --box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.12);
+    --transition-duration: 0.3s;
+}
+
+/* Body */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Container and Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Typography */
+h2 {
+    font-size: 2.25rem; /* Slightly larger */
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+}
+
+p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Carousel Section */
+.carousel-container {
+    margin-bottom: 4rem;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+}
+
+.carousel-item img {
+    height: 450px;
+    object-fit: cover;
+    filter: brightness(0.9); /* Slight darkening for text readability */
+    transition: filter var(--transition-duration);
+}
+
+.carousel-item:hover img {
+    filter: brightness(1); /* Brighten the image on hover */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+
+.carousel-indicators button {
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+}
+
+/* Blog Post Cards */
+.card {
+    border-radius: var(--border-radius);
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+    overflow: hidden;
+    border: none;
+    box-shadow: var(--box-shadow-light);
+    background-color: var(--background-color);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+.card-img-top {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    object-fit: cover;
+    height: 220px;
+    transition: transform var(--transition-duration);
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.card-body {
+    padding: 1.75rem;
+    background-color: #fff;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1.125rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.card-footer {
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    border-top: none;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-footer .badge {
+    font-size: 0.85rem;
+    padding: 0.3em 0.6em;
+}
+
+/* Button Styling */
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color var(--transition-duration), color var(--transition-duration), box-shadow var(--transition-duration);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: 0 6px 15px rgba(26, 115, 232, 0.3); /* Button shadow on hover */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: darken(var(--primary-color), 10%);
+    box-shadow: 0 6px 15px rgba(26, 115, 232, 0.3);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .carousel-item img {
+        height: 300px;
+    }
+
+    .card-img-top {
+        height: 150px;
+    }
+}
+

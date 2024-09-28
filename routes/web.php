@@ -81,7 +81,9 @@ Route::middleware(['auth', 'usertype:user'])->group(function () {
    
 });
 
-Route::get('/category/uncategorized', [CategoryController::class, 'showUncategorized']);
+// Route to show uncategorized posts
+Route::get('/category/uncategorized', [CategoryController::class, 'showUncategorized'])->name('category.uncategorized');
+
 
 // Route::get('/category/{id}', [CategoryController::class, 'showCategoryPosts'])->name('category.posts');
 Route::get('/category/{slug}', [CategoryController::class, 'showCategoryPosts'])->name('category.posts');
