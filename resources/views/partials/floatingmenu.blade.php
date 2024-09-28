@@ -19,7 +19,7 @@
     .category-sidebar {
         position: fixed;
         top: 100px;
-        left: 0;
+        left: 20px;
         width: 250px;
         background-color: #343a40; /* Darker background color */
         border-radius: 8px;

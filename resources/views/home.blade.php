@@ -14,8 +14,9 @@
             <div class="carousel-inner rounded">
                 @foreach ($posts as $index => $post)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="https://via.placeholder.com/900x400?text={{ urlencode($post->title) }}" class="d-block w-100" alt="Featured image for {{ $post->title }}">
-                    <div class="carousel-caption">
+                    <!-- Responsive Image -->
+                    <img src="https://via.placeholder.com/900x400?text={{ urlencode($post->title) }}" class="d-block w-100 img-fluid" alt="Featured image for {{ $post->title }}">
+                    <div class="carousel-caption d-none d-md-block">
                         <h4>{{ $post->title }}</h4>
                         <p>{{ Str::limit($post->content, 150, '...') }}</p>
                         <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Read More</a>
@@ -38,9 +39,9 @@
     <h2 class="text-center mb-4">Recent Posts</h2>
     <div class="row">
         @foreach ($posts as $post)
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 col-sm-6 mb-4">
             <div class="card h-100 shadow-sm border-light">
-                <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top" alt="{{ $post->title }}">
+                <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid" alt="{{ $post->title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
@@ -62,3 +63,56 @@
 </div>
 
 @endsection
+
+<style>
+    /* Carousel caption styles for mobile */
+    .carousel-caption {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        padding-bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        padding: 15px;
+        border-radius: 10px;
+        text-align: left;
+    }
+
+    .carousel-caption h4,
+    .carousel-caption p {
+        color: #fff;
+    }
+
+    /* Adjust caption font size for smaller screens */
+    @media (max-width: 768px) {
+        .carousel-caption h4 {
+            font-size: 1.25rem;
+        }
+
+        .carousel-caption p {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Make sure the carousel images are responsive */
+    .carousel-item img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Responsive adjustments for cards */
+    @media (max-width: 576px) {
+        .card-body h5 {
+            font-size: 1rem;
+        }
+
+        .card-body p {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+    }
+</style>
