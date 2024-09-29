@@ -30,7 +30,7 @@
     }
 
     .category-sidebar.collapsed {
-        width: 60px; /* Adjusted width */
+        width: 60px; 
         overflow: hidden;
         padding: 15px 5px;
     }
