@@ -29,7 +29,7 @@
                         <p class="card-text">Jane is a senior writer with a keen interest in lifestyle and travel. Her engaging articles and personal experiences make her a valuable part of the team.</p>
                     </div>
                 </div>
-                <!-- Add more team members as needed -->
+               
             </div>
         </div>
     </div>
