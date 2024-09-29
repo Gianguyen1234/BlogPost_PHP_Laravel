@@ -19,7 +19,8 @@ class Post extends Model
         'meta_keyword',
         'status',
         'created_by',
-        'content'
+        'content',
+        'banner_image',
     ];
 
     public function category()

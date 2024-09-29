@@ -32,6 +32,7 @@ class PostController extends Controller
             'meta_keyword' => 'nullable|string',
             'status' => 'required|boolean',
             'category_id' => 'nullable|exists:categories,id',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the banner image
         ]);
 
         // Generate the slug from the title
@@ -46,8 +47,8 @@ class PostController extends Controller
         // Clean the content to avoid XSS attacks
         $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
-        // Create the post
-        Post::create([
+        // Create the post data array
+        $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
             'content' => $cleanContent,
@@ -58,10 +59,22 @@ class PostController extends Controller
             'status' => $validated['status'],
             'category_id' => $validated['category_id'],
             'created_by' => auth()->id(),
-        ]);
+        ];
+
+        // Handle image upload
+        if ($request->hasFile('banner_image')) {
+            $image = $request->file('banner_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/posts'), $imageName);
+            $postData['banner_image'] = 'images/posts/' . $imageName; // Store the image path
+        }
+
+        // Create the post
+        Post::create($postData);
 
         return redirect()->route('posts.index')->with('success', 'Post created successfully.');
     }
+
 
 
     public function index()
@@ -95,6 +108,7 @@ class PostController extends Controller
             'meta_keyword' => 'nullable|string',
             'status' => 'required|boolean',
             'category_id' => 'nullable|exists:categories,id',
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the banner image
         ]);
 
         $post = Post::findOrFail($id);
@@ -118,8 +132,8 @@ class PostController extends Controller
         // Clean the content to avoid XSS attacks
         $cleanContent = strip_tags(Purifier::clean($validated['content']));
 
-        // Update the post
-        $post->update([
+        // Update the post data array
+        $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
             'content' => $cleanContent,
@@ -129,7 +143,18 @@ class PostController extends Controller
             'meta_keyword' => $validated['meta_keyword'],
             'status' => $validated['status'],
             'category_id' => $validated['category_id'],
-        ]);
+        ];
+
+        // Handle image upload
+        if ($request->hasFile('banner_image')) {
+            $image = $request->file('banner_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/posts'), $imageName);
+            $postData['banner_image'] = 'images/posts/' . $imageName; // Store the image path
+        }
+
+        // Update the post
+        $post->update($postData);
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }

@@ -4,7 +4,6 @@
 
 @section('content')
 
-
     <h1>Categories</h1>
 
     <a href="{{ route('admin.categories.create') }}" class="btn btn-primary" style="margin-bottom: 20px;">Add New Category</a>

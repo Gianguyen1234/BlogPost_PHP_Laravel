@@ -3,6 +3,7 @@
 @section('title', 'Create New Post')
 
 @section('content')
+
 <div class="container mt-5">
     <h1 class="page-title">Create New Post</h1>
     <form action="{{ route('admin.posts.store') }}" method="POST" class="post-form">
@@ -11,16 +12,21 @@
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title here..." required>
         </div>
-        
+
         <div class="form-group">
             <label for="slug">Slug (Optional)</label>
-            <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter the slug here..." >
+            <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter the slug here...">
         </div>
 
         <div class="form-group">
             <label for="content">Content</label>
             <!-- CKEditor textarea -->
             <textarea id="content" name="content" class="form-control" placeholder="Write your content here..." rows="10"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="banner_image">Banner Image</label>
+            <input type="file" class="form-control" name="banner_image" id="banner_image">
         </div>
 
         <div class="form-group">
@@ -56,7 +62,7 @@
             <select id="category_id" name="category_id" class="form-control">
                 <option value="">Select a category (Optional)</option>
                 @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
         </div>
