@@ -14,7 +14,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  
+
 
     <!-- {{-- CKEditor CDN --}} -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
@@ -79,12 +79,19 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @foreach ($categories as $category)
-                        <a class="dropdown-item" href="{{ url('/category', $category->slug) }}">{{ $category->name }}</a>
+                        <a class="dropdown-item d-flex align-items-center" href="{{ url('/category', $category->slug) }}">
+                            <!-- Display the category image -->
+                            @if ($category->image)
+                            <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="category-dropdown-image">
+                            @endif
+                            <span class="category-name">{{ $category->name }}</span>
+                        </a>
                         @endforeach
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>
                     </div>
                 </li>
+
 
             </ul>
 
@@ -149,7 +156,7 @@
                     'undo', 'redo', '|',
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
-                    'codeBlock' 
+                    'codeBlock'
                 ],
                 language: 'en',
                 codeBlock: {
@@ -159,7 +166,7 @@
                         'html': 'HTML',
                         'css': 'CSS',
                         'java': 'Java',
-                        
+
                     }
                 }
             })
@@ -192,11 +199,10 @@
     @endif
 
     <script>
-        document.getElementById('toggleSidebarBtn').addEventListener('click', function () {
-    var sidebar = document.getElementById('categorySidebar');
-    sidebar.classList.toggle('collapsed');
-});
-
+        document.getElementById('toggleSidebarBtn').addEventListener('click', function() {
+            var sidebar = document.getElementById('categorySidebar');
+            sidebar.classList.toggle('collapsed');
+        });
     </script>
 
 </body>

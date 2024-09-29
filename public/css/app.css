@@ -29,3 +29,33 @@
 .ck-editor__editable {
     min-height: 400px;
 }
+
+/* dropdown menu */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* Category Image Styling */
+.category-dropdown-image {
+    width: 30px;  /* Adjust image size */
+    height: 30px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 5px; /* Rounded image corners */
+    border: 1px solid #ddd; /* Light border for better visibility */
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect */
+.dropdown-item:hover .category-dropdown-image {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Category Name Styling */
+.category-name {
+    font-weight: 500;
+    color: #333; /* Text color */
+}
