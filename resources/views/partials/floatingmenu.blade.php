@@ -1,20 +1,24 @@
-  <!-- Floating Category Menu -->
-  <div id="categorySidebar" class="category-sidebar collapsed">
-        <button id="toggleSidebarBtn" class="toggle-btn">☰ </button>
-        <h4>Categories</h4>
-        <ul class="list-unstyled">
-            @foreach ($categories as $category)
-            <li>
-                <a href="{{ route('category.posts', $category->slug) }}" class="category-link">{{ $category->name }}</a>
-            </li>
-            @endforeach
-            <!-- Add 'Uncategorized' option -->
-            <li>
-                <a href="{{ route('category.uncategorized') }}" class="category-link">Uncategorized</a>
-            </li>
-        </ul>
-    </div>
-    <style>
+<!-- Floating Category Menu -->
+<div id="categorySidebar" class="category-sidebar collapsed">
+    <button id="toggleSidebarBtn" class="toggle-btn">☰ </button>
+    <h4>Categories</h4>
+    <ul class="list-unstyled">
+        @foreach ($categories as $category)
+        <li>
+            <a href="{{ route('category.posts', $category->slug) }}" class="category-link">
+                <img src="{{ asset($category->image) }}" alt="{{ $category->name }}" class="category-image">
+                {{ $category->name }}
+            </a>
+        </li>
+        @endforeach
+        <!-- Add 'Uncategorized' option -->
+        <li>
+            <a href="{{ route('category.uncategorized') }}" class="category-link">Uncategorized</a>
+        </li>
+    </ul>
+</div>
+
+<style>
     /* Floating Menu Styles */
     .category-sidebar {
         position: fixed;
@@ -60,7 +64,8 @@
     }
 
     .category-sidebar .category-link {
-        display: block;
+        display: flex;
+        align-items: center;
         padding: 10px;
         border-radius: 5px;
         text-decoration: none;
@@ -72,6 +77,15 @@
     .category-sidebar .category-link:hover {
         background-color: #ffc107;
         color: black;
+    }
+
+    /* Category Image */
+    .category-link .category-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        object-fit: cover;
     }
 
     /* Toggle Button */
