@@ -83,7 +83,7 @@
         color: #fff;
     }
 
-    /* Adjust caption font size for smaller screens */
+ 
     @media (max-width: 768px) {
         .carousel-caption h4 {
             font-size: 1.25rem;
