@@ -149,7 +149,7 @@
                     'undo', 'redo', '|',
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
-                    'codeBlock' // Ensure codeBlock is in the toolbar
+                    'codeBlock' 
                 ],
                 language: 'en',
                 codeBlock: {
@@ -159,7 +159,7 @@
                         'html': 'HTML',
                         'css': 'CSS',
                         'java': 'Java',
-                        // Add more languages as needed
+                        
                     }
                 }
             })
