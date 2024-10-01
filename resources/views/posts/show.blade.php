@@ -68,8 +68,8 @@
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 0 auto; /* Center the image */
-    padding: 10px 0; /* Add some space around the image */
+    margin: 0 auto; 
+    padding: 10px 0; 
 }
 
 .custom-card {
