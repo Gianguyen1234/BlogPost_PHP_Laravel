@@ -74,7 +74,7 @@
 
 .custom-card {
     border-radius: 10px; 
-    transition: transform 0.3s; /* Smooth hover effect */
+    transition: transform 0.3s; 
 }
 
 .custom-card:hover {
