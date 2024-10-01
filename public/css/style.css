@@ -96,3 +96,23 @@
     border-color: #e67e22;
     color: #ffffff;
 }
+.navbar {
+    background-color: #343a40;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.nav-link {
+    color: #ffffff;
+    margin-right: 15px;
+}
+
+.nav-link:hover {
+    color: #d4d4d4;
+    border-bottom: 2px solid #ffffff;
+}

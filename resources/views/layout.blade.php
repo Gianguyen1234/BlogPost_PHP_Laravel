@@ -21,31 +21,6 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    <!-- Custom CSS for Navbar -->
-    <style>
-        /* Navbar */
-        .navbar {
-            background-color: #343a40;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            font-size: 1.7rem;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .nav-link {
-            color: #ffffff;
-            margin-right: 15px;
-        }
-
-        .nav-link:hover {
-            color: #d4d4d4;
-            border-bottom: 2px solid #ffffff;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -92,13 +67,11 @@
                         <a class="dropdown-item" href="{{ url('/category/uncategorized') }}">Uncategorized</a>
                     </div>
                 </li>
-
-
             </ul>
 
             <!-- Search Form -->
-            <form class="search-form my-2 my-lg-0">
-                <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+            <form class="search-form my-2 my-lg-0" action="{{ url('/search') }}" method="GET">
+                <input class="form-control" type="search" name="query" placeholder="Search..." aria-label="Search" required>
                 <button type="submit">
                     <i class='bx bx-search'></i>
                 </button>

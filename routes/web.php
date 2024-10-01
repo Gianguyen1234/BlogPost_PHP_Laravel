@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,6 +99,8 @@ Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name
 
 //upvote comment
 Route::post('comments/{id}/upvote', [CommentController::class, 'upvote'])->name('comments.upvote');
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 
 require __DIR__.'/auth.php';

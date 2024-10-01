@@ -61,7 +61,7 @@
 
 <style>
     body {
-    background-color: #f8f9fa; /* Light background for better contrast */
+    background-color: #f8f9fa; 
     font-family: 'Arial', sans-serif; 
 }
 .post-content img {
