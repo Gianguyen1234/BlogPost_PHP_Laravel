@@ -92,7 +92,7 @@
 }
 
 .btn-outline-secondary, .btn-outline-primary, .btn-outline-info, .btn-outline-danger {
-    transition: background-color 0.3s, color 0.3s; /* Smooth button transitions */
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 .btn-outline-secondary:hover {
