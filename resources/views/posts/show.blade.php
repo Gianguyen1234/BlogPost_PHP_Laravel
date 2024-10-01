@@ -101,7 +101,7 @@
 }
 
 .btn-outline-primary:hover {
-    background-color: #0d6efd; /* Darken button on hover */
+    background-color: #0d6efd;
     color: white; 
 }
 
