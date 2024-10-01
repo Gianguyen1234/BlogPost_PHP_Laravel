@@ -106,8 +106,8 @@
 }
 
 .btn-outline-info:hover {
-    background-color: #0dcaf0; /* Darken button on hover */
-    color: white; /* Change text color */
+    background-color: #0dcaf0; 
+    color: white; 
 }
 
 .btn-outline-danger:hover {
