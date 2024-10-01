@@ -6,7 +6,7 @@
 
 <div class="container mt-5">
     <h1 class="page-title">Create New Post</h1>
-    <form action="{{ route('admin.posts.store') }}" method="POST" class="post-form">
+    <form action="{{ route('posts.store') }}" method="POST" class="post-form">
         @csrf
         <div class="form-group">
             <label for="title">Title</label>
@@ -25,9 +25,13 @@
         </div>
 
         <div class="form-group">
-            <label for="banner_image">Banner Image</label>
-            <input type="file" class="form-control" name="banner_image" id="banner_image">
+            <label for="banner_image">Banner Image (Optional)</label>
+            <input type="file" class="form-control" name="banner_image" id="banner_image" accept="image/*">
+            @error('banner_image')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
+
 
         <div class="form-group">
             <label for="youtube_iframe">YouTube Iframe (Optional)</label>
@@ -70,4 +74,6 @@
         <button type="submit" class="btn btn-primary">Create Post</button>
     </form>
 </div>
+
+
 @endsection

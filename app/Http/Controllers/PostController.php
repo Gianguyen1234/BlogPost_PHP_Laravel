@@ -38,20 +38,17 @@ class PostController extends Controller
         // Generate the slug from the title
         $slug = Str::slug($validated['title']);
 
-        // Check if slug is unique, and append a number if it already exists
+        // Check if the slug is unique, and append a number if it already exists
         $existingSlugCount = Post::where('slug', 'like', $slug . '%')->count();
         if ($existingSlugCount > 0) {
             $slug .= '-' . ($existingSlugCount + 1);
         }
 
-        // Clean the content to avoid XSS attacks
-        $cleanContent = strip_tags(Purifier::clean($validated['content']));
-
-        // Create the post data array
+        // Create the post data array without sanitizing content
         $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
-            'content' => $cleanContent,
+            'content' => $validated['content'],  // No Purifier cleaning here
             'youtube_iframe' => $validated['youtube_iframe'],
             'meta_title' => $validated['meta_title'],
             'meta_description' => $validated['meta_description'],
@@ -69,12 +66,17 @@ class PostController extends Controller
             $postData['banner_image'] = 'images/posts/' . $imageName; // Store the image path
         }
 
-        // Create the post
-        Post::create($postData);
+        try {
+            // Create the post
+            Post::create($postData);
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully.');
+            // Redirect with success message
+            return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
+        } catch (\Exception $e) {
+            // Handle any exceptions that occur during post creation
+            return redirect()->back()->withErrors(['error' => 'Failed to create post. Please try again.']);
+        }
     }
-
 
 
     public function index()
@@ -90,7 +92,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         // Check if the authenticated user is the owner or an admin
         if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
-            return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
+            return redirect()->route('admin.posts.index')->with('error', 'Unauthorized access.');
         }
         $categories = Category::all();
         return view('posts.edit', compact('post', 'categories'));
@@ -108,7 +110,7 @@ class PostController extends Controller
             'meta_keyword' => 'nullable|string',
             'status' => 'required|boolean',
             'category_id' => 'nullable|exists:categories,id',
-            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the banner image
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $post = Post::findOrFail($id);
@@ -118,21 +120,15 @@ class PostController extends Controller
             return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
         }
 
-        // Generate the slug from the title
+        // Generate and check the slug
         $slug = Str::slug($validated['title']);
-
-        // Check if slug is unique, and append a number if it already exists
-        $existingSlugCount = Post::where('slug', 'like', $slug . '%')
-            ->where('id', '!=', $post->id) // Exclude current post
-            ->count();
+        $existingSlugCount = Post::where('slug', 'like', $slug . '%')->where('id', '!=', $post->id)->count();
         if ($existingSlugCount > 0) {
             $slug .= '-' . ($existingSlugCount + 1);
         }
 
-        // Clean the content to avoid XSS attacks
-        $cleanContent = strip_tags(Purifier::clean($validated['content']));
-
-        // Update the post data array
+        // Clean the content and prepare post data
+        $cleanContent = Purifier::clean($validated['content']);
         $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
@@ -147,6 +143,12 @@ class PostController extends Controller
 
         // Handle image upload
         if ($request->hasFile('banner_image')) {
+            // Check if the directory exists
+            if (!file_exists(public_path('images/posts'))) {
+                mkdir(public_path('images/posts'), 0755, true);
+            }
+
+            // Process the new image
             $image = $request->file('banner_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images/posts'), $imageName);
@@ -158,7 +160,6 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
-
 
     public function destroy($id)
     {

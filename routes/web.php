@@ -66,8 +66,8 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     
     //manage posts
     Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts.index');
-    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('admin.posts.create');
-    Route::post('/admin/posts', [PostController::class, 'store'])->name('admin.posts.store');
+    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
     Route::get('/admin/posts/{id}/edit', [PostController::class, 'edit'])->name('admin.posts.edit');
     Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('admin.posts.update');
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('admin.posts.delete');
@@ -94,7 +94,10 @@ Route::get('/posts/{slug}', [PostController::class, 'show'])->name('post.show');
 Route::get('/posts/{slug}/comments', [CommentController::class, 'index'])->name('comments.index'); // List all comments for a specific post
 Route::get('/posts/{slug}/comments/create', [CommentController::class, 'create'])->name('comments.create'); // Create a new comment form (if needed)
 Route::get('/posts/{slug}/comments/{id}', [CommentController::class, 'show'])->name('comments.show'); // Show a specific comment related to the post
-Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name('comments.store'); // Store a new comment for a specific post
+Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name('comments.store'); 
+
+//upvote comment
+Route::post('comments/{id}/upvote', [CommentController::class, 'upvote'])->name('comments.upvote');
 
 
 require __DIR__.'/auth.php';

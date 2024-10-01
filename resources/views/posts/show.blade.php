@@ -52,33 +52,9 @@
             @include('partials.comments')
 
         </div>
+        <!-- Menu bar section -->
+        @include('partials.menubar')
 
-        <div class="col-lg-4">
-            <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
-                <div class="card-body">
-                    <h5 class="card-title">Categories</h5>
-                    <ul class="list-group list-group-flush">
-                        @foreach($categories as $category)
-                            <li class="list-group-item">
-                                <a href="{{ route('category.posts', $category->slug) }}" class="text-decoration-none">{{ $category->name }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-            <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
-                <div class="card-body">
-                    <h5 class="card-title">Latest News</h5>
-                    <ul class="list-group list-group-flush">
-                        @foreach($latestPosts as $latestPost)
-                            <li class="list-group-item">
-                                <a href="{{ route('posts.show', $latestPost->slug) }}" class="text-decoration-none">{{ $latestPost->title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
@@ -87,6 +63,13 @@
     body {
     background-color: #f8f9fa; /* Light background for better contrast */
     font-family: 'Arial', sans-serif; 
+}
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center the image */
+    padding: 10px 0; /* Add some space around the image */
 }
 
 .custom-card {

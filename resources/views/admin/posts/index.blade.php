@@ -4,7 +4,7 @@
 
 @section('content')
 <h1>Manage Posts</h1>
-<a href="{{route('admin.posts.create')}}" class="btn btn-primary" style="margin-bottom: 20px;">Create New Post</a>
+<a href="{{route('posts.create')}}" class="btn btn-primary" style="margin-bottom: 20px;">Create New Post</a>
 
 <table class="table" id="addTable">
     <thead>
@@ -23,7 +23,18 @@
         <tr>
             <td>{{ $post->id }}</td>
             <td>{!! Str::limit($post->title, 20) !!}</td>
-            <td>{!! Str::limit($post->content, 80) !!}</td>
+            <td>
+                {{-- Display first image if it exists in the content --}}
+                @if (preg_match('/<img[^>]+src="([^">]+)"/', $post->content, $matches))
+                    <img src="{{ asset($matches[1]) }}" alt="Image Preview" width="80" height="50" style="display:block;margin-bottom:10px;">
+                    @endif
+
+                    {{-- Display limited content without removing the image --}}
+                    {!! Str::limit(strip_tags($post->content, '<strong><b><h1><h2><h3><h4><h5><h6><p><br><img>'), 20) !!}
+
+            </td>
+
+
             <td>{{ $post->category ? $post->category->name : 'Uncategorized' }}</td>
             <td>{{ $post->created_at->format('Y-m-d H:i') }}</td>
             <td>

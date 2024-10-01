@@ -15,21 +15,25 @@
                 @foreach ($posts as $index => $post)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                     <!-- Responsive Image -->
-                    <img src="https://via.placeholder.com/900x400?text={{ urlencode($post->title) }}" class="d-block w-100 img-fluid" alt="Featured image for {{ $post->title }}">
+                    <img src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x400?text=' . urlencode($post->title) }}"
+                        class="d-block w-100 img-fluid"
+                        alt="Featured image for {{ $post->title }}">
                     <div class="carousel-caption d-none d-md-block">
                         <h4>{{ $post->title }}</h4>
-                        <p>{{ Str::limit($post->content, 150, '...') }}</p>
+                        <p> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
                         <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Read More</a>
                     </div>
                 </div>
                 @endforeach
+
+
             </div>
             <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
@@ -44,7 +48,7 @@
                 <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid" alt="{{ $post->title }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ $post->title }}</h5>
-                    <p class="card-text">{{ Str::limit($post->content, 100, '...') }}</p>
+                    <p class="card-text"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
                     <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-outline-primary">Read More</a>
                 </div>
                 <div class="card-footer text-muted d-flex justify-content-between align-items-center">
@@ -72,7 +76,7 @@
         left: 10px;
         right: 10px;
         padding-bottom: 10px;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        background-color: rgba(0, 0, 0, 0.5);
         padding: 15px;
         border-radius: 10px;
         text-align: left;
@@ -83,7 +87,7 @@
         color: #fff;
     }
 
- 
+
     @media (max-width: 768px) {
         .carousel-caption h4 {
             font-size: 1.25rem;
@@ -95,10 +99,16 @@
     }
 
     /* Make sure the carousel images are responsive */
-    .carousel-item img {
-        width: 100%;
-        height: auto;
-    }
+    .carousel-item {
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%; /* Make the image take the full width of the container */
+    height: auto; /* Maintain the aspect ratio */
+    object-fit: cover; /* Cover the container without distortion */
+    max-height: 400px; /* Set a maximum height for the banner */
+}
 
     /* Responsive adjustments for cards */
     @media (max-width: 576px) {

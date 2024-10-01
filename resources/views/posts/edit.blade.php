@@ -1,5 +1,5 @@
 @extends('layout')
-
+@section('title', 'Edit Post')
 @section('content')
 <div class="container">
     <h1>Edit Post</h1>
@@ -35,8 +35,17 @@
         {{-- Content Field --}}
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea name="content" class="form-control" rows="10" required>{{ old('content', $post->content) }}</textarea>
+            <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content', $post->content) }}</textarea>
         </div>
+
+        <div class="form-group">
+            <label for="banner_image">Banner Image (Optional)</label>
+            <input type="file" class="form-control" name="banner_image" id="banner_image" accept="image/*">
+            @error('banner_image')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
 
         {{-- YouTube iFrame Field --}}
         <div class="form-group">

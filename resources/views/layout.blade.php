@@ -14,6 +14,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
     <!-- {{-- CKEditor CDN --}} -->
@@ -156,19 +157,9 @@
                     'undo', 'redo', '|',
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
-                    'codeBlock'
-                ],
-                language: 'en',
-                codeBlock: {
-                    languages: {
-                        'javascript': 'JavaScript',
-                        'python': 'Python',
-                        'html': 'HTML',
-                        'css': 'CSS',
-                        'java': 'Java',
 
-                    }
-                }
+                ],
+
             })
             .catch(error => {
                 console.error(error);
@@ -187,6 +178,7 @@
         });
     </script>
     @endif
+
     @if(session('error'))
     <script>
         Swal.fire({
@@ -198,12 +190,60 @@
     </script>
     @endif
 
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '{{ $errors->first() }}',
+        });
+    </script>
+    @endif
+
+    <!-- categories side bar open -->
     <script>
         document.getElementById('toggleSidebarBtn').addEventListener('click', function() {
             var sidebar = document.getElementById('categorySidebar');
             sidebar.classList.toggle('collapsed');
         });
     </script>
+
+    <!-- replies comments box -->
+    <script>
+        $(document).on('click', '.btn-link', function() {
+            var target = $(this).attr('href');
+            $(target).collapse('show'); // Ensure the form is visible
+            $(target).find('textarea').focus(); // Focus on the reply form textarea
+        });
+    </script>
+
+    <!-- upvote button -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const upvoteButtons = document.querySelectorAll('.upvote-button');
+
+            upvoteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentId = this.getAttribute('data-id');
+                    fetch(`/comments/${commentId}/upvote`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                this.querySelector('.upvote-count').innerText = data.upvotes; // Update upvote count
+                            }
+                        });
+                });
+            });
+        });
+    </script>
+
+
 
 </body>
 
