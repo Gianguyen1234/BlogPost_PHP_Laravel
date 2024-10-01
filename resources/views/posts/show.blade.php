@@ -96,8 +96,8 @@
 }
 
 .btn-outline-secondary:hover {
-    background-color: #6c757d; /* Darken button on hover */
-    color: white; /* Change text color */
+    background-color: #6c757d; 
+    color: white; 
 }
 
 .btn-outline-primary:hover {
