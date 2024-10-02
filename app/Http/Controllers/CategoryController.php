@@ -12,13 +12,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        // Retrieve all categories with their published posts (status = 1)
+        $categories = Category::with(['posts' => function ($query) {
+            $query->where('status', 1); // Only get published posts
+        }])->get();
+
         return view('admin.categories.index', compact('categories'));
     }
 
+
     public function create()
     {
-        return view('admin.categories.create'); 
+        return view('admin.categories.create');
     }
 
     public function store(Request $request)
@@ -130,10 +135,13 @@ class CategoryController extends Controller
 
     public function showUncategorized()
     {
-        // Fetch posts or data for uncategorized category
-        $uncategorizedPosts = Post::whereNull('category_id')->get(); // Assuming uncategorized posts have no category_id
+        // Fetch only published uncategorized posts (status = 1)
+        $uncategorizedPosts = Post::whereNull('category_id')->where('status', 1)->get(); // Assuming uncategorized posts have no category_id
+
         return view('posts.uncategorized', compact('uncategorizedPosts'));
     }
+
+
     public function showCategoryPosts($slug)
     {
         // Find the category by slug

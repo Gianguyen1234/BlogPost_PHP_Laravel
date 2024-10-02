@@ -105,6 +105,7 @@
 
         </div>
     </nav>
+    @include('partials.floatingmenu')
 
     <div class="container mt-5">
         @yield('content')

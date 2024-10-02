@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FollowController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -67,11 +68,17 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
     
     //manage posts
     Route::get('/admin/posts', [PostController::class, 'index'])->name('admin.posts.index');
-    Route::get('/admin/posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/admin/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('admin/posts/create', [AdminController::class, 'createPost'])->name('admin.posts.create');
+    Route::post('/admin/posts', [AdminController::class, 'storePost'])->name('admin.posts.store');
     Route::get('/admin/posts/{id}/edit', [PostController::class, 'edit'])->name('admin.posts.edit');
     Route::put('/admin/posts/{id}', [PostController::class, 'update'])->name('admin.posts.update');
     Route::delete('/admin/posts/{id}', [PostController::class, 'destroy'])->name('admin.posts.delete');
+
+    Route::get('admin/posts/draft', [AdminController::class, 'draftPosts'])->name('admin.posts.draft');
+    // Route for editing a draft post
+    Route::get('admin/posts/{id}/draftedit', [AdminController::class, 'editDraftPost'])->name('admin.posts.draftedit');
+    // Route for updating the post after editing
+    Route::put('admin/posts/draft/{id}', [AdminController::class, 'updateDraftPost'])->name('admin.posts.draftupdate');
 
 
 });
@@ -79,6 +86,7 @@ Route::middleware(['auth', 'usertype:admin'])->group(function () {
 Route::middleware(['auth', 'usertype:user'])->group(function () {
     // Routes for regular users to create posts
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
    
 });
 
@@ -101,6 +109,9 @@ Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name
 Route::post('comments/{id}/upvote', [CommentController::class, 'upvote'])->name('comments.upvote');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::post('/follow/{userId}', [FollowController::class, 'follow'])->name('follow');
+Route::post('/unfollow/{userId}', [FollowController::class, 'unfollow'])->name('unfollow');
 
 
 require __DIR__.'/auth.php';

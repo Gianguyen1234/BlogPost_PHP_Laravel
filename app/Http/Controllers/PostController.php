@@ -12,6 +12,15 @@ use Illuminate\Support\Str;
 class PostController extends Controller
 {
 
+    public function index()
+    {
+        // Fetch only published posts (status = 1) with pagination (10 posts per page)
+        $posts = Post::where('status', 1)
+            ->with(['category', 'author'])
+            ->paginate(10); // Adjust the number as needed
+
+        return view('posts.index', compact('posts'));
+    }
 
     public function create()
     {
@@ -30,9 +39,9 @@ class PostController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keyword' => 'nullable|string',
-            'status' => 'required|boolean',
+            'status' => 'required|boolean', // Allow status (published or draft)
             'category_id' => 'nullable|exists:categories,id',
-            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the banner image
+            'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Generate the slug from the title
@@ -44,26 +53,33 @@ class PostController extends Controller
             $slug .= '-' . ($existingSlugCount + 1);
         }
 
-        // Create the post data array without sanitizing content
+        // Set the post data
         $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
-            'content' => $validated['content'],  // No Purifier cleaning here
+            'content' => $validated['content'],
             'youtube_iframe' => $validated['youtube_iframe'],
             'meta_title' => $validated['meta_title'],
             'meta_description' => $validated['meta_description'],
             'meta_keyword' => $validated['meta_keyword'],
-            'status' => $validated['status'],
             'category_id' => $validated['category_id'],
             'created_by' => auth()->id(),
         ];
+
+        // If the user is an admin, allow them to set the status
+        if (auth()->user()->usertype == 'admin') {
+            $postData['status'] = $validated['status']; // Admin can publish or set as draft
+        } else {
+            // For non-admins, set status to draft by default
+            $postData['status'] = 0; // Draft (status 0)
+        }
 
         // Handle image upload
         if ($request->hasFile('banner_image')) {
             $image = $request->file('banner_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images/posts'), $imageName);
-            $postData['banner_image'] = 'images/posts/' . $imageName; // Store the image path
+            $postData['banner_image'] = 'images/posts/' . $imageName;
         }
 
         try {
@@ -73,19 +89,11 @@ class PostController extends Controller
             // Redirect with success message
             return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
         } catch (\Exception $e) {
-            // Handle any exceptions that occur during post creation
+            // Handle any exceptions
             return redirect()->back()->withErrors(['error' => 'Failed to create post. Please try again.']);
         }
     }
 
-
-    public function index()
-    {
-        // Fetch posts with pagination (10 posts per page)
-        $posts = Post::with(['category', 'author'])->paginate(10); // Adjust the number as needed
-
-        return view('posts.index', compact('posts'));
-    }
 
     public function edit($id)
     {

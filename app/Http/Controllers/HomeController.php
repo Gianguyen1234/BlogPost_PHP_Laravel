@@ -10,8 +10,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Retrieve the latest 5 posts
-        $posts = Post::latest()->take(5)->get();
+        // Retrieve the latest 5 published posts (status = 1)
+        $posts = Post::where('status', 1)
+            ->latest()
+            ->take(5)
+            ->get();
 
         // Retrieve all categories
         $categories = Category::all();
@@ -20,9 +23,3 @@ class HomeController extends Controller
         return view('home', compact('posts', 'categories'));
     }
 }
-
-
-
-
-
-
