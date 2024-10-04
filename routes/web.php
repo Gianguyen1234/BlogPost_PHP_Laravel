@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CKEditorController;
@@ -110,8 +111,13 @@ Route::post('comments/{id}/upvote', [CommentController::class, 'upvote'])->name(
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::post('/follow/{userId}', [FollowController::class, 'follow'])->name('follow');
-Route::post('/unfollow/{userId}', [FollowController::class, 'unfollow'])->name('unfollow');
+Route::post('/posts/{slug}/follow/{id}', [FollowController::class, 'follow'])->name('follow');
+Route::post('/posts/{slug}/unfollow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
+
 
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

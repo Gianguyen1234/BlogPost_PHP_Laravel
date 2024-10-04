@@ -5,6 +5,14 @@
 @section('content')
 <div class="container mt-5">
     <!-- Floating Category Menu Button -->
+    <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%;
+ padding-bottom: 0; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden;
+ border-radius: 8px; will-change: transform;">
+        <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+            src="https://www.canva.com/design/DAGSmCCtsTE/VfccU4To4PgJWr_FMJtXRA/watch?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
+        </iframe>
+    </div>
+
 
     <!-- Carousel Section for Featured Posts -->
     <div class="carousel-container mb-5">
@@ -38,12 +46,12 @@
     <div class="row">
         @foreach ($posts as $post)
         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark">
+            <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
                 <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-warning">{{ $post->title }}</h5>
-                    <p class="card-text text-muted"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block">Read More</a>
+                    <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
                 </div>
                 <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
                     <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
@@ -57,6 +65,7 @@
         </div>
         @endforeach
     </div>
+
 </div>
 @endsection
 
@@ -115,7 +124,22 @@
 
     /* Card Styles with gradient */
     .card {
+        display: flex;
+        flex-direction: column;
         transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-text {
+        flex-grow: 1;
+    }
+
+    .btn-block {
+        margin-top: auto;
     }
 
     .card:hover {

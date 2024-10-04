@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
-
+use Mews\Purifier\Facades\Purifier;
 
 class CommentController extends Controller
 {
@@ -45,16 +45,23 @@ class CommentController extends Controller
             'parent_id' => 'nullable|exists:comments,id',  // Validate the parent comment (if any)
         ]);
 
+        // Sanitize the content using Mew Purifier
+        $sanitizedContent = Purifier::clean($request->content);
+        // Check if sanitized content is empty
+        if (empty(trim($sanitizedContent))) {
+            return redirect()->back()->withErrors(['content' => 'Your comment does not contain valid content.']);
+        }
+
         // Create the comment or reply
         $post->comments()->create([
-            'author_name' => $request->author_name,
-            'content' => $request->content,
+            'author_name' => htmlspecialchars($request->author_name, ENT_QUOTES, 'UTF-8'), // Escaping special characters
+            'content' => $sanitizedContent, // Use sanitized content
             'parent_id' => $request->parent_id,  // Set parent_id if it's a reply
         ]);
 
         return redirect()->route('posts.show', $post->slug)->with('success', 'Comment posted successfully!');
     }
-    
+
     public function upvote($id)
     {
         $comment = Comment::findOrFail($id);

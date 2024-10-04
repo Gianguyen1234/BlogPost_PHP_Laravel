@@ -27,21 +27,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // Define the relationship to get followed users
     public function following()
     {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
 
+    // Define the relationship to get followers
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
     }
-
-    public function isFollowing(User $user)
-    {
-        return $this->following()->where('followed_id', $user->id)->exists();
-    }
-
   
 }
 

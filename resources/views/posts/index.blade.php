@@ -19,11 +19,11 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->title }}</h5>
-                            <p class="card-text"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                            <p class="card-text"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 50) !!}</p>
                             <small class="text-muted">Posted on {{ $post->created_at->format('M d, Y') }}</small>
                             <div class="mt-3">
                                 <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-primary">Continue reading</a>
-                                @if(Auth::check() && Auth::user()->usertype === 'admin') <!-- Show Edit and Delete buttons only for admins -->
+                                @if( Auth::check() && Auth::user()->usertype === 'admin') <!-- Show Edit and Delete buttons only for admins -->
                                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;">
                                     @csrf

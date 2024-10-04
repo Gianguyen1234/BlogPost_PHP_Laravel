@@ -53,13 +53,81 @@
 
         </div>
         <!-- Menu bar section -->
-        @include('partials.menubar')
+        <div class="col-lg-4">
+            @include('partials.menubar')
+            <!-- author card -->
+            <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
+                <div class="card-body d-flex align-items-center">
+                    <div class="author-avatar me-3">
+                        <img src="{{ $post->author->avatar ?? 'default-avatar.jpg' }}" alt="Author's Avatar" class="rounded-circle" width="80" height="80">
+                    </div>
+                    <div>
+                        <h5 class="card-title mb-1 ml-2">{{ $post->author->name }}</h5>
+                        <p class="text-muted mb-2">{{ $post->author->bio }}</p>
+                        @auth
+                        <form id="follow-form" method="POST"
+                            data-follow-url="{{ route('follow', ['slug' => $post->slug, 'id' => $post->author->id]) }}"
+                            data-unfollow-url="{{ route('unfollow', ['slug' => $post->slug, 'id' => $post->author->id]) }}">
+                            @csrf
+                            <button type="submit" id="follow-btn" class="btn btn-info ml-2">
+                                {{ Auth::user()->following()->where('followed_id', $post->author->id)->exists() ? 'Unfollow' : 'Follow' }}
+                            </button>
+                        </form>
+                        @else
+                        <a href="{{ route('login') }}" class="btn btn-info ml-2">
+                            Follow
+                        </a>
+                        @endauth
 
-        <!-- Author Profile Section -->
-       
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
 
     </div>
 </div>
+<script>
+    document.getElementById('follow-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const followBtn = document.getElementById('follow-btn');
+        const currentText = followBtn.innerText; // Current button text (Follow/Unfollow)
+
+        // Get the URLs from data attributes
+        const followUrl = this.getAttribute('data-follow-url');
+        const unfollowUrl = this.getAttribute('data-unfollow-url');
+
+        // Determine the action URL based on the button's current text
+        const actionUrl = currentText === 'Follow' ? followUrl : unfollowUrl;
+
+        // Make an AJAX request
+        fetch(actionUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Toggle the button text between Follow and Unfollow
+                    followBtn.innerText = currentText === 'Follow' ? 'Unfollow' : 'Follow';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
 @endsection
 
 <style>

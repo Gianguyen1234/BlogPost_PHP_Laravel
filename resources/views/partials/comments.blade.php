@@ -7,7 +7,7 @@
         @foreach($post->comments->where('parent_id', null) as $comment)
         <div class="comment mb-4 p-3 border rounded bg-light">
             <strong class="text-success">{{ $comment->author_name }}</strong>
-            <p class="mt-2">{{ $comment->content }}</p>
+            <p class="mt-2">{!! $comment->content !!}</p>
             <small class="text-muted">{{ $comment->created_at->format('F j, Y') }}</small>
 
             <!-- Upvote Button -->
@@ -34,6 +34,7 @@
                     <button type="submit" class="btn btn-success">Post Reply</button>
                 </form>
             </div>
+
 
             <!-- Display Nested Replies -->
             @if($comment->replies->isNotEmpty())
@@ -70,4 +71,5 @@
             <button type="submit" class="btn btn-success">Post Comment</button>
         </form>
     </div>
+    
 </div>
