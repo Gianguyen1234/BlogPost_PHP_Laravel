@@ -131,8 +131,7 @@
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
 
-                ],
-          
+                ]          
             })
             .catch(error => {
                 console.error(error);
