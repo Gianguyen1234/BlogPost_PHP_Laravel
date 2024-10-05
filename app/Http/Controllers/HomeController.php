@@ -10,7 +10,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Retrieve the latest 5 published posts (status = 1)
         $posts = Post::where('status', 1)
             ->latest()
             ->take(5)
