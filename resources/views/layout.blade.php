@@ -208,7 +208,7 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                this.querySelector('.upvote-count').innerText = data.upvotes; // Update upvote count
+                                this.querySelector('.upvote-count').innerText = data.upvotes; 
                             }
                         });
                 });
