@@ -166,7 +166,6 @@
         background: linear-gradient(135deg, #333, #000);
     }
 
-    /* Responsive adjustments */
     @media (max-width: 576px) {
         .carousel-caption h4 {
             font-size: 1.25rem;
