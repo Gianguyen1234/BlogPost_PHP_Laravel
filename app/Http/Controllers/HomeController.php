@@ -14,8 +14,6 @@ class HomeController extends Controller
             ->latest()
             ->take(5)
             ->get();
-
-        // Retrieve all categories
         $categories = Category::all();
         return view('home', compact('posts', 'categories'));
     }
