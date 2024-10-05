@@ -185,8 +185,8 @@
     <script>
         $(document).on('click', '.btn-link', function() {
             var target = $(this).attr('href');
-            $(target).collapse('show'); // Ensure the form is visible
-            $(target).find('textarea').focus(); // Focus on the reply form textarea
+            $(target).collapse('show'); 
+            $(target).find('textarea').focus(); 
         });
     </script>
 
