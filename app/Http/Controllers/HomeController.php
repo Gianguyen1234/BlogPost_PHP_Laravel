@@ -18,8 +18,6 @@ class HomeController extends Controller
 
         // Retrieve all categories
         $categories = Category::all();
-
-        // Pass the posts and categories to the view
         return view('home', compact('posts', 'categories'));
     }
 }
