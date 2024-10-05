@@ -130,7 +130,6 @@
                     'undo', 'redo', '|',
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
-
                 ]          
             })
             .catch(error => {
