@@ -40,14 +40,13 @@ This blog application is designed to provide users with an intuitive interface f
 - **Post Slug Generation**: Automatically generate a unique, URL-friendly slug from the post title.
 
 ### Rich Text and Code Features
-- **Markdown Support**: Integrate a Markdown editor (like SimpleMDE or Trix) for formatting.
-- **Code Syntax Highlighting**: Use libraries like Prism.js or Highlight.js for syntax highlighting.
+- **Markdown Support**: Integrate a Markdown editor (Ckeditor) for formatting.
+- **Code Syntax Highlighting**: Use libraries Highlight.js for syntax highlighting.
 - **Upload Images and Files**: Allow users to upload images and attachments in their posts.
 
 ### Post Interaction Features
 - **Comments Section**: Users can leave comments on posts, including nested comments (replies).
 - **Likes/Upvotes**: Functionality for users to upvote or like posts and comments.
-- **Tags and Categories**: Implement tagging for posts (e.g., "JavaScript", "Python") and filtering by categories.
 
 ### Search and Filtering Features
 - **Search Functionality**: Full-text search across blog posts (search by title, content, tags).
@@ -61,12 +60,12 @@ This blog application is designed to provide users with an intuitive interface f
 ### Admin Panel
 - **Moderation Tools**: Admins can flag, approve, or remove inappropriate content.
 - **Analytics**: View post analytics (post views, user engagement).
-- **Post Approvals (optional)**: Allow posts to be approved by an admin before going live.
+- **Post Approvals**: Allow posts to be approved by an admin before going live.
 
 ### Security Features
 - **CSRF Protection**: Protect forms and APIs using Laravel’s built-in CSRF protection.
 - **XSS Protection**: Sanitize post content to prevent Cross-Site Scripting (XSS).
-- **Spam Protection**: Implement captcha (e.g., reCAPTCHA) for comments and submissions.
+- **Spam Protection**: Implement captcha ( reCAPTCHA) for comments and submissions.
 - **Rate Limiting**: Limit user actions (comments, post submissions) to prevent abuse.
 
 ## Prerequisites
