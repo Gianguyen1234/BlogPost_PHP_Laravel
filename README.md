@@ -28,8 +28,8 @@ This blog application is designed to provide users with an intuitive interface f
 
 ### User Features
 - **User Authentication**: Register, login, and logout functionality.
-- **User Profiles**: Users can maintain profiles with a bio, profile picture, and links to social accounts (e.g., GitHub).
-- **User Roles (optional)**: Support for admin and regular user roles for post moderation.
+- **User Profiles**: Users can maintain profiles with a bio, profile picture, and links to social accounts ( GitHub, Linkedin, X).
+- **User Roles**: Support for admin and regular user roles for post moderation.
 
 ### Blog Post Features
 - **CRUD Operations**: Users can create, read, update, and delete their posts.
