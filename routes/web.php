@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\UserProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +43,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/userprofile/create', [UserProfileController::class, 'create'])->name('userprofile.create');
+    Route::post('/userprofile', [UserProfileController::class, 'store'])->name('userprofile.store');
+    Route::get('/userprofile', [UserProfileController::class, 'show'])->name('userprofile.show');
+    Route::get('/userprofile/edit', [UserProfileController::class, 'edit'])->name('userprofile.edit');
+    Route::patch('/userprofile', [UserProfileController::class, 'update'])->name('userprofile.update');
+    Route::delete('/userprofile', [UserProfileController::class, 'destroy'])->name('userprofile.destroy');
+});
+
 
 Route::resource('posts', PostController::class);
 

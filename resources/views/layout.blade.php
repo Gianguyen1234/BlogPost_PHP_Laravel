@@ -91,7 +91,8 @@
             <a href="{{ route('admin.dashboard') }}" class="btn btn-admin">Admin Dashboard</a>
             @else
             <!-- Link for Regular Users (optional, if needed) -->
-            <a href="{{ url('/') }}" class="btn btn-dashboard">Default User</a>
+            <a href="{{  route('userprofile.show') }}" class="btn btn-dashboard">User Profile</a>
+          
             @endif
 
 
