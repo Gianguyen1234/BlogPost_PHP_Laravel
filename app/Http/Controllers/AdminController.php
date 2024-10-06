@@ -140,7 +140,7 @@ class AdminController extends Controller
 
     // Update the post
     $post->update([
-        'title' => $request->input('title', $post->title), // Use the current title if not provided
+        'title' => $request->input('title', $post->title), 
         'content' => $request->input('content', $post->content), // Use current content if not provided
         'status' => $request->input('status'),
     ]);
