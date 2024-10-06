@@ -1,3 +1,84 @@
+:root {
+    /* Default (Light) Mode Colors */
+    --bg-color: #f8f9fa;
+    --sidebar-bg-color: #343a40;
+    --text-color: #343a40;
+    --list-bg-hover: #495057;
+    --btn-bg-color: #007bff;
+    --btn-hover-bg: #0056b3;
+}
+
+.dracula-mode {
+    /* Dracula Palette Colors */
+    --bg-color: #282a36;
+    --sidebar-bg-color: #282a36;
+    --text-color: #b6d11e;
+    --list-bg-hover: #44475a;
+    --btn-bg-color: #bd93f9; /* Purple */
+    --btn-hover-bg: #6272a4; /* Muted Blue */
+    --icon-color: #f1fa8c; /* Yellow */
+    --link-hover-color: #ff79c6; /* Pink */
+}
+
+/* Sidebar */
+#sidebar {
+    background-color: var(--sidebar-bg-color);
+    color: var(--text-color);
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), background-color 0.4s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(218, 213, 213, 0.15); /* Modern shadow effect */
+}
+
+#sidebar .list-group-item {
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#sidebar .list-group-item:hover {
+    background-color: var(--list-bg-hover);
+    color: var(--link-hover-color); /* Hover text is Pink */
+}
+
+#sidebar .list-group-item i {
+    font-size: 1.2rem;
+    color: var(--icon-color); /* Icon color is Yellow */
+    transition: transform 0.3s ease;
+}
+
+#sidebar .list-group-item:hover i {
+    transform: scale(1.1); /* Icon scaling on hover */
+}
+
+/* Sidebar Toggle Button */
+#sidebarToggle, #sidebarToggleMobile {
+    background-color: var(--btn-bg-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#sidebarToggle:hover, #sidebarToggleMobile:hover {
+    background-color: var(--btn-hover-bg); /* Hover on toggle button */
+}
+
+/* Page Content */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.sidebar-header {
+    background-color: var(--list-bg-hover);
+    border-bottom: 1px solid #6272a4; /* Comment color from Dracula palette */
+}
+
 /* Sidebar*/
 #sidebar {
     width: 250px;

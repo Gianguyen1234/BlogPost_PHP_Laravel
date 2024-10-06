@@ -103,8 +103,37 @@
                     <button class="btn btn-primary d-lg-none" id="sidebarToggleMobile">
                         <i class="bi bi-list fs-4"></i>
                     </button>
-                    <h1 class="ms-3">Dashboard</h1>
+                    <h1 class="ms-3 text-wrap bg-primary text-white p-2">Dashboard</h1>
                 </div>
+                <!-- Right-side Icons (Notification & Toggle Dracula Mode) -->
+                <div class="d-flex align-items-center ">
+                    <div class="dropdown me-3">
+                        <!-- Notification Icon -->
+                        <button class="btn btn-light position-relative" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bell fs-4" ></i>
+                            <!-- Notification Badge -->
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3 <!-- Example notification count -->
+                            </span>
+                        </button>
+                        <!-- Notification dropdown content -->
+                        <ul class="dropdown-menu dropdown-menu-end p-3" aria-labelledby="notificationDropdown">
+                            <li><strong>Notifications</strong></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a href="#" class="dropdown-item">New message from John</a></li>
+                            <li><a href="#" class="dropdown-item">Server maintenance scheduled</a></li>
+                            <li><a href="#" class="dropdown-item">Update available</a></li>
+                        </ul>
+                    </div>
+                    <!-- Add a toggle button in your header or sidebar -->
+                    <button class="btn btn-primary ms-5" onclick="toggleDraculaMode()">
+                        <i class="bi bi-moon-stars me-2"></i> <!-- Icon for dark mode -->
+                        Dracula Mode
+                    </button>
+
+
             </header>
             <div class="container-fluid p-4">
 
@@ -115,6 +144,7 @@
 
     <!-- Bootstrap and Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- DataTables JS -->
@@ -243,6 +273,23 @@
 
         });
     </script>
+    <script>
+        // Check for saved theme in localStorage
+        if (localStorage.getItem('theme-mode') === 'dracula') {
+            document.body.classList.add('dracula-mode');
+        }
+
+        // Toggle function for Dracula mode
+        function toggleDraculaMode() {
+            document.body.classList.toggle('dracula-mode');
+            if (document.body.classList.contains('dracula-mode')) {
+                localStorage.setItem('theme-mode', 'dracula');
+            } else {
+                localStorage.setItem('theme-mode', 'default');
+            }
+        }
+    </script>
+
 
 </body>
 
