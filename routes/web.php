@@ -118,6 +118,4 @@ Route::post('/posts/{slug}/unfollow/{id}', [FollowController::class, 'unfollow']
 
 require __DIR__.'/auth.php';
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -201,36 +201,48 @@
                 }
             });
         }
+
+        function confirmReject(postId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, reject it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the reject form
+                    document.getElementById('rejectForm-' + postId).submit();
+                }
+            });
+        }
     </script>
     <script>
-$(document).ready(function() {
-    $('#addTable').DataTable({
-        // Enable searching and pagination
-        paging: true,
-        searching: true,
-        ordering: true,
-        // Optional: Customize language settings if needed
-        language: {
-            search: "Search:",
-            lengthMenu: "Display _MENU_ users per page",
-            info: "Showing page _PAGE_ of _PAGES_",
-            paginate: {
-                first: "First",
-                last: "Last",
-                next: "Next",
-                previous: "Previous"
-            }
-        }
-    });
+        $(document).ready(function() {
+            $('#addTable').DataTable({
+                // Enable searching and pagination
+                paging: true,
+                searching: true,
+                ordering: true,
+                // Optional: Customize language settings if needed
+                language: {
+                    search: "Search:",
+                    lengthMenu: "Display _MENU_ users per page",
+                    info: "Showing page _PAGE_ of _PAGES_",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                }
+            });
 
-    // Function to confirm deletion
-    window.confirmDelete = function(userId) {
-        if (confirm("Are you sure you want to delete this user?")) {
-            document.getElementById('delete-form-' + userId).submit();
-        }
-    }
-});
-</script>
+        });
+    </script>
 
 </body>
 

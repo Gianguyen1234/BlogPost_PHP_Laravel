@@ -123,11 +123,6 @@ class PostController extends Controller
 
         $post = Post::findOrFail($id);
 
-        // Ensure the user has permission to update the post
-        // if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
-        //     return redirect()->route('posts.index')->with('error', 'Unauthorized access.');
-        // }
-
         // Generate and check the slug
         $slug = Str::slug($validated['title']);
         $existingSlugCount = Post::where('slug', 'like', $slug . '%')->where('id', '!=', $post->id)->count();

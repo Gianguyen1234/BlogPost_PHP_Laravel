@@ -19,6 +19,8 @@
     <!-- {{-- CKEditor CDN --}} -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
 
 </head>
 
@@ -135,7 +137,58 @@
             .catch(error => {
                 console.error(error);
             });
+                // Convert button functionality (ensure you have a convert button in your form)
+        document.querySelector('#convert-button').addEventListener('click', () => {
+            const markdownInput = CKEDITOR.instances['content'].getData();
+            const md = window.markdownit(); // Ensure markdown-it is initialized
+            const renderedMarkdown = md.render(markdownInput);
+
+            // Display rendered HTML
+            document.querySelector('#render-here').innerHTML = renderedMarkdown;
+
+            // Highlight code blocks if using Highlight.js
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block); // Assuming hljs is already included
+            });
+        });
     </script>
+ 
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Markdown-it with Highlight.js integration
+        var md = window.markdownit({
+          highlight: function (str, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+              try {
+                return hljs.highlight(str, { language: lang }).value;
+              } catch (__) {}
+            }
+            // Fallback to automatic detection if no language is specified
+            try {
+              return hljs.highlightAuto(str).value;
+            } catch (__) {}
+            return ''; // Use external default escaping if highlight fails
+          }
+        });
+
+        // Add click event listener to the convert button
+        document.getElementById('convert-button').addEventListener('click', function() {
+            // Get the content from the textarea
+            var markdownContent = document.getElementById('content').value;
+
+            // Convert Markdown to HTML
+            var htmlContent = md.render(markdownContent);
+
+            // Render the HTML in the specified div
+            document.getElementById('render-here').innerHTML = htmlContent;
+
+            // Re-highlight all code blocks in the result
+            document.querySelectorAll('pre code').forEach((block) => {
+              hljs.highlightElement(block);
+            });
+        });
+    });
+  </script>
 
 
     @if(session('success'))
@@ -214,7 +267,7 @@
         });
     </script>
 
-
+     
 
 </body>
 </html>

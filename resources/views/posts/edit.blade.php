@@ -36,7 +36,12 @@
         <div class="form-group">
             <label for="content">Content</label>
             <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content', $post->content) }}</textarea>
+            <div class="mt-2">
+                <button type="button" class="btn btn-primary" id="convert-button">Convert to HTML</button>
+                <button type="submit" class="btn btn-success" id="save-button">Save to Database</button>
+            </div>
         </div>
+        <div id="render-here" class="mt-3"></div>
 
         <div class="form-group">
             <label for="banner_image">Banner Image (Optional)</label>
@@ -104,4 +109,5 @@
         <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
 @endsection

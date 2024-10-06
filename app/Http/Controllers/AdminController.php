@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\Category;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -24,7 +25,7 @@ class AdminController extends Controller
         $totalUsers = 1234;
         return view('admin.analytics', compact('totalUsers'));
     }
-    
+
     public function createPost()
     {
         // Fetch all categories to display in the create form
@@ -74,7 +75,7 @@ class AdminController extends Controller
             $postData['status'] = $validated['status']; // Admin can publish or set as draft
         } else {
             // For non-admins, set status to draft by default
-            $postData['status'] = 0; 
+            $postData['status'] = 0;
         }
 
         // Handle image upload
@@ -103,36 +104,59 @@ class AdminController extends Controller
         $draftPosts = Post::where('status', 0)->with('author')->get(); // Draft status
         $rejectedPosts = Post::where('status', 2)->with('author')->get(); // Rejected status
         $approvedPosts = Post::where('status', 1)->with('author')->get(); // Approved status
-    
+
         return view('admin.posts.draft', compact('draftPosts', 'rejectedPosts', 'approvedPosts'));
     }
-     // Function to display the edit view for a draft post
-     public function editDraftPost($id)
-     {
-         $post = Post::findOrFail($id);  // Fetch the post by ID
- 
-         return view('admin.posts.draftedit', compact('post'));
-     }
- 
-     // Function to handle the update after the post is edited
-     public function updateDraftPost(Request $request, $id)
-     {
-         $post = Post::findOrFail($id);
- 
-         // Validate incoming data
-         $request->validate([
-             'title' => 'required|string|max:255',
-             'content' => 'required',
-         ]);
- 
-         // Update the post with new data
-         $post->update([
-             'title' => $request->input('title'),
-             'content' => $request->input('content'),
-             'status' => $request->input('status', 0),  // Default to draft if status isn't provided
-         ]);
- 
-         return redirect()->route('admin.posts.draftedit', $post->id)->with('success', 'Post updated successfully');
-     }
-    
+    // Function to display the edit view for a draft post
+    public function editDraftPost($id)
+    {
+        $post = Post::findOrFail($id);  // Fetch the post by ID
+
+        return view('admin.posts.draftedit', compact('post'));
+    }
+
+    // Function to handle the update after the post is edited
+    public function updateDraftPost(Request $request, $id)
+{
+    $post = Post::findOrFail($id);
+
+    // Determine if the form is trying to publish or reject a post
+    $isStatusUpdate = $request->has('status') && !$request->has('title') && !$request->has('content');
+
+    // Validate incoming data
+    if ($isStatusUpdate) {
+        // If it's just a status update (publish/reject), only validate the status field
+        $request->validate([
+            'status' => 'required|integer|in:0,1,2',
+        ]);
+    } else {
+        // Otherwise, validate all fields for draft editing
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required',
+            'status' => 'required|integer|in:0,1,2',
+        ]);
+    }
+
+    // Update the post
+    $post->update([
+        'title' => $request->input('title', $post->title), // Use the current title if not provided
+        'content' => $request->input('content', $post->content), // Use current content if not provided
+        'status' => $request->input('status'),
+    ]);
+
+    // Set the appropriate success message based on status
+    $message = '';
+    if ($request->input('status') == 1) {
+        $message = 'Draft post published successfully.';
+    } elseif ($request->input('status') == 2) {
+        $message = 'Draft post rejected successfully.';
+    } else {
+        $message = 'Draft post updated successfully.';
+    }
+
+    // Redirect to post management page with a success message
+    return redirect()->route('admin.posts.index')->with('success', $message);
+}
+
 }

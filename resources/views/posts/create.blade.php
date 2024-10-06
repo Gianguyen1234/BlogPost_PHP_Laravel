@@ -22,7 +22,12 @@
             <label for="content">Content</label>
             <!-- CKEditor textarea -->
             <textarea id="content" name="content" class="form-control" placeholder="Write your content here..." rows="10"></textarea>
+            <div class="mt-2">
+                <button type="button" class="btn btn-primary" id="convert-button">Convert to HTML</button>
+                <button type="submit" class="btn btn-success" id="save-button">Save to Database</button>
+            </div>
         </div>
+        <div id="render-here" class="mt-3"></div>
 
         <div class="form-group">
             <label for="banner_image">Banner Image (Optional)</label>
@@ -53,18 +58,18 @@
         </div>
 
         @if(Auth::check() && Auth::user()->usertype === 'admin')
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status" class="form-control" required>
-                    <option value="2">Approved (Publish)</option>
-                    <option value="0">Draft</option>
-                </select>
-            </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status" class="form-control" required>
+                <option value="2">Approved (Publish)</option>
+                <option value="0">Draft</option>
+            </select>
+        </div>
         @else
-          
-            <input type="hidden" name="status" value="0">
+
+        <input type="hidden" name="status" value="0">
         @endif
-       
+
 
         <div class="form-group">
             <label for="category_id">Category</label>
