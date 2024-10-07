@@ -64,7 +64,7 @@ This blog application is designed to provide users with an intuitive interface f
 
 ### Security Features
 - **CSRF Protection**: Protect forms and APIs using Laravel’s built-in CSRF protection.
-- **XSS Protection**: Sanitize post content to prevent Cross-Site Scripting (XSS).
+- **XSS Protection**: Sanitize forms and inputs using Purifier and HTMLspecialchar to prevent Cross-Site Scripting (XSS) .
 - **Spam Protection**: Implement captcha ( reCAPTCHA) for comments and submissions.
 - **Rate Limiting**: Limit user actions (comments, post submissions) to prevent abuse.
 
