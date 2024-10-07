@@ -13,6 +13,7 @@ Welcome to my blog post about building a blog application using Laravel! This ap
   - [Search and Filtering Features](#search-and-filtering-features)
   - [Post Drafts and Publishing](#post-drafts-and-publishing)
   - [Admin Panel](#admin-panel)
+  - [Performance Features](#performence-features)
   - [Security Features](#security-features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -41,8 +42,8 @@ This blog application is designed to provide users with an intuitive interface f
 
 ### Rich Text and Code Features
 - **Markdown Support**: Integrate a Markdown editor (Ckeditor) for formatting.
-- **Code Syntax Highlighting**: Use libraries Highlight.js for syntax highlighting.
-- **Upload Images and Files**: Allow users to upload images and attachments in their posts.
+- **Code Syntax Highlighting**: Use library Highlight.js for highlighting code.
+- **Upload Images and Files**: Allow users to upload images and files in their posts. .
 
 ### Post Interaction Features
 - **Comments Section**: Users can leave comments on posts, including nested comments (replies).
@@ -61,6 +62,11 @@ This blog application is designed to provide users with an intuitive interface f
 - **Moderation Tools**: Admins can flag, approve, or remove inappropriate content.
 - **Analytics**: View post analytics (post views, user engagement).
 - **Post Approvals**: Allow posts to be approved by an admin before going live.
+
+### Performence features
+- **Caching**: Cache popular posts and queries to reduce load on the database.
+- **Lazy Loading**: Implement lazy loading for images and long post content to improve page speed.
+- **UI/UX**: Add NProgress for smoother transitions.
 
 ### Security Features
 - **CSRF Protection**: Protect forms and APIs using Laravel’s built-in CSRF protection.
