@@ -64,3 +64,13 @@ pre {
     padding: 10px;
     overflow-x: auto;
   }
+
+#nprogress .bar {
+    background: #29d; 
+    height: 6px;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px rgb(181, 221, 243), 0 0 5px #29d;
+}
+

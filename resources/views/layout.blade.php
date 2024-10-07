@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="{{url('css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- NProgress -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+
 
     <!-- {{-- CKEditor CDN --}} -->
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
@@ -235,7 +239,36 @@
             });
         });
     </script>
-   
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show progress bar when navigating away
+        NProgress.configure({ showSpinner: false });
+        
+        // Show progress when page starts loading
+        window.addEventListener('beforeunload', function () {
+            NProgress.start();
+        });
+
+        // Hide progress when page fully loads
+        window.addEventListener('load', function () {
+            NProgress.done();
+        });
+
+        // Attach NProgress to any AJAX requests (if using jQuery)
+        $(document).ajaxStart(function () {
+            NProgress.start();
+        }).ajaxStop(function () {
+            NProgress.done();
+        });
+          // Optional: Trigger NProgress on link clicks
+        document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            NProgress.start();
+        });
+    });
+    });
+</script>
+
 
 </body>
 </html>
