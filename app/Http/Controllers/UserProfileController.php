@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,17 +25,33 @@ class UserProfileController extends Controller
             'linkedin_link' => 'nullable|url',
         ]);
 
-        // Create the profile for the authenticated user
-        $profile = Auth::user()->profile()->create($validated);
+        // Check if the authenticated user already has a profile
+        $profile = Auth::user()->profile;
+
+        if ($profile) {
+            // Update the existing profile
+            $profile->update($validated);
+        } else {
+            // Create a new profile for the authenticated user
+            $profile = Auth::user()->profile()->create($validated);
+        }
 
         // Handle file upload for profile picture
         if ($request->hasFile('profile_picture')) {
-            $profile->profile_picture = $request->file('profile_picture')->store('profile_pictures');
+            // Delete the old profile picture if it exists
+            if ($profile->profile_picture) {
+                Storage::disk('public')->delete($profile->profile_picture);
+            }
+
+            // Store the new profile picture in the 'public/profile_pictures' directory
+            $profile->profile_picture = $request->file('profile_picture')->store('profile_pictures', 'public');
             $profile->save(); // Save the profile with the new profile picture path
         }
 
-        return redirect()->route('userprofile.show')->with('status', 'Profile created successfully!');
+        return redirect()->route('userprofile.show')->with('status', 'Profile saved successfully!');
     }
+
+
 
 
     /**
