@@ -19,12 +19,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 
-    <!-- {{-- CKEditor CDN --}} -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
 
 </head>
 
@@ -64,7 +65,7 @@
             @else
             <!-- Link for Regular Users (optional, if needed) -->
             <a href="{{  route('userprofile.show') }}" class="btn btn-dashboard">User Profile</a>
-          
+
             @endif
 
 
@@ -92,7 +93,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"></script>
     <script>
+        // Initialize CKEditor
         ClassicEditor
             .create(document.querySelector('#content'), {
                 ckfinder: {
@@ -105,63 +108,45 @@
                     'undo', 'redo', '|',
                     'bulletedList', 'numberedList', 'blockQuote', '|',
                     'insertTable', 'mediaEmbed', '|',
-                ]          
+                ]
+            })
+            .then(editor => {
+                window.editor = editor; // Store the editor instance
             })
             .catch(error => {
-                console.error(error);
+                console.error('Error initializing CKEditor:', error);
             });
-                // Convert button functionality (ensure you have a convert button in your form)
-        document.querySelector('#convert-button').addEventListener('click', () => {
-            const markdownInput = CKEDITOR.instances['content'].getData();
-            const md = window.markdownit(); // Ensure markdown-it is initialized
-            const renderedMarkdown = md.render(markdownInput);
 
-            // Display rendered HTML
-            document.querySelector('#render-here').innerHTML = renderedMarkdown;
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize Markdown-it with Highlight.js support
+            var md = window.markdownit({
+                highlight: function(str, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                        try {
+                            return hljs.highlight(str, { language: lang }).value;
+                        } catch (__) {}
+                    }
+                    try {
+                        return hljs.highlightAuto(str).value;
+                    } catch (__) {}
+                    return ''; // Fallback if highlight fails
+                }
+            });
 
-            // Highlight code blocks if using Highlight.js
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightElement(block); // Assuming hljs is already included
+            // Event listener for conversion
+            document.getElementById('convert-button').addEventListener('click', function() {
+                const markdownContent = window.editor.getData(); // Use CKEditor data
+                const htmlContent = md.render(markdownContent);
+                document.getElementById('render-here').innerHTML = htmlContent;
+
+                // Re-highlight all code blocks
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
             });
         });
     </script>
- 
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Initialize Markdown-it with Highlight.js integration
-        var md = window.markdownit({
-          highlight: function (str, lang) {
-            if (lang && hljs.getLanguage(lang)) {
-              try {
-                return hljs.highlight(str, { language: lang }).value;
-              } catch (__) {}
-            }
-            // Fallback to automatic detection if no language is specified
-            try {
-              return hljs.highlightAuto(str).value;
-            } catch (__) {}
-            return ''; // Use external default escaping if highlight fails
-          }
-        });
 
-        // Add click event listener to the convert button
-        document.getElementById('convert-button').addEventListener('click', function() {
-            // Get the content from the textarea
-            var markdownContent = document.getElementById('content').value;
-
-            // Convert Markdown to HTML
-            var htmlContent = md.render(markdownContent);
-
-            // Render the HTML in the specified div
-            document.getElementById('render-here').innerHTML = htmlContent;
-
-            // Re-highlight all code blocks in the result
-            document.querySelectorAll('pre code').forEach((block) => {
-              hljs.highlightElement(block);
-            });
-        });
-    });
-  </script>
 
 
     @if(session('success'))
@@ -209,8 +194,8 @@
     <script>
         $(document).on('click', '.btn-link', function() {
             var target = $(this).attr('href');
-            $(target).collapse('show'); 
-            $(target).find('textarea').focus(); 
+            $(target).collapse('show');
+            $(target).find('textarea').focus();
         });
     </script>
 
@@ -232,7 +217,7 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                this.querySelector('.upvote-count').innerText = data.upvotes; 
+                                this.querySelector('.upvote-count').innerText = data.upvotes;
                             }
                         });
                 });
@@ -240,35 +225,38 @@
         });
     </script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Show progress bar when navigating away
-        NProgress.configure({ showSpinner: false });
-        
-        // Show progress when page starts loading
-        window.addEventListener('beforeunload', function () {
-            NProgress.start();
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show progress bar when navigating away
+            NProgress.configure({
+                showSpinner: false
+            });
 
-        // Hide progress when page fully loads
-        window.addEventListener('load', function () {
-            NProgress.done();
-        });
+            // Show progress when page starts loading
+            window.addEventListener('beforeunload', function() {
+                NProgress.start();
+            });
 
-        // Attach NProgress to any AJAX requests (if using jQuery)
-        $(document).ajaxStart(function () {
-            NProgress.start();
-        }).ajaxStop(function () {
-            NProgress.done();
+            // Hide progress when page fully loads
+            window.addEventListener('load', function() {
+                NProgress.done();
+            });
+
+            // Attach NProgress to any AJAX requests (if using jQuery)
+            $(document).ajaxStart(function() {
+                NProgress.start();
+            }).ajaxStop(function() {
+                NProgress.done();
+            });
+            // Optional: Trigger NProgress on link clicks
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    NProgress.start();
+                });
+            });
         });
-          // Optional: Trigger NProgress on link clicks
-        document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function() {
-            NProgress.start();
-        });
-    });
-    });
-</script>
+    </script>
 
 
 </body>
+
 </html>

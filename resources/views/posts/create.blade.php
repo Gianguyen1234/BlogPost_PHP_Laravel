@@ -13,12 +13,12 @@
             <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title here..." required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" >
             <label for="slug">Slug (Optional)</label>
             <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter the slug here...">
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="editor-container">
             <label for="content">Content</label>
             <!-- CKEditor textarea -->
             <textarea id="content" name="content" class="form-control" placeholder="Write your content here..." rows="10"></textarea>
