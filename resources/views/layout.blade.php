@@ -123,7 +123,9 @@
                 highlight: function(str, lang) {
                     if (lang && hljs.getLanguage(lang)) {
                         try {
-                            return hljs.highlight(str, { language: lang }).value;
+                            return hljs.highlight(str, {
+                                language: lang
+                            }).value;
                         } catch (__) {}
                     }
                     try {
@@ -146,8 +148,6 @@
             });
         });
     </script>
-
-
 
     @if(session('success'))
     <script>

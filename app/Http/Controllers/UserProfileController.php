@@ -64,7 +64,7 @@ class UserProfileController extends Controller
 
         // Check if profile exists
         if (!$profile) {
-            return redirect()->route('userprofile.edit')->with('status', 'Please create a profile first.');
+            return redirect()->route('userprofile.edit')->with('success', 'Please create a profile first.');
         }
 
         return view('userprofile.show', compact('profile'));
@@ -79,7 +79,7 @@ class UserProfileController extends Controller
 
         // Check if profile exists
         if (!$profile) {
-            return redirect()->route('userprofile.create')->with('status', 'Please create a profile first.');
+            return redirect()->route('userprofile.create')->with('success', 'Please create a profile first.');
         }
 
         return view('userprofile.edit', compact('profile'));
@@ -116,7 +116,7 @@ class UserProfileController extends Controller
         // Update the profile with the validated data
         $profile->update($validated);
 
-        return redirect()->route('userprofile.show')->with('status', 'Profile updated successfully!');
+        return redirect()->route('userprofile.show')->with('success', 'Profile updated successfully!');
     }
 
     /**
@@ -134,6 +134,6 @@ class UserProfileController extends Controller
         // Delete the profile
         $profile->delete();
 
-        return redirect()->route('userprofile.show')->with('status', 'Profile deleted successfully!');
+        return redirect()->route('userprofile.show')->with('success', 'Profile deleted successfully!');
     }
 }
