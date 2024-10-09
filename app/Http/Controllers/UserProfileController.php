@@ -48,10 +48,8 @@ class UserProfileController extends Controller
             $profile->save(); // Save the profile with the new profile picture path
         }
 
-        return redirect()->route('userprofile.show')->with('status', 'Profile saved successfully!');
+        return redirect()->route('userprofile.show')->with('success', 'Profile saved successfully!');
     }
-
-
 
 
     /**
