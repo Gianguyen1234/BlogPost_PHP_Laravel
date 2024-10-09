@@ -49,7 +49,7 @@ This blog application is designed to provide users with an intuitive interface f
 ### Search and Filtering Features
 - **Search Functionality**: Full-text search across blog posts (search by title, content, keywords).
 - **Post Filters**: Filter posts by categories, user, or date.
-- **Sort Posts**: Sort posts by popularity (upvotes), newest, or most commented.
+- **Sort Posts**: Sort posts by popularity (loves), newest, or most commented.
 
 ### Post Drafts and Publishing
 - **Drafts**: Save posts as drafts for later publishing.
