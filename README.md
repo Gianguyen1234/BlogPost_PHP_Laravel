@@ -47,7 +47,8 @@ This blog application is designed to provide users with an intuitive interface f
 
 ### Post Interaction Features
 - **Comments Section**: Users can leave comments on posts, including nested comments (replies).
-- **Likes/Upvotes**: Functionality for users to upvote or like posts and comments.
+- **Likes/Upvotes**: Functionality for users who sign up to upvote or like posts and comments.
+
 
 ### Search and Filtering Features
 - **Search Functionality**: Full-text search across blog posts (search by title, content, tags).
