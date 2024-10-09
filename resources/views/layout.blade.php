@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
     <title>@yield('title', 'Blog Post')</title>
 
     <!-- Bootstrap CSS -->
@@ -22,8 +23,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -65,10 +64,7 @@
             @else
             <!-- Link for Regular Users (optional, if needed) -->
             <a href="{{  route('userprofile.show') }}" class="btn btn-dashboard">User Profile</a>
-
             @endif
-
-
             <!-- Logout Button -->
             <a href="{{ route('logout') }}" class="btn btn-signup"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -256,42 +252,42 @@
         });
     </script>
 
-<script>
-      document.getElementById('like-btn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default behavior of the button
+    <script>
+        document.getElementById('like-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default behavior of the button
 
-    const likeUrl = this.getAttribute('data-like-url'); // Get the like URL from the button
+            const likeUrl = this.getAttribute('data-like-url'); // Get the like URL from the button
 
-    if (likeUrl) {
-        fetch(likeUrl, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add CSRF token for security
-                'Content-Type': 'application/json',
+            if (likeUrl) {
+                fetch(likeUrl, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add CSRF token for security
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const likeCount = document.getElementById('like-count');
+                            const likeIcon = this.querySelector('i');
+
+                            // Update like count and icon color
+                            likeCount.innerText = data.likes_count;
+
+                            if (data.liked) {
+                                likeIcon.classList.remove('text-muted');
+                                likeIcon.classList.add('text-danger'); // Change to red if liked
+                            } else {
+                                likeIcon.classList.remove('text-danger');
+                                likeIcon.classList.add('text-muted'); // Change back to muted if unliked
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const likeCount = document.getElementById('like-count');
-                const likeIcon = this.querySelector('i');
-
-                // Update like count and icon color
-                likeCount.innerText = data.likes_count;
-
-                if (data.liked) {
-                    likeIcon.classList.remove('text-muted');
-                    likeIcon.classList.add('text-danger'); // Change to red if liked
-                } else {
-                    likeIcon.classList.remove('text-danger');
-                    likeIcon.classList.add('text-muted'); // Change back to muted if unliked
-                }
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-});
-</script>
+        });
+    </script>
 </body>
 
 </html>

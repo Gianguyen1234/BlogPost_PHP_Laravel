@@ -6,11 +6,24 @@
 <div class="container my-5">
     <h1 class="mb-4 text-center">All Blog Posts</h1>
 
+    <!-- Sort Filter -->
+    <div class="mb-3">
+        <form action="{{ route('posts.index') }}" method="GET" class="form-inline">
+            <label for="sort" class="mr-2">Sort by:</label>
+            <select name="sort" id="sort" class="form-control" onchange="this.form.submit()">
+                <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest</option>
+                <option value="popularity" {{ request('sort') == 'popularity' ? 'selected' : '' }}>Popularity</option>
+                <option value="most_commented" {{ request('sort') == 'most_commented' ? 'selected' : '' }}>Most Commented</option>
+            </select>
+        </form>
+    </div>
+
     @if($posts->isEmpty())
     <div class="alert alert-warning text-center" role="alert">
         No posts available at the moment.
     </div>
     @else
+
     <div class="row">
         @foreach ($posts as $post)
         <div class="col-md-6 col-sm-12 mb-4"> <!-- Responsive columns -->

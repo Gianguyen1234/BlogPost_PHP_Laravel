@@ -2,6 +2,9 @@
 
 @section('title', $post->title)
 
+@section('meta')
+<meta name="keywords" content="{{ $post->meta_keyword }}">
+@endsection
 @section('content')
 <div class="container mt-5">
     <div class="row">
@@ -9,6 +12,13 @@
             <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
                 <div class="card-body">
                     <h1 class="card-title text-primary fw-bold">{{ $post->title }}</h1>
+                    <!-- Show meta keywords only if they exist -->
+                    @if(!empty($post->meta_keyword))
+                    <p class="text-muted mb-4">
+                        <strong>Keywords:</strong> {{ $post->meta_keyword }}
+                    </p>
+                    @endif
+
                     <!-- Slug and Love Button Section -->
                     <div class="d-flex align-items-center mb-4">
                         <p class="text-muted mb-0 me-3">{{ $post->slug }}</p> <!-- Added margin to separate slug and icon -->

@@ -9,18 +9,48 @@ use App\Models\Category;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch only published posts (status = 1) with pagination (10 posts per page)
-        $posts = Post::where('status', 1)
-            ->with(['category', 'author'])
-            ->paginate(10); // Adjust the number as needed
-
-        return view('posts.index', compact('posts'));
+        // Default sort option
+        $sort = $request->input('sort', 'newest');
+    
+        // Cache key based on the sort option
+        $cacheKey = "posts_{$sort}";
+    
+        // Attempt to retrieve posts from cache
+        $posts = Cache::remember($cacheKey, 60, function () use ($sort) {
+            // Fetch only published posts (status = 1) with pagination (10 posts per page)
+            $postsQuery = Post::where('status', 1)
+                ->with(['category', 'author'])
+                ->withCount('likes'); // Count likes
+    
+            // Apply sorting based on user selection
+            switch ($sort) {
+                case 'popularity':
+                    $postsQuery->orderBy('likes_count', 'desc'); // Sort by likes count
+                    break;
+    
+                case 'most_commented':
+                    $postsQuery->withCount('comments') // Count comments
+                                ->orderBy('comments_count', 'desc');
+                    break;
+    
+                case 'newest':
+                default:
+                    $postsQuery->orderBy('created_at', 'desc');
+                    break;
+            }
+    
+            // Execute the query and paginate the results
+            return $postsQuery->paginate(10); // Adjust the number as needed
+        });
+    
+        return view('posts.index', compact('posts', 'sort'));
     }
 
     public function create()
@@ -192,10 +222,10 @@ class PostController extends Controller
     public function likePost(Request $request, $slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-    
+
         $user = auth()->user();
         $liked = $user->likes()->where('post_id', $post->id)->exists();
-    
+
         if ($liked) {
             // If already liked, remove the like
             $user->likes()->detach($post->id);
@@ -203,7 +233,7 @@ class PostController extends Controller
             // If not liked yet, like the post
             $user->likes()->attach($post->id);
         }
-    
+
         // Return the new like count and whether the user has liked the post
         return response()->json([
             'success' => true,
@@ -211,5 +241,5 @@ class PostController extends Controller
             'liked' => !$liked, // Tells if the user just liked or unliked
         ]);
     }
-    
+
 }
