@@ -256,7 +256,42 @@
         });
     </script>
 
+<script>
+      document.getElementById('like-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior of the button
 
+    const likeUrl = this.getAttribute('data-like-url'); // Get the like URL from the button
+
+    if (likeUrl) {
+        fetch(likeUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add CSRF token for security
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const likeCount = document.getElementById('like-count');
+                const likeIcon = this.querySelector('i');
+
+                // Update like count and icon color
+                likeCount.innerText = data.likes_count;
+
+                if (data.liked) {
+                    likeIcon.classList.remove('text-muted');
+                    likeIcon.classList.add('text-danger'); // Change to red if liked
+                } else {
+                    likeIcon.classList.remove('text-danger');
+                    likeIcon.classList.add('text-muted'); // Change back to muted if unliked
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+});
+</script>
 </body>
 
 </html>

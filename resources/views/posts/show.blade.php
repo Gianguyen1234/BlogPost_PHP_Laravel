@@ -9,7 +9,19 @@
             <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
                 <div class="card-body">
                     <h1 class="card-title text-primary fw-bold">{{ $post->title }}</h1>
-                    <p class="text-muted">{{ $post->slug }}</p>
+                    <!-- Slug and Love Button Section -->
+                    <div class="d-flex align-items-center mb-4">
+                        <p class="text-muted mb-0 me-3">{{ $post->slug }}</p> <!-- Added margin to separate slug and icon -->
+                        <!-- Push love icon to the right -->
+                        @auth
+                        <button id="like-btn" class="btn btn-outline-none p-0 ms-auto" data-like-url="{{ route('like.post', $post->slug) }}">
+                            <i class="fas {{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'fa-heart text-danger' : 'fa-heart text-muted' }} fs-4"></i> <!-- Increase font size with fs-4 class -->
+                            <span id="like-count" class="ms-2">{{ $post->likes->count() }}</span> <!-- Added margin to the count for spacing -->
+                        </button>
+                        @else
+                        <a href="{{ route('login') }}" class="btn btn-primary ">Login to Like</a>
+                        @endauth
+                    </div>
                     <p class="text-muted mb-4">
                         <small>Published by <strong>{{ $post->author->name }}</strong> on {{ $post->created_at->format('F j, Y') }}</small>
                     </p>
@@ -123,8 +135,6 @@
             });
     });
 </script>
-
-
 @endsection
 
 <style>
@@ -207,5 +217,15 @@
 
     .author-avatar img {
         object-fit: cover;
+    }
+
+    #like-btn i {
+        font-size: 24px;
+        /* Adjust size as needed */
+    }
+
+    #like-btn {
+        margin-left: 20px;
+        /* Adjust spacing from slug */
     }
 </style>

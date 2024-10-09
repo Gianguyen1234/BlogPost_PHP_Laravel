@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -187,4 +188,28 @@ class PostController extends Controller
 
         return view('posts.show', compact('post', 'comments', 'categories', 'latestPosts'));
     }
+
+    public function likePost(Request $request, $slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+    
+        $user = auth()->user();
+        $liked = $user->likes()->where('post_id', $post->id)->exists();
+    
+        if ($liked) {
+            // If already liked, remove the like
+            $user->likes()->detach($post->id);
+        } else {
+            // If not liked yet, like the post
+            $user->likes()->attach($post->id);
+        }
+    
+        // Return the new like count and whether the user has liked the post
+        return response()->json([
+            'success' => true,
+            'likes_count' => $post->likes()->count(),
+            'liked' => !$liked, // Tells if the user just liked or unliked
+        ]);
+    }
+    
 }

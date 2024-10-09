@@ -124,6 +124,8 @@ Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::post('/posts/{slug}/follow/{id}', [FollowController::class, 'follow'])->name('follow');
 Route::post('/posts/{slug}/unfollow/{id}', [FollowController::class, 'unfollow'])->name('unfollow');
 
+Route::post('/posts/{slug}/like', [PostController::class, 'likePost'])->name('like.post')->middleware('auth');
+
 
 
 require __DIR__.'/auth.php';
