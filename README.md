@@ -16,10 +16,7 @@ Welcome to my blog post about building a blog application using Laravel! This ap
   - [Performance Features](#performence-features)
   - [Security Features](#security-features)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Conclusion](#conclusion)
-- [References](#references)
+
 
 ## Introduction
 
@@ -49,10 +46,9 @@ This blog application is designed to provide users with an intuitive interface f
 - **Comments Section**: Users can leave comments on posts, including nested comments (replies).
 - **Likes/Upvotes**: Functionality for users who sign up to upvote or like posts and comments.
 
-
 ### Search and Filtering Features
-- **Search Functionality**: Full-text search across blog posts (search by title, content, tags).
-- **Post Filters**: Filter posts by tags, categories, user, or date.
+- **Search Functionality**: Full-text search across blog posts (search by title, content, keywords).
+- **Post Filters**: Filter posts by categories, user, or date.
 - **Sort Posts**: Sort posts by popularity (upvotes), newest, or most commented.
 
 ### Post Drafts and Publishing
@@ -60,7 +56,7 @@ This blog application is designed to provide users with an intuitive interface f
 - **Publishing**: Allow users to schedule posts for future publishing.
 
 ### Admin Panel
-- **Moderation Tools**: Admins can flag, approve, or remove inappropriate content.
+- **Moderation Tools**: Admins can draft, approve, or remove inappropriate content.
 - **Analytics**: View post analytics (post views, user engagement).
 - **Post Approvals**: Allow posts to be approved by an admin before going live.
 
