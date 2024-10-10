@@ -11,7 +11,7 @@
             <div class="carousel-inner rounded-lg">
                 @foreach ($posts as $index => $post)
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x400?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg" alt="Featured image for {{ $post->title }}">
+                    <img src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x400?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg lazyload" alt="Featured image for {{ $post->title }}">
                     <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
                         <h4 class="text-light">{{ $post->title }}</h4>
                         <p class="text-light"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
@@ -60,7 +60,6 @@
 @endsection
 
 <style>
-    /* General Typography */
     body {
         font-family: 'Roboto', sans-serif;
     }
@@ -178,4 +177,19 @@
             font-size: 0.85rem;
         }
     }
+
+    .loading-spinner {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #333;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 </style>
