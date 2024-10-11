@@ -127,7 +127,7 @@
                     try {
                         return hljs.highlightAuto(str).value;
                     } catch (__) {}
-                    return ''; // Fallback if highlight fails
+                    return '';
                 }
             });
 
