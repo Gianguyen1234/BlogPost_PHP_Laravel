@@ -107,7 +107,7 @@
                 ]
             })
             .then(editor => {
-                window.editor = editor; // Store the editor instance
+                window.editor = editor; 
             })
             .catch(error => {
                 console.error('Error initializing CKEditor:', error);
