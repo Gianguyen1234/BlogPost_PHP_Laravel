@@ -35,11 +35,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <!-- Blog Brand/Logo -->
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="images/logo/bloglogo.png" alt="My Logo" style="height: 40px;">
-            BLOG
+            
+           BLOGPOST
         </a>
-
-
         <!-- Navbar Toggle Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
