@@ -114,7 +114,7 @@
             });
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Initialize Markdown-it with Highlight.js support
+         
             var md = window.markdownit({
                 highlight: function(str, lang) {
                     if (lang && hljs.getLanguage(lang)) {
