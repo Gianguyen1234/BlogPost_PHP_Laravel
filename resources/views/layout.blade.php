@@ -9,7 +9,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <!-- <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml"> -->
+    <link rel="icon" type="image/png" href="images/logo/bloglogo.png" sizes="32x32">
+
 
     <!-- Boxicons CDN -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -32,7 +34,11 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark">
         <!-- Blog Brand/Logo -->
-        <a class="navbar-brand" href="{{ url('/') }}">MyBlog</a>
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="images/logo/bloglogo.png" alt="My Logo" style="height: 40px;">
+            BLOG
+        </a>
+
 
         <!-- Navbar Toggle Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,14 +113,14 @@
                 ]
             })
             .then(editor => {
-                window.editor = editor; 
+                window.editor = editor;
             })
             .catch(error => {
                 console.error('Error initializing CKEditor:', error);
             });
 
         document.addEventListener("DOMContentLoaded", function() {
-         
+
             var md = window.markdownit({
                 highlight: function(str, lang) {
                     if (lang && hljs.getLanguage(lang)) {
