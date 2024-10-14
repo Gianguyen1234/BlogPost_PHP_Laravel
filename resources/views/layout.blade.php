@@ -95,7 +95,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"></script>
     <script>
-        // Initialize CKEditor
         ClassicEditor
             .create(document.querySelector('#content'), {
                 ckfinder: {
