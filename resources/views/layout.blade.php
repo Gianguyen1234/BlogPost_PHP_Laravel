@@ -134,7 +134,6 @@
                 }
             });
 
-            // Event listener for conversion
             document.getElementById('convert-button').addEventListener('click', function() {
                 const markdownContent = window.editor.getData(); // Use CKEditor data
                 const htmlContent = md.render(markdownContent);
