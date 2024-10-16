@@ -4,57 +4,111 @@
 
 @section('content')
 
-    <!-- Carousel Section for Featured Posts -->
-    <div class="carousel-container mb-5">
-        <h2 class="text-center display-4 mb-3 text-gradient">Featured Posts</h2>
-        <div id="featuredCarousel" class="carousel slide shadow-lg" data-ride="carousel">
-            <div class="carousel-inner rounded-lg">
-                @foreach ($posts as $index => $post)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                    <img src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x400?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg lazyload" alt="Featured image for {{ $post->title }}">
-                    <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
-                        <h4 class="text-light">{{ $post->title }}</h4>
-                        <p class="text-light"> {!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                        <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-outline-warning">Read More</a>
-                    </div>
+<!-- Carousel Section for Featured Posts -->
+<div class="carousel-container mb-5">
+    <h2 class="text-center display-4 mb-3 text-gradient">Featured Posts</h2>
+    <div id="featuredCarousel" class="carousel slide shadow-lg" data-ride="carousel">
+        <div class="carousel-inner rounded-lg">
+            @foreach ($posts as $index => $post)
+            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                <img data-src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x500?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg lazyload" alt="Featured image for {{ $post->title }}">
+                <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
+                    <h4>{{ $post->title }}</h4>
+                    <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning">Read More</a>
                 </div>
-                @endforeach
             </div>
-            <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            @endforeach
         </div>
+        <a class="carousel-control-prev" href="#featuredCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#featuredCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon bg-dark" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
+</div>
 
-    <!-- Recent Blog Posts Section -->
-    <h2 class="text-center display-4 mb-4 text-gradient">Recent Posts</h2>
-    <div class="row">
-        @foreach ($posts as $post)
-        <div class="col-md-4 col-sm-6 mb-4">
-            <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-                <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-warning">{{ $post->title }}</h5>
-                    <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
-                </div>
-                <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
-                    <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
-                    @if ($post->category)
-                    <span class="badge badge-warning">{{ $post->category->name }}</span>
-                    @else
-                    <span class="badge badge-secondary">Uncategorized</span>
-                    @endif
-                </div>
+<!-- Recent Blog Posts Section -->
+<h2 class="text-center display-4 mb-4 text-gradient">Recent Posts</h2>
+<div class="row">
+    @foreach ($posts as $post)
+    <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
+            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ $post->title }}</h5>
+                <p class="card-text">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+            </div>
+            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+                <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
+                @if ($post->category)
+                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                @else
+                <span class="badge badge-secondary">Uncategorized</span>
+                @endif
             </div>
         </div>
-        @endforeach
     </div>
+    @endforeach
+</div>
+
+<!-- Top Liked Posts -->
+<h2 class="text-center display-4 mb-4 text-gradient">Top Liked Posts</h2>
+<div class="row">
+    @foreach ($topLikedPosts as $post)
+    <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
+            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-warning">{{ $post->title }}</h5>
+                <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+            </div>
+            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+                <span>Likes: {{ $post->likes_count }}</span>
+                <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
+                @if ($post->category)
+                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                @else
+                <span class="badge badge-secondary">Uncategorized</span>
+                @endif
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+<!-- Top Commented Posts -->
+<h2 class="text-center display-4 mb-4 text-gradient">Top Commented Posts</h2>
+<div class="row">
+    @foreach ($topCommentedPosts as $post)
+    <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
+            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-warning">{{ $post->title }}</h5>
+                <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+            </div>
+            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+                <span>Comments: {{ $post->comments_count }}</span>
+                <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
+                @if ($post->category)
+                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                @else
+                <span class="badge badge-secondary">Uncategorized</span>
+                @endif
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+
 
 </div>
 @endsection
@@ -95,7 +149,10 @@
     /* Carousel Improvements */
     .carousel-item img {
         object-fit: cover;
-        height: 400px;
+        height: 500px;
+        /* Adjust the height */
+        width: 100%;
+        /* Keep the width full */
     }
 
     .carousel-control-prev-icon,
@@ -155,7 +212,11 @@
         background: linear-gradient(135deg, #333, #000);
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 412px) {
+        .carousel-item img {
+            height: 400px;
+        }
+
         .carousel-caption h4 {
             font-size: 1.25rem;
         }
@@ -179,17 +240,21 @@
     }
 
     .loading-spinner {
-    border: 8px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 8px solid #333;
-    width: 40px;
-    height: 40px;
-    animation: spin 2s linear infinite;
-}
+        border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid #333;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+    }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
 
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>

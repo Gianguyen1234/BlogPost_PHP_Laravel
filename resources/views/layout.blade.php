@@ -99,6 +99,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.1.3/lazyload.min.js"></script>
+<script>
+    var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazyload"
+    });
+</script>
+
 
     <!-- <script>
         $(document).ready(function() {
