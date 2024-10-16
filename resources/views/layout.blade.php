@@ -35,8 +35,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <!-- Blog Brand/Logo -->
         <a class="navbar-brand" href="{{ url('/') }}">
-            
-           BLOGPOST
+
+            BLOGPOST
         </a>
         <!-- Navbar Toggle Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,33 +118,33 @@
 
     </script> -->
     <script>
-         document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
 
-var md = window.markdownit({
-    highlight: function(str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                return hljs.highlight(str, {
-                    language: lang
-                }).value;
-            } catch (__) {}
-        }
-        try {
-            return hljs.highlightAuto(str).value;
-        } catch (__) {}
-        return '';
-    }
-});
-document.getElementById('convert-button').addEventListener('click', function() {
-    const markdownContent = window.editor.getData(); // Use CKEditor data
-    const htmlContent = md.render(markdownContent);
-    document.getElementById('render-here').innerHTML = htmlContent;
+            var md = window.markdownit({
+                highlight: function(str, lang) {
+                    if (lang && hljs.getLanguage(lang)) {
+                        try {
+                            return hljs.highlight(str, {
+                                language: lang
+                            }).value;
+                        } catch (__) {}
+                    }
+                    try {
+                        return hljs.highlightAuto(str).value;
+                    } catch (__) {}
+                    return '';
+                }
+            });
+            document.getElementById('convert-button').addEventListener('click', function() {
+                const markdownContent = window.editor.getData(); // Use CKEditor data
+                const htmlContent = md.render(markdownContent);
+                document.getElementById('render-here').innerHTML = htmlContent;
 
-    document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightElement(block);
-    });
-});
-});
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            });
+        });
     </script>
 
     @if(session('success'))
