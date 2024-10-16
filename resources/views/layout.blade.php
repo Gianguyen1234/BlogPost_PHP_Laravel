@@ -133,13 +133,11 @@
                     return '';
                 }
             });
-
             document.getElementById('convert-button').addEventListener('click', function() {
                 const markdownContent = window.editor.getData(); // Use CKEditor data
                 const htmlContent = md.render(markdownContent);
                 document.getElementById('render-here').innerHTML = htmlContent;
 
-                // Re-highlight all code blocks
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
                 });
