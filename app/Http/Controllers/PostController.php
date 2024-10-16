@@ -130,7 +130,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         // Check if the authenticated user is the owner or an admin
-        if (auth()->id() !== $post->created_by && auth()->user()->role !== 'admin') {
+        if (auth()->id() !== $post->created_by && auth()->user()->role == 'admin') {
             return redirect()->route('admin.posts.index')->with('error', 'Unauthorized access.');
         }
         $categories = Category::all();

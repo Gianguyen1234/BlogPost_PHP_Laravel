@@ -12,7 +12,6 @@
     <!-- <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml"> -->
     <link rel="icon" type="image/png" href="images/logo/bloglogo.png" sizes="32x32">
 
-
     <!-- Boxicons CDN -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
@@ -24,9 +23,13 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Include Summernote CSS and JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
+
+
 
 </head>
 
@@ -94,33 +97,35 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"></script>
-    <!-- <script>
-        ClassicEditor
-            .create(document.querySelector('#content'), {
-                ckfinder: {
-                    uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
-                },
-                toolbar: [
-                    'heading', '|',
-                    'bold', 'italic', 'link', '|',
-                    'ckfinder', 'imageUpload', '|',
-                    'undo', 'redo', '|',
-                    'bulletedList', 'numberedList', 'blockQuote', '|',
-                    'insertTable', 'mediaEmbed', '|',
-                ]
-            })
-            .then(editor => {
-                window.editor = editor;
-            })
-            .catch(error => {
-                console.error('Error initializing CKEditor:', error);
-            });
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
+
+    <!-- <script>
+        $(document).ready(function() {
+            $('#content').summernote({
+                height: 300, // Set the height of the editor
+                toolbar: [
+                    // Customize toolbar with code button and other options
+                    ['style', ['bold', 'italic', 'underline']],
+                    ['insert', ['picture', 'link']],
+                    ['code', ['codeview']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ],
+                callbacks: {
+                    onImageUpload: function(files) {
+                        // Handle image upload here if needed
+                    }
+                }
+            });
+        });
     </script> -->
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-
+            // Markdown rendering using markdown-it
             var md = window.markdownit({
+                html: true,
                 highlight: function(str, lang) {
                     if (lang && hljs.getLanguage(lang)) {
                         try {
@@ -135,11 +140,29 @@
                     return '';
                 }
             });
+
+            // Insert code block when "Add Code Block" button is clicked
+            document.getElementById('add-code-block').addEventListener('click', function() {
+                const contentArea = document.getElementById('content');
+                const codeTemplate = "```language\n// Paste your code here\n```";
+
+                // Insert code block at the cursor position
+                const cursorPosition = contentArea.selectionStart;
+                const content = contentArea.value;
+                contentArea.value = content.slice(0, cursorPosition) + codeTemplate + content.slice(cursorPosition);
+
+                // Optionally, move cursor between the backticks for editing
+                contentArea.focus();
+                contentArea.setSelectionRange(cursorPosition + 3, cursorPosition + 11);
+            });
+
+            // Convert Markdown content to HTML when "Convert to HTML" button is clicked
             document.getElementById('convert-button').addEventListener('click', function() {
-                const markdownContent = window.editor.getData(); // Use CKEditor data
-                const htmlContent = md.render(markdownContent);
+                const content = document.getElementById('content').value;
+                const htmlContent = md.render(content);
                 document.getElementById('render-here').innerHTML = htmlContent;
 
+                // Apply syntax highlighting to any code blocks
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
                 });

@@ -55,4 +55,53 @@
     <!-- Another Back to Draft Posts button at the bottom -->
     <a href="{{ route('admin.posts.draft') }}" class="btn btn-outline-info mt-4">Back to Draft Posts</a>
 </div>
+
+{{-- Include CodeMirror JS and CSS --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/xml/xml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/htmlmixed/htmlmixed.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+
+{{-- Initialize CodeMirror --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const contentArea = document.getElementById("content");
+        const code = contentArea.value;
+
+        // Function to detect language
+        function detectLanguage(code) {
+            if (code.includes('import') && code.includes('from')) {
+                return 'python';
+            } else if (code.includes('function') || code.includes('console')) {
+                return 'javascript';
+            } else if (code.includes('<html>') || code.includes('<body>')) {
+                return 'htmlmixed';
+            } else if (code.includes('class') && code.includes('public')) {
+                return 'clike'; // For languages like Java or C#
+            }
+            // Add more conditions for other languages as needed
+            return 'text/plain'; // Default to plain text if no match
+        }
+
+        // Detect language and initialize CodeMirror
+        const mode = detectLanguage(code);
+        const editor = CodeMirror.fromTextArea(contentArea, {
+            lineNumbers: true,
+            mode: mode,
+            theme: "default",
+            height: "auto",
+            autoCloseBrackets: true,
+            matchBrackets: true,
+        });
+
+        // Make sure CodeMirror content updates the original textarea value
+        editor.on('change', function(instance) {
+            contentArea.value = instance.getValue();
+        });
+    });
+</script>
 @endsection

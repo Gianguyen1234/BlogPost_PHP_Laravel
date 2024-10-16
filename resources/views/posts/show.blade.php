@@ -36,7 +36,7 @@
                         <small>Published by <strong>{{ $post->author->name }}</strong> on {{ $post->created_at->format('F j, Y') }}</small>
                     </p>
                     <div class="post-content mb-4">
-                        {!! $post->content !!}
+                    <pre><code class="language-python">{{ $post->content }}</code></pre>
                     </div>
 
                     @if($post->youtube_iframe)
@@ -144,7 +144,15 @@
                 console.error('Error:', error);
             });
     });
+
+    
 </script>
+
+{{-- Include Highlight.js for syntax highlighting --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 @endsection
 
 <style>

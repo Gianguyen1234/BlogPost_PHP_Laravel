@@ -13,22 +13,32 @@
             <input type="text" class="form-control" id="title" name="title" placeholder="Enter the title here..." required>
         </div>
 
-        <div class="form-group" >
+        <div class="form-group">
             <label for="slug">Slug (Optional)</label>
             <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter the slug here...">
         </div>
 
+        <!-- Content with Code Block Insertion -->
         <div class="form-group" id="editor-container">
             <label for="content">Content</label>
-            <!-- CKEditor textarea -->
             <textarea id="content" name="content" class="form-control" placeholder="Write your content here..." rows="10"></textarea>
+            
+            <!-- Code Block Button -->
+            <button type="button" class="btn btn-secondary mt-2" id="add-code-block">
+                <i class="fas fa-code"></i> Add Code Block
+            </button>
+            
+            <!-- Convert Button -->
             <div class="mt-2">
                 <button type="button" class="btn btn-primary" id="convert-button">Convert to HTML</button>
                 <button type="submit" class="btn btn-success" id="save-button">Save to Database</button>
             </div>
         </div>
+        
+        <!-- Render HTML Output Here -->
         <div id="render-here" class="mt-3"></div>
 
+        <!-- Other Form Fields (unchanged) -->
         <div class="form-group">
             <label for="banner_image">Banner Image (Optional)</label>
             <input type="file" class="form-control" name="banner_image" id="banner_image" accept="image/*">
@@ -37,11 +47,13 @@
             @enderror
         </div>
 
+        <!-- YouTube Iframe -->
         <div class="form-group">
             <label for="youtube_iframe">YouTube Iframe (Optional)</label>
             <input type="text" class="form-control" id="youtube_iframe" name="youtube_iframe" placeholder="Enter YouTube iframe code here...">
         </div>
 
+        <!-- Meta Information (unchanged) -->
         <div class="form-group">
             <label for="meta_title">Meta Title (Optional)</label>
             <input type="text" class="form-control" id="meta_title" name="meta_title" placeholder="Enter meta title here...">
@@ -57,6 +69,7 @@
             <input type="text" class="form-control" id="meta_keyword" name="meta_keyword" placeholder="Enter meta keywords here...">
         </div>
 
+        <!-- Status and Category (unchanged) -->
         @if(Auth::check() && Auth::user()->usertype === 'admin')
         <div class="form-group">
             <label for="status">Status</label>
@@ -66,10 +79,8 @@
             </select>
         </div>
         @else
-
         <input type="hidden" name="status" value="0">
         @endif
-
 
         <div class="form-group">
             <label for="category_id">Category</label>
