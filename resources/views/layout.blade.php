@@ -94,7 +94,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.6/markdown-it.min.js"></script>
-    <script>
+    <!-- <script>
         ClassicEditor
             .create(document.querySelector('#content'), {
                 ckfinder: {
@@ -116,33 +116,35 @@
                 console.error('Error initializing CKEditor:', error);
             });
 
-        document.addEventListener("DOMContentLoaded", function() {
+    </script> -->
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
 
-            var md = window.markdownit({
-                highlight: function(str, lang) {
-                    if (lang && hljs.getLanguage(lang)) {
-                        try {
-                            return hljs.highlight(str, {
-                                language: lang
-                            }).value;
-                        } catch (__) {}
-                    }
-                    try {
-                        return hljs.highlightAuto(str).value;
-                    } catch (__) {}
-                    return '';
-                }
-            });
-            document.getElementById('convert-button').addEventListener('click', function() {
-                const markdownContent = window.editor.getData(); // Use CKEditor data
-                const htmlContent = md.render(markdownContent);
-                document.getElementById('render-here').innerHTML = htmlContent;
+var md = window.markdownit({
+    highlight: function(str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+            try {
+                return hljs.highlight(str, {
+                    language: lang
+                }).value;
+            } catch (__) {}
+        }
+        try {
+            return hljs.highlightAuto(str).value;
+        } catch (__) {}
+        return '';
+    }
+});
+document.getElementById('convert-button').addEventListener('click', function() {
+    const markdownContent = window.editor.getData(); // Use CKEditor data
+    const htmlContent = md.render(markdownContent);
+    document.getElementById('render-here').innerHTML = htmlContent;
 
-                document.querySelectorAll('pre code').forEach((block) => {
-                    hljs.highlightElement(block);
-                });
-            });
-        });
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+    });
+});
+});
     </script>
 
     @if(session('success'))
