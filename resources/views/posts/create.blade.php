@@ -22,19 +22,19 @@
         <div class="form-group" id="editor-container">
             <label for="content">Content</label>
             <textarea id="content" name="content" class="form-control" placeholder="Write your content here..." rows="10"></textarea>
-            
+
             <!-- Code Block Button -->
             <button type="button" class="btn btn-secondary mt-2" id="add-code-block">
                 <i class="fas fa-code"></i> Add Code Block
             </button>
-            
+
             <!-- Convert Button -->
             <div class="mt-2">
                 <button type="button" class="btn btn-primary" id="convert-button">Convert to HTML</button>
                 <button type="submit" class="btn btn-success" id="save-button">Save to Database</button>
             </div>
         </div>
-        
+
         <!-- Render HTML Output Here -->
         <div id="render-here" class="mt-3"></div>
 
@@ -46,6 +46,12 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="form-group">
+            <label for="title_image">Title Image</label>
+            <input type="file" name="title_image" class="form-control" id="title_image" accept="image/*">
+        </div>
+
 
         <!-- YouTube Iframe -->
         <div class="form-group">
@@ -74,7 +80,7 @@
         <div class="form-group">
             <label for="status">Status</label>
             <select id="status" name="status" class="form-control" required>
-                <option value="2">Approved (Publish)</option>
+                <option value="1">Approved (Publish)</option>
                 <option value="0">Draft</option>
             </select>
         </div>

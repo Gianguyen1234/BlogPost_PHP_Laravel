@@ -37,7 +37,7 @@
     @foreach ($posts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ $post->title }}</h5>
                 <p class="card-text">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
@@ -62,7 +62,7 @@
     @foreach ($topLikedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-warning">{{ $post->title }}</h5>
                 <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
@@ -88,7 +88,7 @@
     @foreach ($topCommentedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-            <img src="https://via.placeholder.com/400x200?text={{ urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
+        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top" alt="{{ $post->title }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-warning">{{ $post->title }}</h5>
                 <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>

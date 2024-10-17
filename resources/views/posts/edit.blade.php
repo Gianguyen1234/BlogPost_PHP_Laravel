@@ -48,6 +48,11 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         </div>
+        
+        <div class="form-group">
+            <label for="title_image">Title Image</label>
+            <input type="file" name="title_image" class="form-control" id="title_image" accept="image/*">
+        </div>
 
 
         {{-- YouTube iFrame Field --}}

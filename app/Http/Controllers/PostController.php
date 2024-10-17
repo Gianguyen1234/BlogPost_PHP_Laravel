@@ -18,38 +18,38 @@ class PostController extends Controller
     {
         // Default sort option
         $sort = $request->input('sort', 'newest');
-    
+
         // Cache key based on the sort option
         $cacheKey = "posts_{$sort}";
-    
+
         // Attempt to retrieve posts from cache
         $posts = Cache::remember($cacheKey, 60, function () use ($sort) {
             // Fetch only published posts (status = 1) with pagination (10 posts per page)
             $postsQuery = Post::where('status', 1)
                 ->with(['category', 'author'])
                 ->withCount('likes'); // Count likes
-    
+
             // Apply sorting based on user selection
             switch ($sort) {
                 case 'popularity':
                     $postsQuery->orderBy('likes_count', 'desc'); // Sort by likes count
                     break;
-    
+
                 case 'most_commented':
                     $postsQuery->withCount('comments') // Count comments
-                                ->orderBy('comments_count', 'desc');
+                        ->orderBy('comments_count', 'desc');
                     break;
-    
+
                 case 'newest':
                 default:
                     $postsQuery->orderBy('created_at', 'desc');
                     break;
             }
-    
+
             // Execute the query and paginate the results
             return $postsQuery->paginate(10); // Adjust the number as needed
         });
-    
+
         return view('posts.index', compact('posts', 'sort'));
     }
 
@@ -73,6 +73,7 @@ class PostController extends Controller
             'status' => 'required|boolean', // Allow status (published or draft)
             'category_id' => 'nullable|exists:categories,id',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for title_image
         ]);
 
         // Generate the slug from the title
@@ -105,12 +106,20 @@ class PostController extends Controller
             $postData['status'] = 0; // Draft (status 0)
         }
 
-        // Handle image upload
+        // Handle banner image upload
         if ($request->hasFile('banner_image')) {
             $image = $request->file('banner_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images/posts'), $imageName);
             $postData['banner_image'] = 'images/posts/' . $imageName;
+        }
+
+        // Handle title image upload
+        if ($request->hasFile('title_image')) {
+            $titleImage = $request->file('title_image');
+            $titleImageName = time() . '_title_' . $titleImage->getClientOriginalName();
+            $titleImage->move(public_path('images/posts'), $titleImageName);
+            $postData['title_image'] = 'images/posts/' . $titleImageName; // Store the title image path
         }
 
         try {
@@ -150,6 +159,7 @@ class PostController extends Controller
             'status' => 'required|boolean',
             'category_id' => 'nullable|exists:categories,id',
             'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for title_image
         ]);
 
         $post = Post::findOrFail($id);
@@ -175,18 +185,32 @@ class PostController extends Controller
             'category_id' => $validated['category_id'],
         ];
 
-        // Handle image upload
+        // Handle banner image upload
         if ($request->hasFile('banner_image')) {
             // Check if the directory exists
             if (!file_exists(public_path('images/posts'))) {
                 mkdir(public_path('images/posts'), 0755, true);
             }
 
-            // Process the new image
+            // Process the new banner image
             $image = $request->file('banner_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('images/posts'), $imageName);
-            $postData['banner_image'] = 'images/posts/' . $imageName; // Store the image path
+            $postData['banner_image'] = 'images/posts/' . $imageName; // Store the banner image path
+        }
+
+        // Handle title image upload
+        if ($request->hasFile('title_image')) {
+            // Check if the directory exists
+            if (!file_exists(public_path('images/posts'))) {
+                mkdir(public_path('images/posts'), 0755, true);
+            }
+
+            // Process the new title image
+            $titleImage = $request->file('title_image');
+            $titleImageName = time() . '_title_' . $titleImage->getClientOriginalName();
+            $titleImage->move(public_path('images/posts'), $titleImageName);
+            $postData['title_image'] = 'images/posts/' . $titleImageName; // Store the title image path
         }
 
         // Update the post
@@ -194,6 +218,7 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
+
 
     public function destroy($id)
     {
@@ -241,5 +266,4 @@ class PostController extends Controller
             'liked' => !$liked, // Tells if the user just liked or unliked
         ]);
     }
-
 }
