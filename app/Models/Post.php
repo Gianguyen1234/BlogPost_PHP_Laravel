@@ -21,6 +21,7 @@ class Post extends Model
         'created_by',
         'content',
         'banner_image',
+        'title_image',
     ];
 
     public function category()
