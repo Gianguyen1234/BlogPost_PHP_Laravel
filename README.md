@@ -38,7 +38,7 @@ This blog application is designed to provide users with an intuitive interface f
 - **Post Slug Generation**: Automatically generate a unique, URL-friendly slug from the post title.
 
 ### Rich Text and Code Features
-- **Markdown Support**: Integrate a Markdown editor (Ckeditor) for formatting.
+- **Markdown Support**: Integrate a Markdown editor like hightlight.js and markdown library for highlighting code .
 - **Code Syntax Highlighting**: Use library Highlight.js for highlighting code.
 - **Upload Images and Files**: Allow users to upload images and files in their posts.
 
