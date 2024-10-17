@@ -73,4 +73,20 @@ pre {
 #nprogress .peg {
     box-shadow: 0 0 10px rgb(181, 221, 243), 0 0 5px #29d;
 }
+/* login form */
+/* .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+} */
 
