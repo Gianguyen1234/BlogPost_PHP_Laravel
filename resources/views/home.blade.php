@@ -15,7 +15,10 @@
                 <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
                     <h4>{{ $post->title }}</h4>
                     <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning">Read More</a>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning">
+                        <span>Read More</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
             @endforeach
@@ -37,20 +40,34 @@
     @foreach ($posts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top custom-image" alt="{{ $post->title }}">
+            <img src="{{ $post->title_image ? asset($post->title_image) : asset('images/logo/default.png') }}"
+                class="card-img-top img-fluid rounded-top custom-image"
+                style=" object-fit: cover;"
+                alt="{{ $post->title }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ $post->title }}</h5>
                 <p class="card-text">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+                <a href="{{ route('posts.show', $post->slug) }}" class="read-more-btn" style=" text-decoration: none;">
+                    <span>Read More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+            <div class="card-footer text-muted d-flex justify-content-between align-items-center">
                 <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
+
                 @if ($post->category)
-                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                <span class="badge badge-warning d-flex align-items-center">
+                    <i class="fas fa-tag mr-2"></i> <!-- Font Awesome tag icon -->
+                    {{ $post->category->name }}
+                </span>
                 @else
-                <span class="badge badge-secondary">Uncategorized</span>
+                <span class="badge badge-secondary d-flex align-items-center">
+                    <i class="fas fa-question-circle mr-2"></i> <!-- Icon for uncategorized -->
+                    Uncategorized
+                </span>
                 @endif
             </div>
+
         </div>
     </div>
     @endforeach
@@ -62,19 +79,31 @@
     @foreach ($topLikedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top " style="object-fit:cover" alt="{{ $post->title }}">
+            <img src="{{ $post->title_image ? asset($post->title_image) : asset('images/logo/default.png') }}"
+                class="card-img-top img-fluid rounded-top custom-image"
+                alt="{{ $post->title }}">
+
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-warning">{{ $post->title }}</h5>
                 <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+                <a href="{{ route('posts.show', $post->slug) }}" class="read-more-btn" style=" text-decoration: none;">
+                    <span>Read More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+            <div class="card-footer  text-muted d-flex justify-content-between align-items-center">
                 <span>Likes: {{ $post->likes_count }}</span>
                 <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
                 @if ($post->category)
-                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                <span class="badge badge-warning d-flex align-items-center">
+                    <i class="fas fa-tag mr-2"></i> <!-- Font Awesome tag icon -->
+                    {{ $post->category->name }}
+                </span>
                 @else
-                <span class="badge badge-secondary">Uncategorized</span>
+                <span class="badge badge-secondary d-flex align-items-center">
+                    <i class="fas fa-question-circle mr-2"></i> <!-- Icon for uncategorized -->
+                    Uncategorized
+                </span>
                 @endif
             </div>
         </div>
@@ -88,13 +117,18 @@
     @foreach ($topCommentedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100 shadow-sm border-0 rounded-lg bg-gradient-dark d-flex flex-column">
-        <img src="{{ $post->title_image ? asset($post->title_image) : 'https://via.placeholder.com/400x200?text=' . urlencode($post->title) }}" class="card-img-top img-fluid rounded-top custom-image" alt="{{ $post->title }}">
+            <img src="{{ $post->title_image ? asset($post->title_image) : asset('images/logo/default.png') }}"
+                class="card-img-top img-fluid rounded-top custom-image"
+                alt="{{ $post->title }}">
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-warning">{{ $post->title }}</h5>
                 <p class="card-text text-muted flex-grow-1">{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning btn-block mt-auto">Read More</a>
+                <a href="{{ route('posts.show', $post->slug) }}" class="read-more-btn" style=" text-decoration: none;">
+                    <span>Read More</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            <div class="card-footer bg-dark text-muted d-flex justify-content-between align-items-center">
+            <div class="card-footer  text-muted d-flex justify-content-between align-items-center">
                 <span>Comments: {{ $post->comments_count }}</span>
                 <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
                 @if ($post->category)
@@ -194,38 +228,109 @@
     }
 
     .card-title {
-        font-size: 1.25rem;
+        font-size: 1.75rem;
+        /* Larger, but still readable */
         color: #ffcc00;
+        /* Your original color, but we can improve contrast */
+        font-weight: 900;
+        /* Stronger emphasis for a bold statement */
+        text-transform: uppercase;
+        /* Uppercase for a modern, bold look */
+        text-align: left;
+        /* Align to left for a structured appearance */
+        margin-bottom: 10px;
+        /* Space between title and content */
+        line-height: 1.2;
+        /* Compact line height */
+        letter-spacing: 0.02em;
+        /* Tighten spacing to keep it professional */
+        position: relative;
+        /* For adding decorative elements */
     }
+
+    .card-title::before {
+        content: "";
+        /* Decorative underline */
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 40px;
+        /* Customize width for style */
+        height: 3px;
+        background-color: #ffcc00;
+        /* Matches title color */
+        border-radius: 2px;
+        /* Rounded for softer effect */
+    }
+
+
     .custom-image {
-    width: 100%;
-    height: 100px; /* Fixed height for a consistent card layout */
-    object-fit: cover; /* Ensures the image covers the area without distortion */
-    border: 1px solid #ddd;
-    padding: 5px;
-    background-color: #f8f9fa;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.custom-image:hover {
-    transform: scale(1.05);
-}
-
-
-    .card-text {
-        font-size: 0.9rem;
-        color: #ddd;
+        width: 100%;
+        height: 100px;
+        /* Fixed height for a consistent card layout */
+        object-fit: cover;
+        /* Ensures the image covers the area without distortion */
+        border: 1px solid #ddd;
+        padding: 5px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
     }
+
+    .custom-image:hover {
+        transform: scale(1.05);
+    }
+
+
 
     .card-footer {
         font-size: 0.8rem;
     }
 
-    /* Gradient for cards */
-    .bg-gradient-dark {
-        background: linear-gradient(135deg, #333, #000);
+    .read-more-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffcc00;
+        color: #000;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+
     }
+
+    .read-more-btn:hover {
+        background-color: #ffd633;
+        box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
+        transform: translateY(-3px);
+        /* Moves button up slightly on hover */
+    }
+
+    .read-more-btn i {
+
+        margin-left: 10px;
+        font-size: 18px;
+        /* Adjust icon size */
+        transition: transform 0.3s ease;
+    }
+
+    .read-more-btn:hover i {
+        transform: translateX(5px);
+        /* Moves the icon slightly to the right on hover */
+    }
+
+    .read-more-btn:active {
+        transform: scale(0.98);
+        /* Press-down effect */
+    }
+
 
     @media (max-width: 412px) {
         .carousel-item img {
@@ -272,5 +377,4 @@
             transform: rotate(360deg);
         }
     }
-
 </style>
