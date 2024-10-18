@@ -166,8 +166,6 @@
         border-radius: 0.25rem;
         /* Optional: rounded corners */
         height: fit-content;
-
-
     }
 
     .btn-warning {
