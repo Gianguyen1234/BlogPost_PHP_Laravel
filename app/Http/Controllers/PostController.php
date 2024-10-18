@@ -118,7 +118,7 @@ class PostController extends Controller
         if ($request->hasFile('title_image')) {
             $titleImage = $request->file('title_image');
             $titleImageName = time() . '_title_' . $titleImage->getClientOriginalName();
-            $titleImage->move(public_path('images/posts'), $titleImageName);
+            $titleImage->move(public_path('images/title_image'), $titleImageName);
             $postData['title_image'] = 'images/posts/' . $titleImageName; // Store the title image path
         }
 
