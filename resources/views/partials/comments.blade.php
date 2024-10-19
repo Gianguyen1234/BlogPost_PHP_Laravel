@@ -35,7 +35,6 @@
                 </form>
             </div>
 
-
             <!-- Display Nested Replies -->
             @if($comment->replies->isNotEmpty())
             <div class="replies ms-4 mt-4">
