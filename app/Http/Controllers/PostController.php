@@ -97,8 +97,6 @@ class PostController extends Controller
             'category_id' => $validated['category_id'],
             'created_by' => auth()->id(),
         ];
-
-        // If the user is an admin, allow them to set the status
         if (auth()->user()->usertype == 'admin') {
             $postData['status'] = $validated['status']; // Admin can publish or set as draft
         } else {

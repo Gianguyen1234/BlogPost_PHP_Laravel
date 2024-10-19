@@ -80,8 +80,8 @@
         <div class="form-group">
             <label for="status">Status</label>
             <select id="status" name="status" class="form-control" required>
-                <option value="1">Approved (Publish)</option>
                 <option value="0">Draft</option>
+                <option value="1" >Publish</option>                
             </select>
         </div>
         @else
