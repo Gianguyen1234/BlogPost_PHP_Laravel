@@ -132,9 +132,15 @@
                 <span>Comments: {{ $post->comments_count }}</span>
                 <span>Posted on {{ $post->created_at->format('F j, Y') }}</span>
                 @if ($post->category)
-                <span class="badge badge-warning">{{ $post->category->name }}</span>
+                <span class="badge badge-warning d-flex align-items-center">
+                    <i class="fas fa-tag mr-2"></i> <!-- Font Awesome tag icon -->
+                    {{ $post->category->name }}
+                </span>
                 @else
-                <span class="badge badge-secondary">Uncategorized</span>
+                <span class="badge badge-secondary d-flex align-items-center">
+                    <i class="fas fa-question-circle mr-2"></i> <!-- Icon for uncategorized -->
+                    Uncategorized
+                </span>
                 @endif
             </div>
         </div>
@@ -267,9 +273,6 @@
     .custom-image {
         width: 100%;
         height: 100px;
-        /* Fixed height for a consistent card layout */
-        object-fit: cover;
-        /* Ensures the image covers the area without distortion */
         border: 1px solid #ddd;
         padding: 5px;
         background-color: #f8f9fa;

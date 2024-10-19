@@ -11,7 +11,10 @@
         <div class="col-lg-8">
             <div class="card shadow-lg mb-4 border-0 rounded-3 custom-card">
                 <div class="card-body">
-                    <h1 class="card-title text-primary fw-bold">{{ $post->title }}</h1>
+                    <h1 class="custom-title" style="font-family: 'Poppins', sans-serif; font-size: 3rem; font-weight: bold; text-decoration: none; ">
+                        {{ $post->title }}
+                    </h1>
+
                     <!-- Show meta keywords only if they exist -->
                     @if(!empty($post->meta_keyword))
                     <p class="text-muted mb-4">
@@ -29,14 +32,16 @@
                             <span id="like-count" class="ms-2">{{ $post->likes->count() }}</span> <!-- Added margin to the count for spacing -->
                         </button>
                         @else
-                        <a href="{{ route('login') }}" class="btn btn-primary ">Login to Like</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-none p-0 ms-auto" aria-label="Login to Like" style="margin-left: 20px;">
+                            <i class="fas fa-sign-in-alt fs-1" style="color: #ff4d4f;font-size: 1.75rem;"></i> <!-- "Love" color (red) icon -->
+                        </a>
                         @endauth
                     </div>
                     <p class="text-muted mb-4">
                         <small>Published by <strong>{{ $post->author->name }}</strong> on {{ $post->created_at->format('F j, Y') }}</small>
                     </p>
                     <div class="post-content mb-4">
-                    <pre><code class="language-python">{{ $post->content }}</code></pre>
+                        <pre><code class="language-python">{{ $post->content }}</code></pre>
                     </div>
 
                     @if($post->youtube_iframe)
@@ -144,14 +149,14 @@
                 console.error('Error:', error);
             });
     });
-
-    
 </script>
 
 {{-- Include Highlight.js for syntax highlighting --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+<script>
+    hljs.highlightAll();
+</script>
 
 @endsection
 
