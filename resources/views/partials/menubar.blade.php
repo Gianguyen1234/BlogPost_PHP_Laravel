@@ -9,9 +9,9 @@
                     <img src="{{ asset( $category->image) }}" alt="{{ $category->name }} image" style="width: 40px; height: 40px; object-fit: cover; margin-right: 15px;">
                     
                     <!-- Category name -->
-                    <a href="{{ route('category.posts', $category->slug) }}" class="text-decoration-none">{{ $category->name }}</a>
+                    <a href="{{ route('category.posts', $category->slug) }}" class="post-title" style="text-decoration: none;">{{ $category->name }}</a>
                 </div>
-                <i class='bx bx-chevron-right' style="font-size: 1.5rem;"></i> <!-- Right arrow icon -->
+                <i class='bx bx-chevron-right' style="font-size: 1.5rem; color: #ff4d4f""></i> <!-- Right arrow icon -->
             </li>
             @endforeach
         </ul>
