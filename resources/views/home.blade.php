@@ -6,7 +6,7 @@
 
 <!-- Carousel Section for Featured Posts -->
 <div class="carousel-container mb-5">
-    <h2 class="text-center display-4 mb-3 text-gradient">Featured Posts</h2>
+    <h2 class="text-center display-4 mb-3 text-gradient"><i class="fas fa-ribbon"></i>  Featured Posts</h2>
     <div id="featuredCarousel" class="carousel slide shadow-lg" data-ride="carousel">
         <div class="carousel-inner rounded-lg">
             @foreach ($posts as $index => $post)
@@ -35,7 +35,7 @@
 </div>
 
 <!-- Recent Blog Posts Section -->
-<h2 class="text-center display-4 mb-4 text-gradient">Recent Posts</h2>
+<h2 class="text-center display-4 mb-4 text-gradient"> <i class="fas fa-clock"></i> Recent Posts</h2>
 <div class="row">
     @foreach ($posts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
@@ -72,9 +72,10 @@
     </div>
     @endforeach
 </div>
+<hr class="my-4">
 
 <!-- Top Liked Posts -->
-<h2 class="text-center display-4 mb-4 text-gradient">Top Liked Posts</h2>
+<h2 class="text-center display-4 mb-4 text-gradient"><i class="fas fa-fire"></i> Top Liked Posts</h2>
 <div class="row">
     @foreach ($topLikedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
@@ -110,9 +111,12 @@
     </div>
     @endforeach
 </div>
-
+<hr class="my-4">
 <!-- Top Commented Posts -->
-<h2 class="text-center display-4 mb-4 text-gradient">Top Commented Posts</h2>
+<h2 class="text-center display-4 mb-4 text-gradient">
+    <i class="fas fa-comments post-icon"></i>
+    Top Commented Posts
+</h2>
 <div class="row">
     @foreach ($topCommentedPosts as $post)
     <div class="col-md-4 col-sm-6 mb-4">
@@ -148,8 +152,6 @@
     @endforeach
 </div>
 
-
-
 </div>
 @endsection
 
@@ -159,9 +161,63 @@
     }
 
     .text-gradient {
-        background: linear-gradient(90deg, #ffcc00, #333);
+        font-size: 3.5rem;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        /* Cool blue gradient */
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-weight: 600;
+        letter-spacing: 2px;
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-gradient::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 4px;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        /* Blue underline */
+        margin: 10px auto 0;
+        transition: width 0.5s ease;
+    }
+
+    .text-gradient:hover::after {
+        width: 100px;
+    }
+
+
+    .text-gradient:hover {
+        font-weight: 700;
+        /* Bold effect on hover */
+        transform: scale(1.05);
+        /* Slight zoom effect */
+    }
+
+    .post-icon {
+        font-size: 2.75rem;
+        /* Adjust icon size */
+        display: block;
+        color: #d4a017;
+        /* Matches the yellow gradient */
+        margin-bottom: 10px;
+    }
+
+    @keyframes gradientShift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 
     .carousel-caption h4 {
