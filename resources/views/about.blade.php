@@ -5,13 +5,25 @@
 @section('content')
 
     <!-- About Us Section -->
-    <div class="jumbotron">
-        <h1 class="display-4">About Us</h1>
-        <p class="lead">Welcome to MyBlog! We are dedicated to bringing you the latest updates, engaging content, and insightful articles on various topics.</p>
+    <div class="jumbotron bg-light p-5 rounded shadow-lg position-relative overflow-hidden">
+    <!-- Background Image / Gradient -->
+    <div class="bg-overlay position-absolute w-100 h-100 top-0 start-0"></div>
+
+    <!-- Main Content -->
+    <div class="content text-center">
+        <h1 class="display-4 fw-bold mb-3 text-dark">About Us</h1>
+        <p class="lead text-dark-50 mb-5 mx-auto" style="max-width: 700px;">Welcome to MyBlog! We are dedicated to bringing you the latest updates, engaging content, and insightful articles on various topics.</p>
         <hr class="my-4">
-        <p>Our team of writers and editors work tirelessly to provide high-quality content that is both informative and entertaining. Whether you're interested in technology, lifestyle, travel, or more, you'll find something of interest here.</p>
-        <p>We believe in creating a community where readers can connect, share ideas, and explore new topics. Feel free to reach out to us with any questions or feedback!</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <p class="text-muted">Our team of writers and editors work tirelessly to provide high-quality content that is both informative and entertaining. Whether you're interested in technology, lifestyle, travel, or more, you'll find something of interest here.</p>
+                <p class="text-muted">We believe in creating a community where readers can connect, share ideas, and explore new topics. Feel free to reach out to us with any questions or feedback!</p>
+            </div>
+        </div>
+
+     
     </div>
+</div>
 
     <!-- Team Section -->
     <div class="row">
@@ -35,3 +47,39 @@
 </div>
 
 @endsection
+<style>
+    /* Overlay for background */
+.bg-overlay {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    opacity: 0.2;
+    z-index: -1;
+}
+
+/* Typography Adjustments */
+.jumbotron .display-4 {
+    font-family: 'Poppins', sans-serif; /* Optional: Use a modern Google Font */
+    color: #333;
+}
+
+.jumbotron .lead {
+    font-size: 1.25rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.jumbotron p {
+    font-size: 1.1rem;
+}
+
+
+/* Animation */
+.content {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+</style>
