@@ -254,11 +254,13 @@
     }
 
     .carousel-caption h4 {
+        color: #333;
         font-size: 1.75rem;
         font-weight: bold;
     }
 
     .carousel-caption p {
+        color: #333;
         font-size: 1.1rem;
     }
 
