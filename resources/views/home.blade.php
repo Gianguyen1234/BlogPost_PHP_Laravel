@@ -14,7 +14,7 @@
                 <img data-src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x500?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg lazyload" alt="Featured image for {{ $post->title }}">
                 <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
                     <h4>{{ $post->title }}</h4>
-                    <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
+                    <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 80) !!}</p>
                     <a href="{{ route('posts.show', $post->slug) }}" class="btn-custom">
                         <span>Read More</span>
                         <i class="fas fa-arrow-right"></i>
