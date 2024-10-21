@@ -12,7 +12,7 @@
             @foreach ($posts as $index => $post)
             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                 <img data-src="{{ $post->banner_image ? asset($post->banner_image) : 'https://via.placeholder.com/900x500?text=' . urlencode($post->title) }}" class="d-block w-100 img-fluid rounded-lg lazyload" alt="Featured image for {{ $post->title }}">
-                <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
+                <div class="carousel-caption d-none d-md-block p-3 rounded-lg" style="background-color: transparent;">
                     <h4>{{ $post->title }}</h4>
                     <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 80) !!}</p>
                     <a href="{{ route('posts.show', $post->slug) }}" class="btn-custom" style=" text-decoration: none;">
@@ -263,10 +263,12 @@
     }
 
     .carousel-caption {
-        background: rgba(0, 0, 0, 0.6);
-        /* Slight transparency for better readability */
-        padding: 15px;
-        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Apply blur to the background */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional shadow for better contrast */
     }
 
     .btn-custom {
@@ -280,7 +282,7 @@
     /* Carousel Improvements */
     .carousel-item img {
         object-fit: cover;
-        height: 500px;
+        height: 700px;
         /* Adjust the height */
         width: 100%;
         /* Keep the width full */
@@ -355,7 +357,6 @@
         /* Rounded for softer effect */
     }
 
-
     .custom-image {
         width: 100%;
         height: 100px;
@@ -369,7 +370,6 @@
     .custom-image:hover {
         transform: scale(1.05);
     }
-
 
 
     .card-footer {
