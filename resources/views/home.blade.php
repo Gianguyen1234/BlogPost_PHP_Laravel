@@ -15,7 +15,7 @@
                 <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
                     <h4>{{ $post->title }}</h4>
                     <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 80) !!}</p>
-                    <a href="{{ route('posts.show', $post->slug) }}" class="btn-custom">
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn-custom" style=" text-decoration: none;">
                         <span>Read More</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -114,7 +114,7 @@
 <hr class="my-4">
 <!-- Top Commented Posts -->
 <h2 class="text-center display-4 mb-4 text-gradient">
-    <i class="fas fa-comments post-icon"></i>
+    <i class="fas fa-comment-dots"></i>
     Top Commented Posts
 </h2>
 <div class="row">
@@ -168,16 +168,18 @@
         background: linear-gradient(135deg, #ff7e5f, #feb47b);
         border-radius: 8px;
         color: white;
-        font-size: 16px;
+        font-size: 20px;
         font-weight: bold;
-        text-decoration: none;
-        transition: background 0.3s ease, transform 0.3s ease;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .btn-custom i {
-        margin-left: 10px;
-        font-size: 14px;
+
+        margin-left: 8px;
+        /* Ensure there's spacing between the text and icon */
+        font-size: 18px;
+        margin-top: 6px;
+        ;
     }
 
     .btn-custom:hover {
@@ -190,7 +192,6 @@
         transform: translateY(0);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
 
     .text-gradient {
         font-size: 3.5rem;
