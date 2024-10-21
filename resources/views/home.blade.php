@@ -6,7 +6,7 @@
 
 <!-- Carousel Section for Featured Posts -->
 <div class="carousel-container mb-5">
-    <h2 class="text-center display-4 mb-3 text-gradient"><i class="fas fa-ribbon"></i>  Featured Posts</h2>
+    <h2 class="text-center display-4 mb-3 text-gradient"><i class="fas fa-ribbon"></i> Featured Posts</h2>
     <div id="featuredCarousel" class="carousel slide shadow-lg" data-ride="carousel">
         <div class="carousel-inner rounded-lg">
             @foreach ($posts as $index => $post)
@@ -15,7 +15,7 @@
                 <div class="carousel-caption d-none d-md-block bg-gradient-dark p-3 rounded-lg">
                     <h4>{{ $post->title }}</h4>
                     <p>{!! Str::limit(strip_tags(preg_replace('/<img[^>]+\>/i', '', $post->content)), 120) !!}</p>
-                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-gradient-warning">
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn-custom">
                         <span>Read More</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -160,6 +160,38 @@
         font-family: 'Roboto', sans-serif;
     }
 
+    .btn-custom {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-custom i {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .btn-custom:hover {
+        background: linear-gradient(135deg, #feb47b, #ff7e5f);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-custom:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+
     .text-gradient {
         font-size: 3.5rem;
         background: linear-gradient(90deg, #00c6ff, #0072ff);
@@ -229,18 +261,20 @@
         font-size: 1.1rem;
     }
 
-    /* Buttons with gradient */
-    .btn-gradient-warning {
-        background: linear-gradient(90deg, #ffcc00, #333);
-        color: #fff;
-        border: none;
-        box-shadow: 0 4px 8px rgba(255, 204, 0, 0.4);
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.6);
+        /* Slight transparency for better readability */
+        padding: 15px;
+        border-radius: 10px;
     }
 
-    .btn-gradient-warning:hover {
-        background: linear-gradient(90deg, #333, #ffcc00);
-        color: #fff;
+    .btn-custom {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 8px;
     }
+
 
     /* Carousel Improvements */
     .carousel-item img {
@@ -258,11 +292,6 @@
         border-radius: 50%;
     }
 
-    .carousel-caption {
-        background: rgba(0, 0, 0, 0.7);
-        padding: 20px;
-        border-radius: 10px;
-    }
 
     /* Card Styles with gradient */
     .card {
