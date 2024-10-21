@@ -22,8 +22,10 @@ class AdminController extends Controller
     public function showAnalytics()
     {
         // Fetch total user data (this is an example)
-        $totalUsers = 1234;
-        return view('admin.analytics', compact('totalUsers'));
+        // $totalUsers = 1234;
+        $uniqueVisitors = \App\Models\Visit::distinct('ip_address')->count('ip_address');
+        $totalUsers = \App\Models\Visit::count();
+        return view('admin.analytics', compact('totalUsers','uniqueVisitors'));
     }
 
     public function createPost()
