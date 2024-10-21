@@ -174,12 +174,11 @@
     }
 
     .btn-custom i {
-
         margin-left: 8px;
         /* Ensure there's spacing between the text and icon */
         font-size: 18px;
         margin-top: 6px;
-        ;
+
     }
 
     .btn-custom:hover {
@@ -284,7 +283,6 @@
         border-radius: 8px;
     }
 
-
     /* Carousel Improvements */
     .carousel-item img {
         object-fit: cover;
@@ -300,7 +298,6 @@
         padding: 15px;
         border-radius: 50%;
     }
-
 
     /* Card Styles with gradient */
     .card {
