@@ -377,7 +377,6 @@
         transform: scale(1.05);
     }
 
-
     .card-footer {
         font-size: 0.8rem;
     }
@@ -398,7 +397,6 @@
         border: none;
         cursor: pointer;
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-
     }
 
     .read-more-btn:hover {
@@ -409,7 +407,6 @@
     }
 
     .read-more-btn i {
-
         margin-left: 10px;
         font-size: 18px;
         /* Adjust icon size */
