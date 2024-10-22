@@ -22,8 +22,6 @@
     </div>
 </div>
 
-
-
     <h2>Analytics</h2>
     <canvas id="lineChart"></canvas>
 @endsection
