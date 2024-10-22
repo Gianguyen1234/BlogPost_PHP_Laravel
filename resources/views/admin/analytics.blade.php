@@ -1,78 +1,159 @@
-<!-- resources/views/admin/analytics.blade.php -->
-
 @extends('admin.dashboard')
 
 @section('title', 'User Analytics')
 
 @section('content')
-<!-- Total Users Section -->
-<div class="total-users mb-4 text-center">
-    <h2 class="text-dark mb-4">Visitor Statistics</h2>
 
-    <div class="statistics-container">
-        <div class="stat-card">
-            <h3 id="totalUserCount" class="stat-number">{{ $totalUsers }}</h3>
-            <p class="stat-label">Total Visits</p>
+<div class="container mt-4">
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-3">
+            <div class="card shadow-sm border-0">
+                <div class="icon-container icon-black rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                    <i class="material-icons text-white">account_balance_wallet</i>
+                </div>
+                <div class="card-body text-center pt-5">
+                    <div class="title">Today's Money</div>
+                    <div class="value">$53k</div>
+                    <div class="comparison positive">+55% than last week</div>
+                </div>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <h3 id="uniqueVisitorCount" class="stat-number">{{ $uniqueVisitors }}</h3>
-            <p class="stat-label">Unique Visitors</p>
+        <div class="col-3">
+            <div class="card shadow-sm border-0">
+                <div class="icon-container icon-pink rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                    <i class="material-icons text-white">people</i>
+                </div>
+                <div class="card-body text-center pt-5">
+                    <div class="title">Today's Users</div>
+                    <div class="value">{{ $totalUsers }}</div>
+                    <div class="comparison positive">+3% than last month</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card shadow-sm border-0">
+                <div class="icon-container icon-green rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                    <i class="material-icons text-white">person_add</i>
+                </div>
+                <div class="card-body text-center pt-5">
+                    <div class="title">New Clients</div>
+                    <div class="value">{{ $uniqueVisitors }}</div>
+                    <div class="comparison negative">-2% than yesterday</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="card shadow-sm border-0">
+                <div class="icon-container icon-blue rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                    <i class="material-icons text-white">shopping_cart</i>
+                </div>
+                <div class="card-body text-center pt-5">
+                    <div class="title">Sales</div>
+                    <div class="value">$103,430</div>
+                    <div class="comparison positive">+5% than yesterday</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row g-4 justify-content-center mt-3">
+    <div class="col-4 mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="icon-container icon-black rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                <i class="material-icons text-white">theater_comedy</i>
+            </div>
+            <div class="card-body text-center pt-5">
+                <div class="title">Most Viewed Post</div>
+                <p class="card-text">{{ $topPost->post->title }} ({{ $topPost->views_count }} views)</p>
+                <div class="comparison positive">+10% than last month</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="icon-container icon-green rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                <i class="material-icons text-white">theater_comedy</i>
+            </div>
+            <div class="card-body text-center pt-5">
+                <div class="title">Most Viewed Post</div>
+                <p class="card-text">{{ $topPost->post->title }} ({{ $topPost->views_count }} views)</p>
+                <div class="comparison positive">+10% than last month</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 mt-5">
+        <div class="card shadow-sm border-0">
+            <div class="icon-container icon-pink rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
+                <i class="material-icons text-white">theater_comedy</i>
+            </div>
+            <div class="card-body text-center pt-5">
+                <div class="title">Most Viewed Post</div>
+                <p class="card-text">{{ $topPost->post->title }} ({{ $topPost->views_count }} views)</p>
+                <div class="comparison positive">+10% than last month</div>
+            </div>
         </div>
     </div>
 </div>
 
-    <h2>Analytics</h2>
+<h2>Analytics</h2>
     <canvas id="lineChart"></canvas>
+
 @endsection
+
 <style>
-    .total-users {
-    background-color: #ffffff; /* White background for a clean look */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 30px; /* Add padding for spacing */
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
-}
+    .icon-container {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-.total-users:hover {
-    transform: translateY(-5px); /* Slight lift on hover */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
-}
+    .icon-black {
+        background-color: #333;
+    }
 
-h2 {
-    font-size: 2.5rem; /* Larger title */
-    font-weight: bold; /* Bold title */
-}
+    .icon-pink {
+        background-color: #e91e63;
+    }
 
-.statistics-container {
-    display: flex; /* Flexbox for alignment */
-    justify-content: center; /* Center horizontally */
-    gap: 30px; /* Space between cards */
-}
+    .icon-green {
+        background-color: #4caf50;
+    }
 
-.stat-card {
-    background-color: #f0f4f8; /* Light background for cards */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding inside cards */
-    flex: 1; /* Equal size cards */
-    text-align: center; /* Center text */
-    transition: transform 0.3s; /* Smooth transition */
-}
+    .icon-blue {
+        background-color: #2196f3;
+    }
 
-.stat-card:hover {
-    transform: scale(1.05); /* Slightly enlarge card on hover */
-}
+    .card-body .title {
+        font-size: 14px;
+        color: #757575;
+    }
 
-.stat-number {
-    font-size: 2.5rem; /* Large font size for numbers */
-    font-weight: bold; /* Bold numbers */
-    color: #333; /* Dark text color */
-}
+    .card-body .value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #212121;
+        margin-top: 4px;
+    }
 
-.stat-label {
-    font-size: 1.2rem; /* Smaller label font size */
-    color: #666; /* Muted color for labels */
-    margin-top: 10px; /* Space above labels */
-}
+    .card-body .comparison {
+        font-size: 12px;
+        margin-top: 8px;
+    }
 
+    .positive {
+        color: #4caf50;
+    }
+
+    .negative {
+        color: #f44336;
+    }
 </style>

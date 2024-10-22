@@ -10,6 +10,7 @@ use Mews\Purifier\Facades\Purifier;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Models\PostView;
 
 class PostController extends Controller
 {
@@ -232,6 +233,8 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::with('category')->where('slug', $slug)->firstOrFail();
+         // Increment the view count for the post
+        $this->incrementPostView($post);
 
         // Fetch paginated comments for the post (e.g., 5 comments per page)
         $comments = $post->comments()->orderBy('created_at', 'desc')->paginate(5);
@@ -263,5 +266,23 @@ class PostController extends Controller
             'likes_count' => $post->likes()->count(),
             'liked' => !$liked, // Tells if the user just liked or unliked
         ]);
+    }
+
+    // Function to increment the view count
+    public function incrementPostView(Post $post)
+    {
+        // Check if a PostView record already exists for the post
+        $postView = PostView::where('post_id', $post->id)->first();
+
+        if ($postView) {
+            // Increment the existing views_count
+            $postView->increment('views_count');
+        } else {
+            // Create a new PostView record if none exists
+            PostView::create([
+                'post_id' => $post->id,
+                'views_count' => 1,
+            ]);
+        }
     }
 }
