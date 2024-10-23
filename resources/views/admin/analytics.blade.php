@@ -6,7 +6,6 @@
 
 <div class="container mt-4">
     <div class="row g-4 justify-content-center">
-
         <div class="col-3">
             <div class="card shadow-sm border-0">
                 <div class="icon-container icon-black rounded-circle d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle">
@@ -59,7 +58,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="row g-4 justify-content-center mt-3">
     <div class="col-4 mt-5">
