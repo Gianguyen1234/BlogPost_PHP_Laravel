@@ -133,27 +133,40 @@ body {
     }
 }
 
-/* List Item  */
+/* List Item */
 .list-group-item {
-    border-radius: 0;
+    border-radius: 4px; /* Subtle rounding for a smoother feel */
     background-color: transparent;
     color: #f8f9fa;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 0.75rem 1rem; /* Improved padding for a more spacious layout */
+    font-weight: 500; /* Slightly bolder text for readability */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 .list-group-item:hover {
-    background-color: #495057;
-    color: #ffffff;
+    background-color: #495057; /* Darker background on hover */
+    color: #ffffff; /* Lighter text on hover */
+    transform: translateX(5px); /* Slight slide effect for a modern touch */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Soft shadow to lift the item */
 }
 
 .list-group-item i {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Increased icon size for better visibility */
+    margin-right: 0.5rem; /* Space between icon and text */
+    color: inherit; /* Matches the item’s text color */
 }
 
 .sidebar-header {
-    background-color: #495057; 
+    background-color: #495057;
     border-bottom: 1px solid #6c757d;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #f8f9fa;
 }
+
 .collapse {
     transition: height 0.3s ease;
 }
+
