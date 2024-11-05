@@ -66,8 +66,6 @@
             <input type="file" name="title_image" class="form-control" id="title_image" accept="image/*">
         </div>
 
-
-
         {{-- YouTube iFrame Field --}}
         <div class="form-group">
             <label for="youtube_iframe" class="form-label">YouTube iFrame (Optional)</label>

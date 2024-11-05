@@ -135,38 +135,51 @@ body {
 
 /* List Item */
 .list-group-item {
-    border-radius: 4px; /* Subtle rounding for a smoother feel */
+    border-radius: 3px; /* Minimal rounding for a clean look */
     background-color: transparent;
     color: #f8f9fa;
-    padding: 0.75rem 1rem; /* Improved padding for a more spacious layout */
-    font-weight: 500; /* Slightly bolder text for readability */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    padding: 0.7rem 1rem; /* Balanced padding */
+    font-weight: 500;
+    transition: 
+        background-color 0.25s ease, 
+        color 0.25s ease, 
+        box-shadow 0.2s ease, 
+        transform 0.15s ease;
 }
 
 .list-group-item:hover {
-    background-color: #495057; /* Darker background on hover */
-    color: #ffffff; /* Lighter text on hover */
-    transform: translateX(5px); /* Slight slide effect for a modern touch */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Soft shadow to lift the item */
+    background-color: #495057; /* Subtle darker background on hover */
+    color: #ffffff; /* Light text color for contrast */
+    transform: translateX(3px); /* Gentle slide for modern effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow to lift item */
 }
 
+/* Icon Styling */
 .list-group-item i {
-    font-size: 1.3rem; /* Increased icon size for better visibility */
-    margin-right: 0.5rem; /* Space between icon and text */
-    color: inherit; /* Matches the item’s text color */
+    font-size: 1.2rem; /* Standard size for better alignment */
+    margin-right: 0.4rem; /* Subtle spacing */
+    color: inherit;
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
+.list-group-item:hover i {
+    color: #f1fa8c; /* Soft yellow for icons on hover */
+    transform: translateX(2px); /* Minor shift for icon alignment */
+}
+
+/* Sidebar Header */
 .sidebar-header {
     background-color: #495057;
     border-bottom: 1px solid #6c757d;
     padding: 1rem;
     text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1.15rem;
+    font-weight: 600; /* Softer font weight */
     color: #f8f9fa;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+/* Collapse Animation */
 .collapse {
-    transition: height 0.3s ease;
+    transition: height 0.2s ease;
 }
-
