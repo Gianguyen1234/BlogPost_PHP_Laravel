@@ -41,7 +41,6 @@
         <div id="render-here" class="mt-3"></div>
 
         {{-- Additional fields for banner image, YouTube iFrame, etc. --}}
-        {{-- Additional fields for banner image --}}
         <div class="form-group">
             <label for="banner_image" class="form-label">Banner Image (Optional)</label>
             @if ($post->banner_image) <!-- Check if the image exists -->
