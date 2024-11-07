@@ -101,7 +101,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/17.1.3/lazyload.min.js"></script>
 
-
     <!-- <script>
         $(document).ready(function() {
             $('#content').summernote({
