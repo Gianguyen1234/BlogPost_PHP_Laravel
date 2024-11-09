@@ -79,8 +79,6 @@
                 @csrf
             </form>
             @endguest
-
-
         </div>
     </nav>
     @include('partials.floatingmenu')
