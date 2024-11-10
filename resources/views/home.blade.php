@@ -178,18 +178,15 @@
         margin-top: 6px;
 
     }
-
-    .btn-custom:hover {
+   .btn-custom:hover {
         background: linear-gradient(135deg, #feb47b, #ff7e5f);
         transform: translateY(-2px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
-
     .btn-custom:active {
         transform: translateY(0);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
     .text-gradient {
         font-size: 3.5rem;
         background: linear-gradient(90deg, #00c6ff, #0072ff);
@@ -203,7 +200,6 @@
         font-family: 'Poppins', sans-serif;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
-
     .text-gradient::after {
         content: '';
         display: block;
