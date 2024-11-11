@@ -214,8 +214,6 @@
     .text-gradient:hover::after {
         width: 100px;
     }
-
-
     .text-gradient:hover {
         font-weight: 700;
         /* Bold effect on hover */
