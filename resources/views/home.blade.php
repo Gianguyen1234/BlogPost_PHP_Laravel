@@ -228,7 +228,6 @@
         /* Matches the yellow gradient */
         margin-bottom: 10px;
     }
-
     @keyframes gradientShift {
         0% {
             background-position: 0% 50%;
