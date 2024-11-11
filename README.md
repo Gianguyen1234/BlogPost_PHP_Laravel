@@ -1,4 +1,4 @@
-# BLOG POST
+# BLOG POST ![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 
 Welcome to my blog post about building a blog application using Laravel! This blog shares insights and tutorials on web development, programming, and tech trends. Stay tuned for more updates!.
 
