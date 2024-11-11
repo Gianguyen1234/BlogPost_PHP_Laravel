@@ -241,7 +241,6 @@
             background-position: 0% 50%;
         }
     }
-
     .carousel-caption h4 {
         color: #333;
         font-size: 1.75rem;
