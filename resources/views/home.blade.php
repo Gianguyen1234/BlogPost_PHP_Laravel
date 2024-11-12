@@ -276,14 +276,12 @@
         width: 100%;
         /* Keep the width full */
     }
-
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
         background-color: #333;
         padding: 15px;
         border-radius: 50%;
     }
-
     /* Card Styles with gradient */
     .card {
         display: flex;
