@@ -288,16 +288,13 @@
         flex-direction: column;
         transition: transform 0.2s, box-shadow 0.2s;
     }
-
     .card-body {
         display: flex;
         flex-direction: column;
     }
-
     .card-text {
         flex-grow: 1;
     }
-
     .btn-block {
         margin-top: auto;
     }
