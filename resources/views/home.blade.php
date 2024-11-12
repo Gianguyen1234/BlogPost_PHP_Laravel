@@ -409,7 +409,6 @@
             font-size: 0.85rem;
         }
     }
-
     .loading-spinner {
         border: 8px solid #f3f3f3;
         border-radius: 50%;
@@ -418,7 +417,6 @@
         height: 40px;
         animation: spin 2s linear infinite;
     }
-
     @keyframes spin {
         0% {
             transform: rotate(0deg);
