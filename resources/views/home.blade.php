@@ -374,19 +374,16 @@
         transform: translateY(-3px);
         /* Moves button up slightly on hover */
     }
-
     .read-more-btn i {
         margin-left: 10px;
         font-size: 18px;
         /* Adjust icon size */
         transition: transform 0.3s ease;
     }
-
     .read-more-btn:hover i {
         transform: translateX(5px);
         /* Moves the icon slightly to the right on hover */
     }
-
     .read-more-btn:active {
         transform: scale(0.98);
         /* Press-down effect */
