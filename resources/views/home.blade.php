@@ -345,15 +345,12 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.2s ease-in-out;
     }
-
     .custom-image:hover {
         transform: scale(1.05);
     }
-
     .card-footer {
         font-size: 0.8rem;
     }
-
     .read-more-btn {
         display: inline-flex;
         align-items: center;
@@ -371,7 +368,6 @@
         cursor: pointer;
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     }
-
     .read-more-btn:hover {
         background-color: #ffd633;
         box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.25);
