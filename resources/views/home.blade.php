@@ -209,7 +209,6 @@
         margin: 10px auto 0;
         transition: width 0.5s ease;
     }
-
     .text-gradient:hover::after {
         width: 100px;
     }
@@ -219,7 +218,6 @@
         transform: scale(1.05);
         /* Slight zoom effect */
     }
-
     .post-icon {
         font-size: 2.75rem;
         /* Adjust icon size */
