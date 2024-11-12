@@ -388,29 +388,23 @@
         transform: scale(0.98);
         /* Press-down effect */
     }
-
     @media (max-width: 412px) {
         .carousel-item img {
             height: 400px;
         }
-
         .carousel-caption h4 {
             font-size: 1.25rem;
         }
-
         .carousel-caption p {
             font-size: 1rem;
         }
-
         .btn {
             padding: 0.5rem 1rem;
             font-size: 0.875rem;
         }
-
         .card-body h5 {
             font-size: 1rem;
         }
-
         .card-body p {
             font-size: 0.85rem;
         }
