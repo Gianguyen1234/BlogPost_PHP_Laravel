@@ -246,12 +246,10 @@
         font-size: 1.75rem;
         font-weight: bold;
     }
-
     .carousel-caption p {
         color: #333;
         font-size: 1.1rem;
     }
-
     .carousel-caption {
         background: rgba(255, 255, 255, 0.2);
         /* Semi-transparent white */
