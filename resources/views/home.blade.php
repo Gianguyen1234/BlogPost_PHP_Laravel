@@ -262,14 +262,12 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         /* Optional shadow for better contrast */
     }
-
     .btn-custom {
         background: linear-gradient(135deg, #ff7e5f, #feb47b);
         padding: 10px 20px;
         font-weight: bold;
         border-radius: 8px;
     }
-
     /* Carousel Improvements */
     .carousel-item img {
         object-fit: cover;
