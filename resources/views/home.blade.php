@@ -298,12 +298,10 @@
     .btn-block {
         margin-top: auto;
     }
-
     .card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
-
     .card-title {
         font-size: 1.75rem;
         /* Larger, but still readable */
@@ -324,7 +322,6 @@
         position: relative;
         /* For adding decorative elements */
     }
-
     .card-title::before {
         content: "";
         /* Decorative underline */
@@ -339,7 +336,6 @@
         border-radius: 2px;
         /* Rounded for softer effect */
     }
-
     .custom-image {
         width: 100%;
         height: 100px;
