@@ -57,7 +57,6 @@
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 const form = this.closest('form');
-
                 // Trigger SweetAlert confirmation
                 Swal.fire({
                     title: 'Are you sure?',
