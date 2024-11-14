@@ -41,7 +41,7 @@
                         <small>Published by <strong>{{ $post->author->name }}</strong> on {{ $post->created_at->format('F j, Y') }}</small>
                     </p>
                     <div class="post-content mb-4">
-                        <pre><code class="language-python">{{  $post->content  }}</code></pre>
+                        <pre><code class="language-python">{!!  $post->content  !!}</code></pre>
                     </div>
 
                     @if($post->youtube_iframe)

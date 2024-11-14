@@ -35,7 +35,7 @@
         {{-- Content Field with CodeMirror --}}
         <div class="form-group">
             <label for="content" class="form-label">Content</label>
-            <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content', $post->content) }}</textarea>
+            <textarea id="content" name="content" class="form-control" rows="10" required>{!! old('content', $post->content) !!}</textarea>
 
         </div>
         <div id="render-here" class="mt-3"></div>
