@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,7 +122,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Markdown rendering using markdown-it
+            // Initialize markdown-it with HTML and syntax highlighting
             var md = window.markdownit({
                 html: true,
                 highlight: function(str, lang) {
@@ -135,38 +136,34 @@
                     try {
                         return hljs.highlightAuto(str).value;
                     } catch (__) {}
-                    return '';
+                    return ''; // Default if no language detected
                 }
             });
 
-            // Insert code block when "Add Code Block" button is clicked
+            // Add code block template at cursor position
             document.getElementById('add-code-block').addEventListener('click', function() {
                 const contentArea = document.getElementById('content');
-                const codeTemplate = "```language\n// Paste your code here\n```";
-
-                // Insert code block at the cursor position
+                const codeTemplate = "```language\n// Your code here\n```";
                 const cursorPosition = contentArea.selectionStart;
-                const content = contentArea.value;
-                contentArea.value = content.slice(0, cursorPosition) + codeTemplate + content.slice(cursorPosition);
-
-                // Optionally, move cursor between the backticks for editing
+                contentArea.value = contentArea.value.slice(0, cursorPosition) + codeTemplate + contentArea.value.slice(cursorPosition);
                 contentArea.focus();
-                contentArea.setSelectionRange(cursorPosition + 3, cursorPosition + 11);
+                contentArea.setSelectionRange(cursorPosition + 3, cursorPosition + 11); // Position cursor in 'language' area
             });
 
-            // Convert Markdown content to HTML when "Convert to HTML" button is clicked
+            // Convert Markdown to HTML and render in output area
             document.getElementById('convert-button').addEventListener('click', function() {
                 const content = document.getElementById('content').value;
                 const htmlContent = md.render(content);
                 document.getElementById('render-here').innerHTML = htmlContent;
 
-                // Apply syntax highlighting to any code blocks
-                document.querySelectorAll('pre code').forEach((block) => {
+                // Apply syntax highlighting to code blocks
+                document.querySelectorAll('pre code').forEach(block => {
                     hljs.highlightElement(block);
                 });
             });
         });
     </script>
+
 
     @if(session('success'))
     <script>

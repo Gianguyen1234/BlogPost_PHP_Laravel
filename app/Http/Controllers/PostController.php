@@ -85,12 +85,14 @@ class PostController extends Controller
         if ($existingSlugCount > 0) {
             $slug .= '-' . ($existingSlugCount + 1);
         }
+        // Clean the content using the custom configuration
+        $cleanContent = Purifier::clean($validated['content'], 'default');
 
         // Set the post data
         $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
-            'content' => $validated['content'],
+            'content' => $cleanContent,
             'youtube_iframe' => $validated['youtube_iframe'],
             'meta_title' => $validated['meta_title'],
             'meta_description' => $validated['meta_description'],
@@ -171,7 +173,8 @@ class PostController extends Controller
         }
 
         // Clean the content and prepare post data
-        $cleanContent = Purifier::clean($validated['content']);
+        $cleanContent = Purifier::clean($validated['content'], 'default');
+     
         $postData = [
             'title' => $validated['title'],
             'slug' => $slug,
