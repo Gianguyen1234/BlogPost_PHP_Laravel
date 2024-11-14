@@ -173,7 +173,6 @@
 </script>
 @endsection
 <style>
-
     .form-label {
         font-weight: bold;
         color: darkolivegreen; /* Change this to your preferred color */
