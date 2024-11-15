@@ -13,8 +13,7 @@ class FollowController extends Controller
     public function follow($slug, $id)
     {
         $author = User::findOrFail($id);
-        $user = Auth::user();
-    
+        $user = Auth::user();   
         // Attach the author if not already followed
         if (!$user->following()->where('followed_id', $author->id)->exists()) {
             $user->following()->attach($author->id);
@@ -26,8 +25,7 @@ class FollowController extends Controller
     public function unfollow($slug, $id)
     {
         $author = User::findOrFail($id);
-        $user = Auth::user();
-    
+        $user = Auth::user();   
         // Detach the author if already followed
         if ($user->following()->where('followed_id', $author->id)->exists()) {
             $user->following()->detach($author->id);
