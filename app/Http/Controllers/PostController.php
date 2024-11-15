@@ -148,8 +148,7 @@ class PostController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // Validate the request data
+    {      
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|string',
@@ -171,7 +170,6 @@ class PostController extends Controller
         if ($existingSlugCount > 0) {
             $slug .= '-' . ($existingSlugCount + 1);
         }
-
         // Clean the content and prepare post data
         $cleanContent = Purifier::clean($validated['content'], 'default');
      
