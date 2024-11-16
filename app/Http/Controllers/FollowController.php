@@ -29,8 +29,7 @@ class FollowController extends Controller
         // Detach the author if already followed
         if ($user->following()->where('followed_id', $author->id)->exists()) {
             $user->following()->detach($author->id);
-        }
-    
+        }   
         return response()->json(['success' => true, 'message' => 'You have unfollowed ' . $author->name]);
     }
     
