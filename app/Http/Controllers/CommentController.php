@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
 use Mews\Purifier\Facades\Purifier;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\RateLimiter;
 
 class CommentController extends Controller
 {
@@ -36,29 +38,58 @@ class CommentController extends Controller
 
     public function store(Request $request, $slug)
     {
+        // Define a unique rate limit key (use user ID if logged in, otherwise fallback to IP)
+        $key = $request->user() 
+            ? 'comment|user:' . $request->user()->id 
+            : 'comment|ip:' . $request->ip();
+
+        // Check if the user/IP is rate-limited
+        if (!RateLimiter::attempt($key, 1, function () {
+            return true;
+        }, 300)) { // 300 seconds = 5 minutes
+            return redirect()->back()->withErrors(['error' => 'You can only post one comment every 5 minutes. Please wait and try again.']);
+        }
+
+        // Fetch the post by its slug
         $post = Post::where('slug', $slug)->firstOrFail();
 
-        // Validate the request
+        // Validate the incoming request
         $request->validate([
             'author_name' => 'required|string|max:255',
             'content' => 'required|string|max:1000',
-            'parent_id' => 'nullable|exists:comments,id',  // Validate the parent comment (if any)
+            'parent_id' => 'nullable|exists:comments,id',  // Validate parent comment
+            'g-recaptcha-response' => 'required|string',  // reCAPTCHA validation
         ]);
 
-        // Sanitize the content using Mew Purifier
-        $sanitizedContent = Purifier::clean($request->content);
-        // Check if sanitized content is empty
-        if (empty(trim($sanitizedContent))) {
-            return redirect()->back()->withErrors(['content' => 'Your comment does not contain valid content.']);
+        // Verify the reCAPTCHA response with Google's API
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+        $recaptchaSecret = env('RECAPTCHA_SECRET_KEY');
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => $recaptchaSecret,
+            'response' => $recaptchaResponse,
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (!$response->json('success')) {
+            return redirect()->back()->withErrors(['g-recaptcha-response' => 'Captcha verification failed.'])->withInput();
         }
 
-        // Create the comment or reply
+        // Sanitize the comment content using HTML Purifier
+        $sanitizedContent = Purifier::clean($request->content);
+
+        if (empty(trim($sanitizedContent))) {
+            return redirect()->back()->withErrors(['content' => 'Your comment does not contain valid content.'])->withInput();
+        }
+
+        // Create the comment or reply (escape author name and assign sanitized content)
         $post->comments()->create([
-            'author_name' => htmlspecialchars($request->author_name, ENT_QUOTES, 'UTF-8'), // Escaping special characters
-            'content' => $sanitizedContent, // Use sanitized content
-            'parent_id' => $request->parent_id,  // Set parent_id if it's a reply
+            'author_name' => htmlspecialchars($request->author_name, ENT_QUOTES, 'UTF-8'), // Escape author name
+            'content' => $sanitizedContent,  // Store sanitized content
+            'parent_id' => $request->parent_id,  // Assign parent_id if it's a reply
         ]);
 
+        // Redirect back to the post page with a success message
         return redirect()->route('posts.show', $post->slug)->with('success', 'Comment posted successfully!');
     }
 

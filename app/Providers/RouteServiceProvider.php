@@ -28,6 +28,16 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
 
+        // Define rate limit for comment submission: 5 per minute per IP
+        RateLimiter::for('comment', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        // Define rate limit for post submission: 1 per 30 minutes per user
+        RateLimiter::for('post', function (Request $request) {
+            return Limit::perMinutes(30, 1)->by($request->user()->id);
+        });
+
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')

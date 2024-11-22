@@ -31,6 +31,7 @@
                         <label for="content" class="form-label">Comment</label>
                         <textarea class="form-control" name="content" rows="3" placeholder="Your comment..." required></textarea>
                     </div>
+                    <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                     <button type="submit" class="btn btn-success">Post Reply</button>
                 </form>
             </div>
@@ -67,8 +68,11 @@
                 <label for="content" class="form-label">Comment</label>
                 <textarea class="form-control" name="content" rows="3" placeholder="Your comment..." required></textarea>
             </div>
+            <!-- Add reCAPTCHA -->
+            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
             <button type="submit" class="btn btn-success">Post Comment</button>
         </form>
     </div>
-    
 </div>
+
+

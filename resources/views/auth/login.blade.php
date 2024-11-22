@@ -14,7 +14,6 @@
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <h2>Other choices to login:</h2>
-
                     <!-- Social login buttons -->
                     <div class="d-flex flex-row align-items-center justify-content-center mb-4">
                         <button type="button" class="btn btn-floating btn-primary mx-2">
@@ -39,8 +38,6 @@
                         <label for="email" class="form-label-lg">Email address</label> <!-- Increased label size -->
                         <input id="email" type="email" class="form-control form-control-lg @error('email') is-invalid @enderror"
                             name="email" value="{{ old('email') }}" required autofocus placeholder="Enter your email">
-
-
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -52,9 +49,18 @@
                         <label for="password" class="form-label-lg">Password</label> <!-- Larger label for password -->
                         <input id="password" type="password" class="form-control form-control-lg @error('password') is-invalid @enderror"
                             name="password" required placeholder="Enter your password">
-
                         @error('password')
                         <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <!-- reCAPTCHA -->
+                    <div class="form-group mt-4">
+                        <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                        @error('g-recaptcha-response')
+                        <span class="invalid-feedback d-block" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
@@ -136,22 +142,25 @@
     }
 
     .divider {
-      text-align: center;
-      border-bottom: 1px solid #e9ecef; /* Solid border for the divider */
-      margin: 1.5rem 0;
-      position: relative;
-  }
-  
-  .divider p {
-      margin-bottom: 0;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff; /* Background color to make the text stand out */
-      padding: 0 1rem; /* Padding around the text */
-      font-weight: bold;
-  }
+        text-align: center;
+        border-bottom: 1px solid #e9ecef;
+        /* Solid border for the divider */
+        margin: 1.5rem 0;
+        position: relative;
+    }
+
+    .divider p {
+        margin-bottom: 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        /* Background color to make the text stand out */
+        padding: 0 1rem;
+        /* Padding around the text */
+        font-weight: bold;
+    }
 
     /* Button animations */
     .btn-lg {

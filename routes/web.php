@@ -114,7 +114,11 @@ Route::get('/posts/{slug}', [PostController::class, 'show'])->name('post.show');
 Route::get('/posts/{slug}/comments', [CommentController::class, 'index'])->name('comments.index'); // List all comments for a specific post
 Route::get('/posts/{slug}/comments/create', [CommentController::class, 'create'])->name('comments.create'); // Create a new comment form (if needed)
 Route::get('/posts/{slug}/comments/{id}', [CommentController::class, 'show'])->name('comments.show'); // Show a specific comment related to the post
-Route::post('/posts/{slug}/comments', [CommentController::class, 'store'])->name('comments.store'); 
+// Limit comment submission to 5 per minute per IP
+Route::middleware('throttle:comment')
+    ->post('/posts/{slug}/comments', [CommentController::class, 'store'])
+    ->name('comments.store');
+
 
 //upvote comment
 Route::post('comments/{id}/upvote', [CommentController::class, 'upvote'])->name('comments.upvote');
