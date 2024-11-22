@@ -167,7 +167,6 @@
         padding-left: 2.5rem;
         padding-right: 2.5rem;
     }
-
     .btn-primary {
         background-color: #007bff;
         border: none;
@@ -210,25 +209,17 @@
         }
     }
 
-    /* Styles for larger labels */
     .form-label-lg {
         font-size: 1.25rem;
-        /* Increase the label size */
         color: #222;
-        /* Same color as the default form labels */
         display: block;
-        /* Make sure it's displayed as a block element */
         margin-bottom: 0.5rem;
-        /* Add spacing between the label and input */
     }
 
     /* Adjust form-control-lg for consistency */
     .form-control-lg {
         font-size: 1.25rem;
-        /* Larger text size for input fields */
         padding: 1rem;
-        /* Increase padding for better aesthetics */
         border-radius: 0.3rem;
-        /* Keep the rounded edges */
     }
 </style>
