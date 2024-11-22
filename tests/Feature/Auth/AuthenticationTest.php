@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Http;
 
 class AuthenticationTest extends TestCase
 {
@@ -20,14 +21,25 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
+        // Mock the Google reCAPTCHA API response
+        Http::fake([
+            'https://www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true], 200),
+        ]);
+
+        // Create a user
         $user = User::factory()->create();
 
+        // Simulate login request with a fake reCAPTCHA response
         $response = $this->post('/login', [
             'email' => $user->email,
             'password' => 'password',
+            'g-recaptcha-response' => 'fake-response', // Simulated reCAPTCHA response
         ]);
 
+        // Assert the user is authenticated
         $this->assertAuthenticated();
+
+        // Assert redirect to home page
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
