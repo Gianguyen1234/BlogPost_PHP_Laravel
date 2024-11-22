@@ -29,8 +29,6 @@
     <!-- Include Summernote CSS and JS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
 
-
-
 </head>
 
 <body class="d-flex flex-column min-vh-100">
